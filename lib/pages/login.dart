@@ -26,7 +26,7 @@ class LoginPage extends StatelessWidget {
                               builder: (context) => OnBoardPage()));
                     },
                     child: const Text(
-                      "Lewatihjhjhj",
+                      "Lewatiiiiii",
                       style: TextStyle(
                         color: Colors.white,
                         fontFamily: 'Roboto-Regular',
