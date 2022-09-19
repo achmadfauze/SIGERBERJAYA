@@ -50,7 +50,7 @@ class LoginPage extends StatelessWidget {
               // mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                  "Selamat Datang di",
+                  "Selamat Datanggg di",
                   style: TextStyle(
                     color: Colors.white,
                     fontFamily: 'Roboto-Regular',
