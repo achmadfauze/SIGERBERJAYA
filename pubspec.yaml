@@ -38,6 +38,7 @@ dependencies:
   google_fonts: ^3.0.1
   # smooth_page_indicator: ^0.1.5
   smooth_page_indicator: ^1.0.0+2
+  salomon_bottom_bar: ^3.3.1
 
 dev_dependencies:
   flutter_test:

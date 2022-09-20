@@ -1,80 +1,73 @@
+import 'package:first_app/menu/HomePage.dart';
+import 'package:first_app/menu/NewsPage.dart';
+import 'package:first_app/menu/cityPage.dart';
+import 'package:first_app/menu/profilPage.dart';
+import 'package:first_app/menu/savePage.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
-class Home extends StatelessWidget {
-  const Home({super.key});
+class Home extends StatefulWidget {
+  @override
+  _Home createState() => _Home();
+}
+
+class _Home extends State<Home> {
+  var _currentIndex = 0;
+  final screen = [HomePage(), CityPage(), NewsPage(), SavePage(), ProfilPage()];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.white,
-        body: Column(
-          children: [
-            const SizedBox(
-              height: 120,
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: Scaffold(
+        body: screen[_currentIndex],
+        // appBar: AppBar(
+        //   title: Text(Home.title),
+        // ),
+        bottomNavigationBar: SalomonBottomBar(
+          currentIndex: _currentIndex,
+          onTap: (i) => setState(() => _currentIndex = i),
+          items: [
+            /// Home
+            SalomonBottomBarItem(
+              icon: Icon(Icons.home),
+              title: Text("Beranda"),
+              selectedColor: Color(0xff438afe),
             ),
-            Row(children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'SIGER BERJAYA',
-                    style: TextStyle(
-                      fontFamily: 'Mulish-Bold',
-                      fontSize: 20,
-                      color: Colors.black,
-                    ),
-                  ),
-                  Text(
-                    'Jelajahi Lampung',
-                    style: TextStyle(
-                      fontFamily: 'Mulish-Regular',
-                      fontSize: 16,
-                      color: Colors.black,
-                    ),
-                  ),
-                ],
-              ),
-              // Row(
-              //   children: [
-              // Container(
-              //   height: 50,
-              //   width: 50,
-              //   child: Image.asset('assets/icons/icon8-user-24.png'),
 
-              //   // decoration: BoxDecoration(
-              //   //   borderRadius: BorderRadius.circular(10),
-              //   //   color: Colors.grey,
-              // ),
-              //   ,
-              //   iconSize: 40,c onPressed: () {}),
-              // ),
-              // IconButton( icon: Image.asset('email',)
-              // ,
-              // iconSize: 40,c onPressed: () {}),
-              //   ],
-              // ),
-              // Row(
-              //   children: [
-              //     Container(
-              //       child: Image.asset('assets/icons/icon8-user-24.png'),
-              //       height: 50,
-              //       width: 50,
-              //       color: Colors.black,
-              //       decoration: BoxDecoration(
-              //         borderRadius: BorderRadius.circular(10),
-              //       ),
-              //       // ,
-              //       // iconSize: 40,c onPressed: () {}),
-              //     ),
-              //     // IconButton( icon: Image.asset('email',)
-              //     // ,
-              //     // iconSize: 40,c onPressed: () {}),
-              //   ],
-              // )
-              // IconButton(onPressed: (){}), icon: 'assets/icons/icons8-user-24.png'),
-            ]),
+            /// Likes
+            SalomonBottomBarItem(
+              icon: Icon(Icons.grid_view),
+              title: Text("Kota"),
+              selectedColor: Color(0xff438afe),
+            ),
+
+            /// Search
+            SalomonBottomBarItem(
+              icon: Icon(Icons.format_list_bulleted),
+              title: Text("Berita"),
+              selectedColor: Color(0xff438afe),
+            ),
+
+            SalomonBottomBarItem(
+              icon: Icon(Icons.bookmark),
+              title: Text("Simpan"),
+              selectedColor: Color(0xff438afe),
+            ),
+
+            /// Profile
+            SalomonBottomBarItem(
+              icon: Icon(Icons.person),
+              title: Text("Profil"),
+              selectedColor: Color(0xff438afe),
+            ),
           ],
-        ));
+        ),
+      ),
+    );
   }
 }
