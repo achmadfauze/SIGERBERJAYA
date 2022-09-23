@@ -1,4 +1,4 @@
-import 'package:first_app/view/page/homePage.dart';
+import 'package:first_app/view/page/menu/homePage.dart';
 import 'package:first_app/view/page/menu/NewsPage.dart';
 import 'package:first_app/view/page/menu/cityPage.dart';
 import 'package:first_app/view/page/menu/profilPage.dart';

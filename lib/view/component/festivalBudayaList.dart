@@ -19,7 +19,7 @@ class FestivalBudayaList extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
                 image: DecorationImage(
-                  image: AssetImage(itemsPopular[index].image),
+                  image: AssetImage(itemsfestifalbudaya[index].image),
                   fit: BoxFit.cover,
                 ),
               ),

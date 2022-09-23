@@ -11,30 +11,30 @@ List<popular> itemsPopular = [
       name: "Pantai Batu Karang",
       desc:
           "Pantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu Karang",
-      image: "assets/wul1.jpg"),
+      image: "assets/pantai.jpg"),
   popular(
       name: "Pantai Gigi Hiu",
       desc:
           "Pantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu Karang",
-      image: "assets/wul1.jpg"),
+      image: "assets/pantai.jpg"),
   popular(
       name: "Pantai Batu Karang",
       desc:
           "Pantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu Karang",
-      image: "assets/wul1.jpg"),
+      image: "assets/pantai.jpg"),
   popular(
       name: "Pantai Batu Karang",
       desc:
           "Pantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu Karang",
-      image: "assets/wul1.jpg"),
+      image: "assets/pantai.jpg"),
   popular(
       name: "Pantai Gigi Hiu",
       desc:
           "Pantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu Karang",
-      image: "assets/wul1.jpg"),
+      image: "assets/pantai.jpg"),
   popular(
       name: "Pantai Batu Karang",
       desc:
           "Pantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu Karang",
-      image: "assets/wul1.jpg"),
+      image: "assets/pantai.jpg"),
 ];

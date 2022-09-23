@@ -17,9 +17,14 @@ class BaruList extends StatelessWidget {
               itemBuilder: (context, index) => Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
-                  // color: Colors.green[700],
+                  color: Colors.green[700],
                   image: DecorationImage(
-                    image: AssetImage(itemsBaru[index].image),
+                    // image: AssetImage(itemsBaru[index].image),
+                    // image: AssetImage("${itemsBaru[index]['Image']}"),
+                    image: NetworkImage("${itemsBaru[index]['Image']}"),
+                    // image: NetworkImage(
+                    //     "https://st.depositphotos.com/1005914/2556/i/600/depositphotos_25567715-stock-photo-garbage-and-seagulls.jpg"),
+
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -37,7 +42,8 @@ class BaruList extends StatelessWidget {
                     //textAlign: TextAlign.justify,
                     // maxLines: 2,
                     // overflow: TextOverflow.ellipsis,
-                    itemsBaru[index].name,
+                    // itemsBaru[index].name,
+                    "${itemsBaru[index]['Name']}",
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 16,
