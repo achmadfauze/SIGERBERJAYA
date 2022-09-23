@@ -1,9 +1,7 @@
-import 'dart:ffi';
-
-import 'package:first_app/pages/home.dart';
-import 'package:first_app/pages/onboarding.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'onboarding.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -11,12 +9,22 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-
       // color: Colors.white,
       body: Stack(
         children: [
-          Image.asset('assets/bg_login.png'),
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/bg_login.png"),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          // Image.asset(
+          //   'assets/bg_login.png',
+          //   height: 200,
+          //   width: 60,
+          // ),
           Padding(
             padding: const EdgeInsets.only(left: 235, top: 40),
             child: Row(
@@ -112,7 +120,7 @@ class LoginPage extends StatelessWidget {
                   ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Center(
@@ -131,65 +139,37 @@ class LoginPage extends StatelessWidget {
                   alignment: Alignment.center,
                   padding: EdgeInsets.all(10),
                   child: ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xff438afe),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 60, vertical: 10),
-                        // minimumSize: Size(600, 45),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xff438afe),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 60, vertical: 1),
+                    ),
+                    // icon: Icon(Icons.language),
+                    icon: const Text(
+                      "G",
+                      style: TextStyle(
+                          fontFamily: 'RedHat',
+                          fontSize: 30,
+                          fontWeight: FontWeight.w700),
+                    ),
+                    label: const Text(
+                      "Sign In With Google",
+                      style: TextStyle(
+                        fontFamily: 'Roboto-Regular',
+                        fontSize: 16,
                       ),
-                      // icon: Image.asset(
-                      //   'assets/icons/google.png',
-                      //   height: 24,
-                      //   width: 24,
-                      // ),
-                      icon: Icon(Icons.language),
-                      label: const Text(
-                        "Sign In With Google",
-                        style: TextStyle(
-                          fontFamily: 'Roboto-Regular',
-                          fontSize: 16,
-                        ),
-                      ),
-                      // icon: Image.asset(
-                      //   'assets/icons/language.png',
-                      //   height: 10,
-                      //   width: 10,
-                      // ),
-                      // icon: Icon(Icons.language),
-                      onPressed: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Home()));
-                      }),
+                    ),
+                    // onPressed: () async {
+                    //   Navigator.push(context,
+                    //       MaterialPageRoute(builder: (context) => Home()));
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => OnBoardPage()));
+                    },
+                  ),
                 ),
-
-                // Container(
-                //   //alignment: Alignment.center,
-                //   width: 290,
-                //   height: 45,
-                //   child: TextButton(
-                //     style: TextButton.styleFrom(
-                //         // backgroundColor: Colors.blue,
-                //         backgroundColor: Color(0xff438afe),
-                //         shape: RoundedRectangleBorder(
-                //           borderRadius: BorderRadius.circular(5),
-                //         )),
-                //     onPressed: () {
-                //       Navigator.push(
-                //           context,
-                //           MaterialPageRoute(
-                //               builder: (context) => OnBoardPage()));
-                //     },
-                //     child: const Text(
-                //       'Sign In With Google',
-                //       style: TextStyle(
-                //         color: Colors.white,
-                //         fontFamily: 'Roboto-Regular',
-                //         fontSize: 16,
-                //         //fontWeight: FontWeight.bold,
-                //       ),
-                //     ),
-                //   ),
-                // ),
               ],
             ),
           ),

@@ -1,4 +1,4 @@
-import 'package:first_app/pages/login.dart';
+import 'package:first_app/view/page/login.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(FirstApp());

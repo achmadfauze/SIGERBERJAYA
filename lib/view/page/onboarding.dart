@@ -1,9 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:first_app/introScreen/intropage1.dart';
-import 'package:first_app/introScreen/intropage2.dart';
-import 'package:first_app/introScreen/intropage3.dart';
-import 'package:first_app/pages/home.dart';
+import 'package:first_app/view/page/introScreen/intropage1.dart';
+import 'package:first_app/view/page/introScreen/intropage2.dart';
+import 'package:first_app/view/page/introScreen/intropage3.dart';
+import 'package:first_app/view/page/home.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -25,7 +25,7 @@ class _OnBoardPageState extends State<OnBoardPage> {
       children: [
         PageView(
           controller: _controller,
-          children: [
+          children: const [
             IntroPage1(),
             IntroPage2(),
             IntroPage3(),

@@ -39,6 +39,8 @@ dependencies:
   # smooth_page_indicator: ^0.1.5
   smooth_page_indicator: ^1.0.0+2
   salomon_bottom_bar: ^3.3.1
+  flutter_screenutil: ^5.5.4
+  carousel_slider: ^4.1.1
 
 dev_dependencies:
   flutter_test:
@@ -74,6 +76,9 @@ flutter:
     - family: Roboto
       fonts:
         - asset: assets/fonts/Roboto-Regular.ttf
+    - family: RedHat
+      fonts:
+        - asset: assets/fonts/RedHatDisplay-Bold.ttf
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
