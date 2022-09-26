@@ -34,27 +34,66 @@ class FestivalBudayaList extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20, left: 190),
+                    // Padding(
+                    //   padding: const EdgeInsets.only(top: 20, left: 190),
                       
-                      child: ElevatedButton.icon(
+                    //   child: ElevatedButton.icon(
                         
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xff14C38E),
-                                shape: new RoundedRectangleBorder(
-                                  borderRadius: new BorderRadius.circular(15.0),
-                                ),
-                                // padding:
-                                // EdgeInsets.symmetric(horizontal: 60, vertical: 1),
-                            ),
-                          onPressed: (){},
-                          icon: Icon(
-                            Icons.favorite,
-                            color: Colors.white,
-                            size: 24.0,
+                    //           style: ElevatedButton.styleFrom(
+                    //             backgroundColor: Color(0xff14C38E),
+                    //             shape: new RoundedRectangleBorder(
+                    //               borderRadius: new BorderRadius.circular(15.0),
+                    //             ),
+                    //             // padding:
+                    //             // EdgeInsets.symmetric(horizontal: 60, vertical: 1),
+                    //         ),
+                    //       onPressed: (){},
+                    //       icon: Icon(
+                    //         Icons.favorite,
+                    //         color: Colors.white,
+                    //         size: 24.0,
+                    //       ),
+                    //       label: Text("${itemsfestifalbudaya[index]['liked']}"),),
+                    // ),
+                    Row(
+                      
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children:[ Container(
+                        decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(20),
+                          topRight: Radius.circular(15)),
+                        color: Colors.black.withOpacity(0.5),
+                        // color: Color.fromARGB(157, 222, 238, 5)
+                      ),
+                      height: 40,
+                      width: 80,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children:[
+                        const Icon(
+                          Icons.favorite,
+                          size: 22,
+                          color: Colors.white,
                           ),
-                          label: Text("${itemsfestifalbudaya[index]['liked']}"),),
-                    ),
+                          SizedBox(width: 8,),
+                          Text("${itemsfestifalbudaya[index]['liked']}",
+                          style: TextStyle(
+                            color: Colors.white,
+                                fontFamily: 'Mulish-Regular',
+                                fontSize: 18,
+                          ),),
+                          // SizedBox(width: 6,),
+                          // const Icon(
+                          //   Icons.warning,
+                          //   size: 16,
+                          //   color: Colors.yellow,
+                          // ),
+
+
+                        ]),
+                      ),
+                ]),
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(

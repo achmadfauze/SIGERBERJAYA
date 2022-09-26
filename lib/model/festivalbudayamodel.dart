@@ -15,7 +15,7 @@ final List<Map<String, dynamic>> itemsfestifalbudaya= [
     "Image":
         "https://cdn.popbela.com/content-images/post/20200131/1000x6679-1b0e2274922249bf33b28ce274d87531_750x500.jpg",
     "date" : "15 Agustus 2022",
-    "liked": "2",
+    "liked": "200",
   },
   {
     "Name": "Pantai Batu Karang",
@@ -32,7 +32,7 @@ final List<Map<String, dynamic>> itemsfestifalbudaya= [
     "Image":
         "https://cdn.popbela.com/content-images/post/20200131/1000x6679-1b0e2274922249bf33b28ce274d87531_750x500.jpg",
     "date": "15 Agustus 2022",
-    "liked": "2",
+    "liked": "50",
   }
 ];
 

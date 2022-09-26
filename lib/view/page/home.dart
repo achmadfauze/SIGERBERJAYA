@@ -36,34 +36,35 @@ class _Home extends State<Home> {
             SalomonBottomBarItem(
               icon: Icon(Icons.home),
               title: Text("Beranda"),
-              selectedColor: Color(0xff438afe),
+              // selectedColor: Color(0xff438afe),
+              selectedColor: Color(0xff14C38E),
             ),
 
             /// Likes
             SalomonBottomBarItem(
               icon: Icon(Icons.grid_view),
               title: Text("Kota"),
-              selectedColor: Color(0xff438afe),
+              selectedColor: Color(0xff14C38E),
             ),
 
             /// Search
             SalomonBottomBarItem(
               icon: Icon(Icons.format_list_bulleted),
               title: Text("Berita"),
-              selectedColor: Color(0xff438afe),
+              selectedColor: Color(0xff14C38E),
             ),
 
             SalomonBottomBarItem(
               icon: Icon(Icons.bookmark),
               title: Text("Simpan"),
-              selectedColor: Color(0xff438afe),
+              selectedColor: Color(0xff14C38E),
             ),
 
             /// Profile
             SalomonBottomBarItem(
               icon: Icon(Icons.person),
               title: Text("Profil"),
-              selectedColor: Color(0xff438afe),
+              selectedColor: Color(0xff14C38E),
             ),
           ],
         ),
