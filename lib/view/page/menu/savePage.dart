@@ -84,7 +84,7 @@ class ListArsipArtikel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(5),
       child: GestureDetector(
         onTap: () {
           print("object");
@@ -92,77 +92,81 @@ class ListArsipArtikel extends StatelessWidget {
         child: Card(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           elevation: 4,
-          child: Row(
-            children: [
-              Expanded(
-                flex: 4,
-                child: SizedBox(
-                  height: bodyHeight * 0.15,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Image.network(
-                      alignment: Alignment.centerLeft,
-                      "https://picsum.photos/300/200",
-                      fit: BoxFit.fitHeight,
+          child: Container(
+            padding: EdgeInsets.all(7),
+            
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 4,
+                  child: SizedBox(
+                    height: bodyHeight * 0.15,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.network(
+                        alignment: Alignment.centerLeft,
+                        "https://picsum.photos/300/200",
+                        fit: BoxFit.fitHeight,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Expanded(
-                child: Container(
-                  padding: EdgeInsets.all(5),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Sejumlah Tempat Wisata Lampung Mulai Beroperasi 6 Juni 2021",
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 18,
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.all(5),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Sejumlah Tempat Wisata Lampung Mulai Beroperasi 6 Juni 2021",
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
                         ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(top: bodyHeight * 0.25 * 0.2),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              flex: 7,
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.access_time_rounded,
-                                    size: 18,
-                                    color: Colors.grey[600],
-                                  ),
-                                  Text(
-                                    "20 Des 2021",
-                                  )
-                                ],
+                        Container(
+                          padding: EdgeInsets.only(top: bodyHeight * 0.25 * 0.2),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 7,
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.access_time_rounded,
+                                      size: 18,
+                                      color: Colors.grey[600],
+                                    ),
+                                    Text(
+                                      "20 Des 2021",
+                                    )
+                                  ],
+                                ),
                               ),
-                            ),
-                            Expanded(
-                              flex: 4,
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.comment,
-                                    size: 18,
-                                    color: Colors.grey[600],
-                                  ),
-                                  Text("0")
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
+                              Expanded(
+                                flex: 4,
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.comment,
+                                      size: 18,
+                                      color: Colors.grey[600],
+                                    ),
+                                    Text("0")
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
+                  flex: 8,
                 ),
-                flex: 8,
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -181,7 +185,7 @@ class ListArsipTempat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(5),
       child: GestureDetector(
         onTap: (() {
           print("asjads");
@@ -190,7 +194,7 @@ class ListArsipTempat extends StatelessWidget {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           elevation: 4,
           child: Container(
-            padding: EdgeInsets.all(5),
+            padding: EdgeInsets.all(7),
             child: Row(
               children: [
                 Expanded(
