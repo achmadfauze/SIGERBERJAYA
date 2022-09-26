@@ -18,17 +18,17 @@ class SavePage extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 8),
             child: Text(
               "Tempat Tersimpan",
-              style: TextStyle(
-                fontFamily: "Roboto-Regular",
-                fontSize: 16),
+              style: TextStyle(fontFamily: "Roboto-Regular", fontSize: 16),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom:8.0),
+            padding: const EdgeInsets.only(bottom: 8.0),
             child: Text(
               "Blog Tersimpan",
-              style: TextStyle(fontSize: 16,
-              fontFamily: "Roboto-Regular",),
+              style: TextStyle(
+                fontSize: 16,
+                fontFamily: "Roboto-Regular",
+              ),
             ),
           )
         ],
@@ -103,16 +103,14 @@ class ListArsipArtikel extends StatelessWidget {
                     child: Image.network(
                       alignment: Alignment.centerLeft,
                       "https://picsum.photos/300/200",
-                      fit: BoxFit.cover,
+                      fit: BoxFit.fitHeight,
                     ),
                   ),
                 ),
               ),
               Expanded(
                 child: Container(
-                  padding: EdgeInsets.only(
-                    left: 10,
-                  ),
+                  padding: EdgeInsets.all(5),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -191,100 +189,104 @@ class ListArsipTempat extends StatelessWidget {
         child: Card(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           elevation: 4,
-          child: Row(
-            children: [
-              Expanded(
-                flex: 4,
-                child: SizedBox(
-                  height: bodyHeight * 0.15,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Image.network(
-                      alignment: Alignment.centerLeft,
-                      "https://picsum.photos/300/200",
-                      fit: BoxFit.cover,
+          child: Container(
+            padding: EdgeInsets.all(5),
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 4,
+                  child: SizedBox(
+                    height: bodyHeight * 0.15,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.network(
+                        alignment: Alignment.centerLeft,
+                        "https://picsum.photos/300/200",
+                        fit: BoxFit.fitHeight,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Expanded(
-                child: Container(
-                  padding: EdgeInsets.only(
-                    left: 10,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Danau Bakeri",
-                        style: TextStyle(
-                          fontSize: 18,
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.only(
+                      left: 10,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Danau Bakeri",
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
                         ),
-                      ),
-                      Container(
-                        child: Row(
-                          children: [
-                            Expanded(
-                                flex: 0,
-                                child: Icon(
-                                  Icons.location_on_outlined,
-                                  color: Colors.grey[600],
-                                  size: 18,
-                                )),
-                            Expanded(
-                              flex: 9,
-                              child: Text(
-                                "Sinar Banten/Bekri, Bekri, Kabbupaten Lampung Tengah",
-                                style: TextStyle(
-                                    fontSize: 16, color: Colors.grey[600]),
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(top: bodyHeight * 0.25 * 0.2),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.favorite,
-                                    size: 18,
+                        Container(
+                          child: Row(
+                            children: [
+                              Expanded(
+                                  flex: 0,
+                                  child: Icon(
+                                    Icons.location_on_outlined,
                                     color: Colors.grey[600],
-                                  ),
-                                  Text(
-                                    "20",
-                                  )
-                                ],
-                              ),
-                            ),
-                            Expanded(
-                              flex: 3,
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.comment,
                                     size: 18,
-                                    color: Colors.grey[600],
-                                  ),
-                                  Text("0")
-                                ],
+                                  )),
+                              Expanded(
+                                flex: 9,
+                                child: Text(
+                                  "Sinar Banten/Bekri, Bekri, Kabbupaten Lampung Tengah",
+                                  style: TextStyle(
+                                      fontSize: 16, color: Colors.grey[600]),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
-                            )
-                          ],
+                            ],
+                          ),
                         ),
-                      )
-                    ],
+                        Container(
+                          padding:
+                              EdgeInsets.only(top: bodyHeight * 0.25 * 0.2),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.favorite,
+                                      size: 18,
+                                      color: Colors.grey[600],
+                                    ),
+                                    Text(
+                                      "20",
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                flex: 3,
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.comment,
+                                      size: 18,
+                                      color: Colors.grey[600],
+                                    ),
+                                    Text("0")
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
+                  flex: 8,
                 ),
-                flex: 8,
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
