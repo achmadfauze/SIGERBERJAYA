@@ -50,7 +50,7 @@ class _OnBoardPageState extends State<OnBoardPage> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 685, left: 45, right: 0),
+          padding: const EdgeInsets.only(top: 600, left: 45, right: 0),
           child: Container(
             //alignment: Alignment.center,
             width: 270,

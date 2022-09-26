@@ -1,4 +1,6 @@
+import 'package:first_app/view/component/editProfile.dart';
 import 'package:first_app/view/page/login.dart';
+import 'package:first_app/view/page/menu/homePage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
