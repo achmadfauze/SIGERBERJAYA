@@ -15,17 +15,20 @@ class SavePage extends StatelessWidget {
       bottom: TabBar(
         tabs: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(bottom: 8),
             child: Text(
               "Tempat Tersimpan",
-              style: TextStyle(fontSize: 18),
+              style: TextStyle(
+                fontFamily: "Roboto-Regular",
+                fontSize: 16),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(bottom:8.0),
             child: Text(
               "Blog Tersimpan",
-              style: TextStyle(fontSize: 18),
+              style: TextStyle(fontSize: 16,
+              fontFamily: "Roboto-Regular",),
             ),
           )
         ],
@@ -94,7 +97,7 @@ class ListArsipArtikel extends StatelessWidget {
               Expanded(
                 flex: 4,
                 child: SizedBox(
-                  height: bodyHeight * 0.25,
+                  height: bodyHeight * 0.15,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: Image.network(
@@ -118,7 +121,7 @@ class ListArsipArtikel extends StatelessWidget {
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 18,
                         ),
                       ),
                       Container(
@@ -126,7 +129,7 @@ class ListArsipArtikel extends StatelessWidget {
                         child: Row(
                           children: [
                             Expanded(
-                              flex: 5,
+                              flex: 7,
                               child: Row(
                                 children: [
                                   Icon(
@@ -135,7 +138,7 @@ class ListArsipArtikel extends StatelessWidget {
                                     color: Colors.grey[600],
                                   ),
                                   Text(
-                                    "20 Desember 21",
+                                    "20 Des 2021",
                                   )
                                 ],
                               ),
@@ -193,7 +196,7 @@ class ListArsipTempat extends StatelessWidget {
               Expanded(
                 flex: 4,
                 child: SizedBox(
-                  height: bodyHeight * 0.25,
+                  height: bodyHeight * 0.15,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: Image.network(
@@ -215,7 +218,7 @@ class ListArsipTempat extends StatelessWidget {
                       Text(
                         "Danau Bakeri",
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 18,
                         ),
                       ),
                       Container(
