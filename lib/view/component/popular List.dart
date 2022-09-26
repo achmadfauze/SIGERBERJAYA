@@ -7,7 +7,7 @@ class PopularList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xffB4D6EF),
+        backgroundColor: Colors.white,
         body: Container(
           child: SizedBox(
             height: 220,
@@ -19,7 +19,7 @@ class PopularList extends StatelessWidget {
                   borderRadius: BorderRadius.circular(15),
                   // color: Colors.green[700],
                   image: DecorationImage(
-                    image: AssetImage(itemsPopular[index].image),
+                    image: NetworkImage("${itemsPopular[index]['Image']}"),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -37,7 +37,7 @@ class PopularList extends StatelessWidget {
                     //textAlign: TextAlign.justify,
                     // maxLines: 2,
                     // overflow: TextOverflow.ellipsis,
-                    itemsPopular[index].name,
+                    "${itemsPopular[index]['Name']}",
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 16,

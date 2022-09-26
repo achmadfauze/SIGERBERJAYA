@@ -45,7 +45,7 @@ class _CarouselState extends State<Carousel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xffB4D6EF),
+        backgroundColor: Colors.white,
         body: Column(
           children: [
             Container(

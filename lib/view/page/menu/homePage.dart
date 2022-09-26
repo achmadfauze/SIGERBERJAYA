@@ -17,7 +17,7 @@ class _Homepage extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffB4D6EF),
+      backgroundColor: Color(0xffffffff),
       body: Container(
         child: SingleChildScrollView(
           child: Column(
@@ -227,17 +227,17 @@ class _Homepage extends State<HomePage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                itemsRecomendation[index].name,
-                                style: TextStyle(
+                                "${itemsRecomendation[index]['Name']}",
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontFamily: 'Mulish-Regular',
                                   fontSize: 16,
                                 ),
                               ),
                               Text(
-                                itemsRecomendation[index].address,
+                                "${itemsRecomendation [index]['Name']}",
                                 maxLines: 2,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontFamily: 'Mulish-Regular',
                                   fontSize: 12,

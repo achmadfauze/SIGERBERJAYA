@@ -43,7 +43,7 @@ class RecomendationList extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            itemsfestifalbudaya[index].name,
+                            "${itemsRecomendation[index]['Name']}",
                             style: TextStyle(
                               color: Colors.white,
                               fontFamily: 'Mulish-Regular',
@@ -51,7 +51,7 @@ class RecomendationList extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            itemsfestifalbudaya[index].date,
+                            "${itemsRecomendation[index]['date']}",
                             style: TextStyle(
                               color: Colors.white,
                               fontFamily: 'Mulish-Regular',
