@@ -1,3 +1,4 @@
+import 'package:first_app/view/component/detailTempat.dart';
 import 'package:flutter/material.dart';
 
 class SavePage extends StatelessWidget {
@@ -94,7 +95,6 @@ class ListArsipArtikel extends StatelessWidget {
           elevation: 4,
           child: Container(
             padding: EdgeInsets.all(7),
-            
             child: Row(
               children: [
                 Expanded(
@@ -126,7 +126,8 @@ class ListArsipArtikel extends StatelessWidget {
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.only(top: bodyHeight * 0.25 * 0.2),
+                          padding:
+                              EdgeInsets.only(top: bodyHeight * 0.25 * 0.2),
                           child: Row(
                             children: [
                               Expanded(
@@ -188,7 +189,11 @@ class ListArsipTempat extends StatelessWidget {
       padding: const EdgeInsets.all(5),
       child: GestureDetector(
         onTap: (() {
-          print("asjads");
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) {
+              return DetailTempat();
+            }),
+          );
         }),
         child: Card(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
