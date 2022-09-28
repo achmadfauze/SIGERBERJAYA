@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:scroll_app_bar/scroll_app_bar.dart';
 
 class DetailTempat extends StatefulWidget {
   const DetailTempat({super.key});
@@ -14,7 +15,7 @@ class DetailTempat extends StatefulWidget {
 
 class _DetailTempatState extends State<DetailTempat> {
   int currentPos = 0;
-
+  final controller = ScrollController();
   @override
   Widget build(BuildContext context) {
     final List<Map> images = [
@@ -26,8 +27,9 @@ class _DetailTempatState extends State<DetailTempat> {
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     final MediaQueryWidth = MediaQuery.of(context).size.width;
     final bodyWidth = MediaQueryWidth;
-    final myAppBar = AppBar(
-      backgroundColor: Colors.white54,
+    final myAppBar = ScrollAppBar(
+      controller: controller,
+      backgroundColor: Colors.transparent,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(15), bottomRight: Radius.circular(15)),
@@ -94,6 +96,7 @@ class _DetailTempatState extends State<DetailTempat> {
         child: myAppBar,
       ),
       body: ListView(
+        controller: controller,
         children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(8, 15, 8, 8),
