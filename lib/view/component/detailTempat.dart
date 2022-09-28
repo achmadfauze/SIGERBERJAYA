@@ -1,4 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:first_app/view/component/baruList.dart';
+import 'package:first_app/view/component/popular%20List.dart';
 import 'package:first_app/view/page/menu/savePage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -28,6 +30,7 @@ class _DetailTempatState extends State<DetailTempat> {
     final MediaQueryWidth = MediaQuery.of(context).size.width;
     final bodyWidth = MediaQueryWidth;
     final myAppBar = ScrollAppBar(
+      elevation: 0,
       controller: controller,
       backgroundColor: Colors.transparent,
       shape: RoundedRectangleBorder(
@@ -56,6 +59,7 @@ class _DetailTempatState extends State<DetailTempat> {
                   // margin: EdgeInsets.symmetric(horizontal: 5),
 
                   decoration: BoxDecoration(
+                    color: Colors.transparent,
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(15),
                         bottomRight: Radius.circular(15)),
@@ -136,7 +140,7 @@ class _DetailTempatState extends State<DetailTempat> {
                       Row(
                         children: [
                           Expanded(
-                            flex: 5,
+                            flex: 6,
                             child: Text.rich(
                               TextSpan(
                                 children: [
@@ -155,7 +159,7 @@ class _DetailTempatState extends State<DetailTempat> {
                             ),
                           ),
                           Expanded(
-                            flex: 1,
+                            flex: 2,
                             child: Text.rich(
                               TextSpan(
                                 children: [
@@ -165,7 +169,7 @@ class _DetailTempatState extends State<DetailTempat> {
                                     size: 18,
                                   )),
                                   TextSpan(
-                                      text: " 0",
+                                      text: " 50",
                                       style: TextStyle(fontSize: 16)),
                                 ],
                               ),
@@ -368,21 +372,20 @@ class _DetailTempatState extends State<DetailTempat> {
                                       WidgetSpan(child: Text("085378753209"))
                                     ]),
                                   ),
-                                  RichText(
-                                    maxLines: 2,
-                                    text: TextSpan(children: [
-                                      WidgetSpan(
-                                        child: Icon(
-                                          Icons.place,
-                                          size: 18,
-                                          color: Colors.red,
-                                        ),
+                                  Row(children: [
+                                    Expanded(
+                                      flex: 1,
+                                      child: Icon(
+                                        Icons.place,
+                                        size: 18,
+                                        color: Colors.red,
                                       ),
-                                      WidgetSpan(
-                                          child: Text(
-                                              "Jl.Negara No.1 Gn.Sugihm Kec. Gn.Sugih, Kabupaten Lampung Tengah"))
-                                    ]),
-                                  ),
+                                    ),
+                                    Expanded(
+                                        flex: 12,
+                                        child: Text(
+                                            "Jl.Negara No.1 Gn.Sugihm Kec. Gn.Sugih, Kabupaten Lampung Tengah"))
+                                  ]),
                                 ],
                               ),
                             ))
@@ -515,8 +518,159 @@ class _DetailTempatState extends State<DetailTempat> {
             ),
           ),
           Container(
-            margin: EdgeInsets.all(15),
-          )
+            padding: EdgeInsets.all(8),
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.only(bottom: 20),
+                  child: Text(
+                    "Layanan",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.only(bottom: 30),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          children: [
+                            CircleAvatar(
+                              radius: 30,
+                              backgroundColor: Colors.amber,
+                              backgroundImage: AssetImage(
+                                ("assets/icons8-policeman-64.png"),
+                              ),
+                            ),
+                            Text("Kepolisian"),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Column(
+                          children: [
+                            CircleAvatar(
+                              radius: 30,
+                              backgroundColor: Colors.amber,
+                              backgroundImage: AssetImage(
+                                "assets/icons8-facilities-64.png",
+                              ),
+                            ),
+                            Text("Fasilitas Kesehatan"),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Column(
+                          children: [
+                            CircleAvatar(
+                              radius: 30,
+                              backgroundColor: Colors.amber,
+                              backgroundImage: AssetImage(
+                                "assets/icons8-tour-guide-64.png",
+                              ),
+                            ),
+                            Text("Pemandu Wisata"),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.only(bottom: 30),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          children: [
+                            CircleAvatar(
+                              radius: 30,
+                              backgroundColor: Colors.amber,
+                              backgroundImage: AssetImage(
+                                "assets/icons8-hotel-48.png",
+                              ),
+                            ),
+                            Text("Hotel Terdekat")
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Column(
+                          children: [
+                            CircleAvatar(
+                              radius: 30,
+                              backgroundColor: Colors.amber,
+                              backgroundImage: AssetImage(
+                                "assets/icons8-restaurant-48.png",
+                              ),
+                            ),
+                            Text("Restoran"),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Column(
+                          children: [
+                            CircleAvatar(
+                              radius: 30,
+                              backgroundColor: Colors.amber,
+                              backgroundImage: AssetImage(
+                                "assets/icons8-review-64.png",
+                              ),
+                            ),
+                            Text("Ulasan"),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.only(bottom: 30),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          children: [
+                            CircleAvatar(
+                              radius: 30,
+                              backgroundColor: Colors.amber,
+                              backgroundImage: AssetImage(
+                                "assets/icons8-news-60.png",
+                              ),
+                            ),
+                            Text("Berita"),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.fromLTRB(8, 0, 0, 8),
+            child: Column(
+              children: [
+                Text(
+                  "Anda mungkin juga suka",
+                  style: TextStyle(fontSize: 20),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 20),
+                  height: 220,
+                  child: PageView(
+                    children: <Widget>[
+                      PopularList(),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
