@@ -1,6 +1,7 @@
 final List<Map<String, dynamic>> itemsPopular= [
   {
     "Name": "Pantai Batu Karang",
+    "Liked":"2",
     "Desc":
         "Pantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu Karang",
     "Image":
@@ -8,6 +9,7 @@ final List<Map<String, dynamic>> itemsPopular= [
   },
   {
     "Name": "Pantai Gigi Hiu",
+    "Liked":"19",
     "Desc":
         "Pantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu Karang",
     "Image":
@@ -15,56 +17,17 @@ final List<Map<String, dynamic>> itemsPopular= [
   },
   {
     "Name": "Pantai Batu Karang",
+    "Liked":"24",
     "Desc":
         "Pantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu Karang",
     "Image": "https://phinemo.com/wp-content/uploads/2021/03/beach-min-2.jpg"
   },
   {
     "Name": "Pantai Mutun",
+    "Liked":"33",
     "Desc":
         "Pantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu Karang",
     "Image":
         "https://cdn.popbela.com/content-images/post/20200131/1000x6679-1b0e2274922249bf33b28ce274d87531_750x500.jpg"
   }
 ];
-
-// class popular {
-//   final String name;
-//   final String desc;
-//   final String image;
-
-//   popular({required this.name, required this.desc, required this.image});
-// }
-
-// List<popular> itemsPopular = [
-//   popular(
-//       name: "Pantai Batu Karang",
-//       desc:
-//           "Pantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu Karang",
-//       image: "assets/pantai.jpg"),
-//   popular(
-//       name: "Pantai Gigi Hiu",
-//       desc:
-//           "Pantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu Karang",
-//       image: "assets/pantai.jpg"),
-//   popular(
-//       name: "Pantai Batu Karang",
-//       desc:
-//           "Pantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu Karang",
-//       image: "assets/pantai.jpg"),
-//   popular(
-//       name: "Pantai Batu Karang",
-//       desc:
-//           "Pantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu Karang",
-//       image: "assets/pantai.jpg"),
-//   popular(
-//       name: "Pantai Gigi Hiu",
-//       desc:
-//           "Pantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu Karang",
-//       image: "assets/pantai.jpg"),
-//   popular(
-//       name: "Pantai Batu Karang",
-//       desc:
-//           "Pantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu Karang",
-//       image: "assets/pantai.jpg"),
-// ];
