@@ -9,8 +9,8 @@ class AllBaruList extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         //appbar widget on Scaffold
-        title: Text("Tempat yang baru ditambahkan"), //title aof appbar
-        backgroundColor: Colors.greenAccent,
+        title: Text("Tempat Baru"), //title aof appbar
+        backgroundColor: Color(0xff00a877),
         bottom: PreferredSize(
             child: Container(
               color: Colors.orange,
@@ -18,7 +18,7 @@ class AllBaruList extends StatelessWidget {
             ),
             preferredSize: Size.fromHeight(4.0)),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Color.fromARGB(255, 236, 228, 228),
       body: Container(
         // margin: EdgeInsets.only(top: 8),
         child: Container(
@@ -56,53 +56,114 @@ class AllBaruList extends StatelessWidget {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(10),
-                            topRight: Radius.circular(10)),
-                        color: Colors.black.withOpacity(0.5),
+                            bottomRight: Radius.circular(10)),
+                        color: Colors.white,
                         // color: Color.fromARGB(157, 222, 238, 5)
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.only(
+                            top: 8, left: 10, right: 12, bottom: 8),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              "${itemsBaru[index]['Name']}",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'Mulish-Regular',
-                                fontSize: 16,
-                              ),
-                            ),
                             Row(
                               children: [
-                                Icon(
-                                  Icons.location_on,
-                                  size: 20,
+                                SizedBox(
+                                  width: 3,
                                 ),
-                                Text("${itemsBaru[index]['Desc']}",
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: 'Mulish-Regular',
-                                      fontSize: 14,
-                                    ))
+                                Text(
+                                  "${itemsBaru[index]['Name']}",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: 'Mulish-Regular',
+                                    fontSize: 16,
+                                  ),
+                                ),
                               ],
                             ),
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Icon(
-                                  Icons.location_on,
-                                  size: 20,
+                                  Icons.location_on_outlined,
+                                  color: Colors.black38,
+                                  size: 16,
                                 ),
-                                Text("${itemsBaru[index]['Desc']}",
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: 'Mulish-Regular',
-                                      fontSize: 14,
-                                    ))
+                                Flexible(
+                                  child: Text("${itemsBaru[index]['Desc']}",
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        color: Colors.black38,
+                                        fontFamily: 'Mulish-Regular',
+                                        fontSize: 14,
+                                      )),
+                                )
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 2,
+                                    ),
+                                    Icon(
+                                      Icons.schedule_outlined,
+                                      color: Colors.black38,
+                                      size: 13,
+                                    ),
+                                    Text("${itemsBaru[index]['Date']}",
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          color: Colors.black38,
+                                          fontFamily: 'Mulish-Regular',
+                                          fontSize: 14,
+                                        )),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.favorite_rounded,
+                                      color: Colors.black38,
+                                      size: 14,
+                                    ),
+                                    SizedBox(
+                                      width: 2,
+                                    ),
+                                    Text("${itemsBaru[index]['Liked']}",
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          color: Colors.black38,
+                                          fontFamily: 'Roboto-Regular',
+                                          fontSize: 14,
+                                        )),
+                                    SizedBox(
+                                      width: 8,
+                                    ),
+                                    Icon(
+                                      Icons.comment,
+                                      color: Colors.black38,
+                                      size: 14,
+                                    ),
+                                    SizedBox(
+                                      width: 2,
+                                    ),
+                                    Text("${itemsBaru[index]['Comment']}",
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          color: Colors.black38,
+                                          fontFamily: 'Roboto-Regular',
+                                          fontSize: 14,
+                                        )),
+                                  ],
+                                ),
                               ],
                             )
                           ],

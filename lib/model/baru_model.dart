@@ -1,6 +1,9 @@
 final List<Map<String, dynamic>> itemsBaru = [
   {
     "Name": "Pantai Batu Karang",
+    "Date": "12 Januari 2022",
+    "Liked": "12",
+    "Comment": "1",
     "Desc":
         "Pantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu Karang",
     "Image":
@@ -8,6 +11,9 @@ final List<Map<String, dynamic>> itemsBaru = [
   },
   {
     "Name": "Pantai Gigi Hiu",
+    "Liked": "9",
+    "Comment": "0",
+    "Date": "12 Januari 2022",
     "Desc":
         "Pantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu Karang",
     "Image":
@@ -15,12 +21,18 @@ final List<Map<String, dynamic>> itemsBaru = [
   },
   {
     "Name": "Pantai Batu Karang",
+    "Liked": "19",
+    "Comment": "3",
+    "Date": "12 Januari 2022",
     "Desc":
         "Pantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu Karang",
     "Image": "https://phinemo.com/wp-content/uploads/2021/03/beach-min-2.jpg"
   },
   {
     "Name": "Pantai Mutun",
+    "Liked": "11",
+    "Comment": "4",
+    "Date": "12 Januari 2022",
     "Desc":
         "Pantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu Karang",
     "Image":

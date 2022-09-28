@@ -1,39 +1,41 @@
-final List<Map<String, dynamic>> itemsRecomendation= [
+final List<Map<String, dynamic>> itemsRecomendation = [
   {
-    "Name": "Pantai Batu Karang",
-    "Liked":"32",
+    "Name": "Slanik Waterpark",
+    "Liked": "32",
+    "Comment": "1",
     "Address": "Way Halim Bandar Lampung, Kota Bandar Lampung",
     "Desc":
-          "Pantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu Karang",
-
+        "Slanik Waterpark merupakan salah satu wahana wisata terfavorit bagi anak-anak di kota bandar lampung",
     "Image":
-        "https://cdn0-production-images-kly.akamaized.net/m-HxppUnYITVR8z1QAVSQsE90Sc=/1200x1200/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/1005140/original/081444800_1443597770-8.jpg"
+        "https://ik.imagekit.io/tvlk/xpe-asset/AyJ40ZAo1DOyPyKLZ9c3RGQHTP2oT4ZXW+QmPVVkFQiXFSv42UaHGzSmaSzQ8DO5QIbWPZuF+VkYVRk6gh-Vg4ECbfuQRQ4pHjWJ5Rmbtkk=/2000644192688/Slanik%2520Waterpark%2520Lampung%2520Tickets-d8259893-cdab-48da-91d2-6e0b365cc045.jpeg?_src=imagekit&tr=dpr-2"
   },
   {
-    "Name": "Pantai Batu Karang",
-    "Liked":"13",
+    "Name": "Labuhan Jukung Krui",
+    "Liked": "13",
+    "Comment": "4",
     "Address": "Way Halim Bandar Lampung, Kota Bandar Lampung",
     "Desc":
-        "Pantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu Karang",
+        "Pantai Labuhan Jukung krui adalah tempat terfavorit bagi kaum peselancar dikarenakan ombak yang sangat mendukung",
     "Image":
-        "https://cdn.popbela.com/content-images/post/20200131/1000x6679-1b0e2274922249bf33b28ce274d87531_750x500.jpg"
+        "https://www.tourismvaganza.com/wp-content/uploads/2017/04/Krui-Credit-to-Cabana-1.jpeg"
+  },
+  {
+    "Name": "Wira Garden",
+    "Liked": "12",
+    "Comment": "3",
+    "Address": "Way Halim Bandar Lampung, Kota Bandar Lampung",
+    "Desc":
+        "Wira Garden salah satu objek wisata yang cocok bagi anda sang pecinta alam",
+    "Image":
+        "https://t-2.tstatic.net/tribunlampungtravel/foto/bank/images/Rute-Menuju-Destinasi-Glamping-di-Wira-Garden.jpg",
   },
   {
     "Name": "Pantai Batu Karang",
-    "Liked":"12",
+    "Liked": "24",
+    "Comment": "0",
     "Address": "Way Halim Bandar Lampung, Kota Bandar Lampung",
-    "Desc":
-        "Pantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu Karang",
-    "Image": "https://phinemo.com/wp-content/uploads/2021/03/beach-min-2.jpg"
-  },
-  {
-    "Name": "Pantai Batu Karang",
-    "Liked":"24",
-    "Address": "Way Halim Bandar Lampung, Kota Bandar Lampung",
-    "Desc":
-        "Pantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu KarangPantai Batu Karang",
+    "Desc": "Pantai Batu Karang sangat cocok untuk berfoto ala-ala selebgram ",
     "Image":
         "https://cdn.popbela.com/content-images/post/20200131/1000x6679-1b0e2274922249bf33b28ce274d87531_750x500.jpg"
   }
 ];
-
