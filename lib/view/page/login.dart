@@ -132,12 +132,12 @@ class LoginPage extends StatelessWidget {
                         color: Color(0xff14C38E),
                       )),
                 ),
-                const SizedBox(
-                  height: 100,
-                ),
+                // const SizedBox(
+                //   height: 100,
+                // ),
                 Flexible(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
                         alignment: Alignment.center,
