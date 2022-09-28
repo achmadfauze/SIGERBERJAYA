@@ -44,6 +44,7 @@ dependencies:
   file_picker: ^4.6.1
   url_launcher: ^6.1.5
   flutter_custom_carousel_slider: ^1.0.0
+  scroll_app_bar: ^2.0.0
 
 dev_dependencies:
   flutter_test:
