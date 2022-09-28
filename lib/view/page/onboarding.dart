@@ -40,7 +40,7 @@ class _OnBoardPageState extends State<OnBoardPage> {
             controller: _controller,
             count: 3,
             effect: ScrollingDotsEffect(
-              activeDotColor: Color(0xff438afe),
+              activeDotColor: Color(0xff14C38E),
               activeDotScale: 2,
               spacing: 8,
               dotColor: Color.fromARGB(255, 202, 196, 196),
@@ -58,7 +58,7 @@ class _OnBoardPageState extends State<OnBoardPage> {
             child: TextButton(
                 style: TextButton.styleFrom(
                     // backgroundColor: Colors.blue,
-                    backgroundColor: Color(0xff438afe),
+                    backgroundColor: Color(0xff14C38E),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     )),

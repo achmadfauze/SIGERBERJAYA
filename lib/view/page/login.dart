@@ -129,45 +129,52 @@ class LoginPage extends StatelessWidget {
                       width: 180,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: Color(0xff438afe),
+                        color: Color(0xff14C38E),
                       )),
                 ),
                 const SizedBox(
                   height: 100,
                 ),
-                Container(
-                  alignment: Alignment.center,
-                  padding: EdgeInsets.all(10),
-                  child: ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xff438afe),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 60, vertical: 1),
-                    ),
-                    // icon: Icon(Icons.language),
-                    icon: const Text(
-                      "G",
-                      style: TextStyle(
-                          fontFamily: 'RedHat',
-                          fontSize: 30,
-                          fontWeight: FontWeight.w700),
-                    ),
-                    label: const Text(
-                      "Sign In With Google",
-                      style: TextStyle(
-                        fontFamily: 'Roboto-Regular',
-                        fontSize: 16,
+                Flexible(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.all(10),
+                        child: ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color(0xff14C38E),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 60, vertical: 1),
+                          ),
+                          // icon: Icon(Icons.language),
+                          icon: const Text(
+                            "G",
+                            style: TextStyle(
+                                fontFamily: 'RedHat',
+                                fontSize: 30,
+                                fontWeight: FontWeight.w700),
+                          ),
+                          label: const Text(
+                            "Sign In With Google",
+                            style: TextStyle(
+                              fontFamily: 'Roboto-Regular',
+                              fontSize: 16,
+                            ),
+                          ),
+                          // onPressed: () async {
+                          //   Navigator.push(context,
+                          //       MaterialPageRoute(builder: (context) => Home()));
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => OnBoardPage()));
+                          },
+                        ),
                       ),
-                    ),
-                    // onPressed: () async {
-                    //   Navigator.push(context,
-                    //       MaterialPageRoute(builder: (context) => Home()));
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => OnBoardPage()));
-                    },
+                    ],
                   ),
                 ),
               ],

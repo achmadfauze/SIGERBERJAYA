@@ -41,7 +41,7 @@ class IntroPage3 extends StatelessWidget {
               width: 150,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: Color(0xff438afe),
+                color: Color(0xff14C38E),
               )),
           const SizedBox(
             height: 24,
