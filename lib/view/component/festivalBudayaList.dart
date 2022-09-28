@@ -61,7 +61,7 @@ class FestivalBudayaList extends StatelessWidget {
                       children:[ Container(
                         decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(20),
+                          bottomLeft: Radius.circular(15),
                           topRight: Radius.circular(15)),
                         color: Colors.black.withOpacity(0.5),
                         // color: Color.fromARGB(157, 222, 238, 5)
@@ -80,7 +80,7 @@ class FestivalBudayaList extends StatelessWidget {
                           Text("${itemsfestifalbudaya[index]['liked']}",
                           style: TextStyle(
                             color: Colors.white,
-                                fontFamily: 'Mulish-Regular',
+                                fontFamily: 'Roboto-Regular',
                                 fontSize: 18,
                           ),),
                           // SizedBox(width: 6,),
@@ -102,7 +102,7 @@ class FestivalBudayaList extends StatelessWidget {
                         color: Colors.black.withOpacity(0.5),
                         // color: Color.fromARGB(157, 222, 238, 5)
                       ),
-                      height: 80,
+                      height: 60,
                       width: double.infinity,
                       child: Padding(
                         padding: const EdgeInsets.only(left: 12, right: 12),
@@ -118,12 +118,13 @@ class FestivalBudayaList extends StatelessWidget {
                                 fontSize: 16,
                               ),
                             ),
+                            SizedBox(height: 6,),
                             Text(
                               "${itemsfestifalbudaya[index]['date']}",
                               style: TextStyle(
                                 color: Colors.white,
                                 fontFamily: 'Mulish-Regular',
-                                fontSize: 12,
+                                fontSize: 14,
                               ),
                             ),
                           ],

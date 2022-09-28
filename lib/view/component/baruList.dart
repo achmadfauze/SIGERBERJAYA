@@ -35,7 +35,7 @@ class BaruList extends StatelessWidget {
                       children:[ Container(
                         decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(20),
+                          bottomLeft: Radius.circular(15),
                           topRight: Radius.circular(15)),
                         color: Colors.black.withOpacity(0.5),
                         // color: Color.fromARGB(157, 222, 238, 5)
