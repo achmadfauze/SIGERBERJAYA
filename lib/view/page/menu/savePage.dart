@@ -1,3 +1,4 @@
+import 'package:first_app/view/component/detailArtikel.dart';
 import 'package:first_app/view/component/detailTempat.dart';
 import 'package:flutter/material.dart';
 
@@ -49,10 +50,10 @@ class SavePage extends StatelessWidget {
               height: bodyHeight,
               child: ListView(
                 children: [
-                  ListArsipTempat(bodyHeight: bodyHeight),
-                  ListArsipTempat(bodyHeight: bodyHeight),
-                  ListArsipTempat(bodyHeight: bodyHeight),
-                  ListArsipTempat(bodyHeight: bodyHeight),
+                  ListArsipTempat(bodyWidth: bodyWidth),
+                  ListArsipTempat(bodyWidth: bodyWidth),
+                  ListArsipTempat(bodyWidth: bodyWidth),
+                  ListArsipTempat(bodyWidth: bodyWidth),
                 ],
               ),
             ),
@@ -87,20 +88,23 @@ class ListArsipArtikel extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(5),
       child: GestureDetector(
-        onTap: () {
-          print("object");
-        },
+        onTap: (() {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) {
+              return DetailArtikel();
+            }),
+          );
+        }),
         child: Card(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           elevation: 4,
           child: Container(
-            padding: EdgeInsets.all(7),
             child: Row(
               children: [
                 Expanded(
                   flex: 4,
                   child: SizedBox(
-                    height: bodyHeight * 0.15,
+                    height: 100,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
                       child: Image.network(
@@ -113,9 +117,11 @@ class ListArsipArtikel extends StatelessWidget {
                 ),
                 Expanded(
                   child: Container(
-                    padding: EdgeInsets.all(5),
+                    height: 100,
+                    padding: EdgeInsets.only(left: 10, top: 8, bottom: 8),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           "Sejumlah Tempat Wisata Lampung Mulai Beroperasi 6 Juni 2021",
@@ -126,8 +132,6 @@ class ListArsipArtikel extends StatelessWidget {
                           ),
                         ),
                         Container(
-                          padding:
-                              EdgeInsets.only(top: bodyHeight * 0.25 * 0.2),
                           child: Row(
                             children: [
                               Expanded(
@@ -146,11 +150,11 @@ class ListArsipArtikel extends StatelessWidget {
                                 ),
                               ),
                               Expanded(
-                                flex: 4,
+                                flex: 6,
                                 child: Row(
                                   children: [
                                     Icon(
-                                      Icons.comment,
+                                      Icons.favorite,
                                       size: 18,
                                       color: Colors.grey[600],
                                     ),
@@ -178,10 +182,10 @@ class ListArsipArtikel extends StatelessWidget {
 class ListArsipTempat extends StatelessWidget {
   const ListArsipTempat({
     Key? key,
-    required this.bodyHeight,
+    required this.bodyWidth,
   }) : super(key: key);
 
-  final double bodyHeight;
+  final double bodyWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -199,13 +203,12 @@ class ListArsipTempat extends StatelessWidget {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           elevation: 4,
           child: Container(
-            padding: EdgeInsets.all(7),
             child: Row(
               children: [
                 Expanded(
                   flex: 4,
                   child: SizedBox(
-                    height: bodyHeight * 0.15,
+                    height: 100,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
                       child: Image.network(
@@ -218,44 +221,48 @@ class ListArsipTempat extends StatelessWidget {
                 ),
                 Expanded(
                   child: Container(
-                    padding: EdgeInsets.only(
-                      left: 10,
-                    ),
+                    height: 100,
+                    padding: EdgeInsets.only(left: 10, top: 8, bottom: 8),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Text(
-                          "Danau Bakeri",
-                          style: TextStyle(
-                            fontSize: 18,
-                          ),
-                        ),
-                        Container(
-                          child: Row(
-                            children: [
-                              Expanded(
-                                  flex: 0,
-                                  child: Icon(
-                                    Icons.location_on_outlined,
-                                    color: Colors.grey[600],
-                                    size: 18,
-                                  )),
-                              Expanded(
-                                flex: 9,
-                                child: Text(
-                                  "Sinar Banten/Bekri, Bekri, Kabbupaten Lampung Tengah",
-                                  style: TextStyle(
-                                      fontSize: 16, color: Colors.grey[600]),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Danau Bakeri",
+                              style: TextStyle(
+                                fontSize: 18,
                               ),
-                            ],
-                          ),
+                            ),
+                            Container(
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                      flex: 0,
+                                      child: Icon(
+                                        Icons.location_on_outlined,
+                                        color: Colors.grey[600],
+                                        size: 18,
+                                      )),
+                                  Expanded(
+                                    flex: 9,
+                                    child: Text(
+                                      "Sinar Banten/Bekri, Bekri, Kabbupaten Lampung Tengah",
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.grey[600]),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                         Container(
-                          padding:
-                              EdgeInsets.only(top: bodyHeight * 0.25 * 0.2),
                           child: Row(
                             children: [
                               Expanded(
