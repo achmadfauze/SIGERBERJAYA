@@ -110,7 +110,7 @@ class DetailArtikel extends StatelessWidget {
                             ),
                             WidgetSpan(
                               child: Text(
-                                " 5 Orang Menyukai ini",
+                                " 5 ",
                                 style: TextStyle(fontSize: 18),
                               ),
                             ),

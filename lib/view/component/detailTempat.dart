@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:first_app/view/component/baruList.dart';
+import 'package:first_app/view/component/listLayanan.dart';
 import 'package:first_app/view/component/popular%20List.dart';
 import 'package:first_app/view/page/menu/savePage.dart';
 import 'package:flutter/material.dart';
@@ -534,31 +535,53 @@ class _DetailTempatState extends State<DetailTempat> {
                   child: Row(
                     children: [
                       Expanded(
-                        child: Column(
-                          children: [
-                            CircleAvatar(
-                              radius: 30,
-                              backgroundColor: Colors.amber,
-                              backgroundImage: AssetImage(
-                                ("assets/icons8-policeman-64.png"),
+                        child: GestureDetector(
+                          onTap: (() {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) {
+                                return ListLayanan(
+                                  Judul: "Kepolisian",
+                                );
+                              }),
+                            );
+                          }),
+                          child: Column(
+                            children: [
+                              CircleAvatar(
+                                radius: 30,
+                                backgroundColor: Colors.amber,
+                                backgroundImage: AssetImage(
+                                  ("assets/icons8-policeman-64.png"),
+                                ),
                               ),
-                            ),
-                            Text("Kepolisian"),
-                          ],
+                              Text("Kepolisian"),
+                            ],
+                          ),
                         ),
                       ),
                       Expanded(
-                        child: Column(
-                          children: [
-                            CircleAvatar(
-                              radius: 30,
-                              backgroundColor: Colors.amber,
-                              backgroundImage: AssetImage(
-                                "assets/icons8-facilities-64.png",
+                        child: GestureDetector(
+                          onTap: (() {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) {
+                                return ListLayanan(
+                                  Judul: "Fasilitas Kesehatan",
+                                );
+                              }),
+                            );
+                          }),
+                          child: Column(
+                            children: [
+                              CircleAvatar(
+                                radius: 30,
+                                backgroundColor: Colors.amber,
+                                backgroundImage: AssetImage(
+                                  "assets/icons8-facilities-64.png",
+                                ),
                               ),
-                            ),
-                            Text("Fasilitas Kesehatan"),
-                          ],
+                              Text("Fasilitas Kesehatan"),
+                            ],
+                          ),
                         ),
                       ),
                       Expanded(
@@ -583,45 +606,69 @@ class _DetailTempatState extends State<DetailTempat> {
                   child: Row(
                     children: [
                       Expanded(
-                        child: Column(
-                          children: [
-                            CircleAvatar(
-                              radius: 30,
-                              backgroundColor: Colors.amber,
-                              backgroundImage: AssetImage(
-                                "assets/icons8-hotel-48.png",
+                        child: GestureDetector(
+                          onTap: (() {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) {
+                                return ListLayanan(
+                                  Judul: "Hotel Terdekat",
+                                );
+                              }),
+                            );
+                          }),
+                          child: Column(
+                            children: [
+                              CircleAvatar(
+                                radius: 30,
+                                backgroundColor: Colors.amber,
+                                backgroundImage: AssetImage(
+                                  "assets/icons8-hotel-48.png",
+                                ),
                               ),
-                            ),
-                            Text("Hotel Terdekat")
-                          ],
+                              Text("Hotel Terdekat")
+                            ],
+                          ),
                         ),
                       ),
                       Expanded(
-                        child: Column(
-                          children: [
-                            CircleAvatar(
-                              radius: 30,
-                              backgroundColor: Colors.amber,
-                              backgroundImage: AssetImage(
-                                "assets/icons8-restaurant-48.png",
+                        child: GestureDetector(
+                          onTap: (() {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) {
+                                return ListLayanan(
+                                  Judul: "Restoran",
+                                );
+                              }),
+                            );
+                          }),
+                          child: Column(
+                            children: [
+                              CircleAvatar(
+                                radius: 30,
+                                backgroundColor: Colors.amber,
+                                backgroundImage: AssetImage(
+                                  "assets/icons8-restaurant-48.png",
+                                ),
                               ),
-                            ),
-                            Text("Restoran"),
-                          ],
+                              Text("Restoran"),
+                            ],
+                          ),
                         ),
                       ),
                       Expanded(
-                        child: Column(
-                          children: [
-                            CircleAvatar(
-                              radius: 30,
-                              backgroundColor: Colors.amber,
-                              backgroundImage: AssetImage(
-                                "assets/icons8-review-64.png",
+                        child: GestureDetector(
+                          child: Column(
+                            children: [
+                              CircleAvatar(
+                                radius: 30,
+                                backgroundColor: Colors.amber,
+                                backgroundImage: AssetImage(
+                                  "assets/icons8-review-64.png",
+                                ),
                               ),
-                            ),
-                            Text("Ulasan"),
-                          ],
+                              Text("Ulasan"),
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -632,17 +679,19 @@ class _DetailTempatState extends State<DetailTempat> {
                   child: Row(
                     children: [
                       Expanded(
-                        child: Column(
-                          children: [
-                            CircleAvatar(
-                              radius: 30,
-                              backgroundColor: Colors.amber,
-                              backgroundImage: AssetImage(
-                                "assets/icons8-news-60.png",
+                        child: GestureDetector(
+                          child: Column(
+                            children: [
+                              CircleAvatar(
+                                radius: 30,
+                                backgroundColor: Colors.amber,
+                                backgroundImage: AssetImage(
+                                  "assets/icons8-news-60.png",
+                                ),
                               ),
-                            ),
-                            Text("Berita"),
-                          ],
+                              Text("Berita"),
+                            ],
+                          ),
                         ),
                       ),
                     ],
