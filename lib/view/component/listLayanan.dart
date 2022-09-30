@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ListLayanan extends StatelessWidget {
   const ListLayanan({super.key, required this.Judul});
@@ -13,7 +14,13 @@ class ListLayanan extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(this.Judul),
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.map))],
+        actions: [
+          IconButton(
+              onPressed: () => launchUrl(
+                  Uri.parse('https://www.google.com/maps'),
+                  mode: LaunchMode.externalNonBrowserApplication),
+              icon: Icon(Icons.map))
+        ],
       ),
       body: Container(
         // padding: EdgeInsets.all(15),
