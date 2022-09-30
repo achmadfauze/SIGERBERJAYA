@@ -52,7 +52,7 @@ class ListItem extends StatelessWidget {
                 Expanded(
                   flex: 4,
                   child: SizedBox(
-                    height: 100,
+                    height: 120,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
                       child: Image.network(
