@@ -17,7 +17,12 @@ class ListLayanan extends StatelessWidget {
       ),
       body: Container(
         // padding: EdgeInsets.all(15),
-        child: ListView(children: [ListItem(bodyWidth: bodyWidth)]),
+        child: ListView(children: [
+          ListItem(bodyWidth: bodyWidth),
+          ListItem(bodyWidth: bodyWidth),
+          ListItem(bodyWidth: bodyWidth),
+          ListItem(bodyWidth: bodyWidth),
+        ]),
       ),
     );
   }
@@ -52,7 +57,7 @@ class ListItem extends StatelessWidget {
                 Expanded(
                   flex: 4,
                   child: SizedBox(
-                    height: 120,
+                    height: 100,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
                       child: Image.network(
