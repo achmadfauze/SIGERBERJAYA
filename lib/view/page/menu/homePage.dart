@@ -1,6 +1,7 @@
 import 'package:first_app/model/recomendationModel.dart';
 import 'package:first_app/view/component/BaruList.dart';
 import 'package:first_app/view/component/carousel.dart';
+import 'package:first_app/view/component/detailTempat.dart';
 import 'package:first_app/view/component/festivalBudayaList.dart';
 import 'package:first_app/view/component/popular%20List.dart';
 import 'package:first_app/view/page/detail/allBaruList.dart';
@@ -80,9 +81,9 @@ class _Homepage extends State<HomePage> {
                             height: 45,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: Colors.green,
+                              //color: Colors.green,
                               image: DecorationImage(
-                                  fit: BoxFit.fill,
+                                  fit: BoxFit.cover,
                                   image: NetworkImage(
                                     "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
                                   )),
@@ -101,10 +102,10 @@ class _Homepage extends State<HomePage> {
                   height: 20,
                 ),
                 Container(
-                  height: 220,
+                  height: 240,
                   child: PageView(
                     children: <Widget>[
-                      Carousel(title: ""),
+                      Carousel(),
                     ],
                   ),
                 ),
@@ -308,131 +309,139 @@ class _Homepage extends State<HomePage> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Container(
-                          child: ListView.builder(
-                            itemCount: itemsRecomendation.length,
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) => Container(
-                                height: 200,
-                                width: double.infinity,
-                                margin: EdgeInsets.only(bottom: 8),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  image: DecorationImage(
-                                    // image: AssetImage(itemsfestifalbudaya[index].image),
-                                    image: NetworkImage(
-                                        "${itemsRecomendation[index]['Image']}"),
-                                    fit: BoxFit.cover,
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => DetailTempat()));
+                            },
+                            child: ListView.builder(
+                              itemCount: itemsRecomendation.length,
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) => Container(
+                                  height: 200,
+                                  width: double.infinity,
+                                  margin: EdgeInsets.only(bottom: 8),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    image: DecorationImage(
+                                      // image: AssetImage(itemsfestifalbudaya[index].image),
+                                      image: NetworkImage(
+                                          "${itemsRecomendation[index]['Image']}"),
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
-                                ),
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.only(
-                                                  bottomLeft:
-                                                      Radius.circular(15),
-                                                  topRight:
-                                                      Radius.circular(10)),
-                                              color:
-                                                  Colors.black.withOpacity(0.5),
-                                              // color: Color.fromARGB(157, 222, 238, 5)
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.only(
+                                                    bottomLeft:
+                                                        Radius.circular(15),
+                                                    topRight:
+                                                        Radius.circular(10)),
+                                                color: Colors.black
+                                                    .withOpacity(0.5),
+                                                // color: Color.fromARGB(157, 222, 238, 5)
+                                              ),
+                                              height: 40,
+                                              width: 100,
+                                              child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    const Icon(
+                                                      Icons.favorite,
+                                                      size: 22,
+                                                      color: Colors.white,
+                                                    ),
+                                                    SizedBox(
+                                                      width: 6,
+                                                    ),
+                                                    Text(
+                                                      "${itemsRecomendation[index]['Liked']}",
+                                                      style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontFamily:
+                                                            'Roboto-Regular',
+                                                        fontSize: 18,
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 8,
+                                                    ),
+                                                    const Icon(
+                                                      Icons.warning,
+                                                      size: 22,
+                                                      color: Colors.yellow,
+                                                    ),
+                                                  ]),
                                             ),
-                                            height: 40,
-                                            width: 100,
-                                            child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
+                                          ]),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.only(
+                                              bottomRight: Radius.circular(10),
+                                              bottomLeft: Radius.circular(10)),
+                                          color: Colors.black.withOpacity(0.5),
+                                          // color: Color.fromARGB(157, 222, 238, 5)
+                                        ),
+                                        height: 60,
+                                        width: double.infinity,
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 12, right: 12),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "${itemsRecomendation[index]['Name']}",
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontFamily: 'Mulish-Regular',
+                                                  fontSize: 16,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 8,
+                                              ),
+                                              Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
                                                 children: [
-                                                  const Icon(
-                                                    Icons.favorite,
-                                                    size: 22,
-                                                    color: Colors.white,
-                                                  ),
-                                                  SizedBox(
-                                                    width: 6,
-                                                  ),
+                                                  //Icon(Icons.location_on,size: 18,color: Colors.white,),
                                                   Text(
-                                                    "${itemsRecomendation[index]['Liked']}",
-                                                    style: TextStyle(
+                                                    "${itemsRecomendation[index]['Address']}",
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    style: const TextStyle(
                                                       color: Colors.white,
                                                       fontFamily:
-                                                          'Roboto-Regular',
-                                                      fontSize: 18,
+                                                          'Mulish-Regular',
+                                                      fontSize: 12,
                                                     ),
                                                   ),
-                                                  SizedBox(
-                                                    width: 8,
-                                                  ),
-                                                  const Icon(
-                                                    Icons.warning,
-                                                    size: 22,
-                                                    color: Colors.yellow,
-                                                  ),
-                                                ]),
-                                          ),
-                                        ]),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.only(
-                                            bottomRight: Radius.circular(10),
-                                            bottomLeft: Radius.circular(10)),
-                                        color: Colors.black.withOpacity(0.5),
-                                        // color: Color.fromARGB(157, 222, 238, 5)
-                                      ),
-                                      height: 60,
-                                      width: double.infinity,
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 12, right: 12),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              "${itemsRecomendation[index]['Name']}",
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontFamily: 'Mulish-Regular',
-                                                fontSize: 16,
+                                                ],
                                               ),
-                                            ),
-                                            SizedBox(
-                                              height: 8,
-                                            ),
-                                            Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                //Icon(Icons.location_on,size: 18,color: Colors.white,),
-                                                Text(
-                                                  "${itemsRecomendation[index]['Address']}",
-                                                  maxLines: 1,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  style: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontFamily:
-                                                        'Mulish-Regular',
-                                                    fontSize: 12,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                )),
+                                    ],
+                                  )),
+                            ),
                           ),
                         ),
                       ]),
