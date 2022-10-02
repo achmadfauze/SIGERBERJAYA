@@ -11,45 +11,48 @@ class _CarouselState extends State<Carousel> {
   int _current = 0;
   final CarouselController _controller = CarouselController();
   final List<Map> images = [
-    {"image": "https://picsum.photos/id/237/200/300"},
+    {
+      "image":
+          "https://cdn.popbela.com/content-images/post/20200131/1000x6679-1b0e2274922249bf33b28ce274d87531_750x500.jpg"
+    },
     {"image": "https://picsum.photos/id/238/200/300"},
     {"image": "https://picsum.photos/id/239/200/300"},
   ];
 
-  final List<Widget> myData = [
-    Container(
-      height: 300,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-        color: Colors.green,
-      ),
-      child: Center(child: Text('Text1')),
-    ),
-    Container(
-      height: 300,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-        color: Colors.green,
-        // image: DecorationImage(
-        //           // image: AssetImage(itemsfestifalbudaya[index].image),
-        //           image: NetworkImage("${itemsCarousel[index]['Image']}"),
-        //           fit: BoxFit.cover,
-        //         ),
-      ),
-      child: Center(child: Text('Text2')),
-    ),
-    Container(
-      height: 300,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-        color: Colors.green,
-      ),
-      child: Center(child: Text('Text3')),
-    )
-  ];
+  // final List<Widget> myData = [
+  //   Container(
+  //     height: 300,
+  //     width: double.infinity,
+  //     decoration: BoxDecoration(
+  //       borderRadius: BorderRadius.circular(15),
+  //       color: Colors.green,
+  //     ),
+  //     child: Center(child: Text('Text1')),
+  //   ),
+  //   Container(
+  //     height: 300,
+  //     width: double.infinity,
+  //     decoration: BoxDecoration(
+  //       borderRadius: BorderRadius.circular(15),
+  //       color: Colors.green,
+  //       // image: DecorationImage(
+  //       //           // image: AssetImage(itemsfestifalbudaya[index].image),
+  //       //           image: NetworkImage("${itemsCarousel[index]['Image']}"),
+  //       //           fit: BoxFit.cover,
+  //       //         ),
+  //     ),
+  //     child: Center(child: Text('Text2')),
+  //   ),
+  //   Container(
+  //     height: 300,
+  //     width: double.infinity,
+  //     decoration: BoxDecoration(
+  //       borderRadius: BorderRadius.circular(15),
+  //       color: Colors.green,
+  //     ),
+  //     child: Center(child: Text('Text3')),
+  //   )
+  // ];
 
   static get index => null;
 
@@ -59,47 +62,45 @@ class _CarouselState extends State<Carousel> {
         backgroundColor: Colors.white,
         body: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 12, right: 12),
-              child: Container(
-                  child: CarouselSlider(
-                      options: CarouselOptions(
-                        height: 200,
-                        viewportFraction: 1,
-                        autoPlay: true,
-                        autoPlayCurve: Curves.fastOutSlowIn,
-                        onPageChanged: (index, reason) {
-                          setState(() {
-                            _current = index;
-                          });
-                        },
-                      ),
-                      items: images.map((i) {
-                        return Builder(builder: (BuildContext context) {
-                          return Container(
-                            width: MediaQuery.of(context).size.width,
-                            // margin: EdgeInsets.symmetric(horizontal: 5),
-
-                            decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8)),
-                              image: DecorationImage(
-                                image: NetworkImage("${i['image']}"),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          );
+            Container(
+                child: CarouselSlider(
+                    options: CarouselOptions(
+                      height: 200,
+                      // aspectRatio: 2,
+                      enlargeCenterPage: true,
+                      viewportFraction: 0.8,
+                      autoPlay: true,
+                      autoPlayCurve: Curves.fastOutSlowIn,
+                      onPageChanged: (index, reason) {
+                        setState(() {
+                          _current = index;
                         });
-                      }).toList())),
-            ),
+                      },
+                    ),
+                    items: images.map((i) {
+                      return Builder(builder: (BuildContext context) {
+                        return Container(
+                          width: MediaQuery.of(context).size.width,
+                          // margin: EdgeInsets.symmetric(horizontal: 5),
+
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                            image: DecorationImage(
+                              image: NetworkImage("${i['image']}"),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        );
+                      });
+                    }).toList())),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: images.map((url) {
                 int index = images.indexOf(url);
                 return Container(
-                  width: _current == index ? 10 : 6,
-                  height: _current == index ? 10 : 6,
+                  width: _current == index ? 8 : 6,
+                  height: _current == index ? 8 : 6,
                   margin: EdgeInsets.symmetric(
                     vertical: 10,
                     horizontal: 2,

@@ -1,5 +1,6 @@
 import 'package:first_app/model/popular_model.dart';
 import 'package:first_app/view/component/detailTempat.dart';
+import 'package:first_app/view/page/menu/cityPage.dart';
 import 'package:flutter/material.dart';
 
 class AllKabupatenList extends StatelessWidget {
@@ -51,7 +52,7 @@ class AllKabupatenList extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Expanded(
+                      Flexible(
                           child: Container(
                         width: double.infinity,
                         decoration: BoxDecoration(
