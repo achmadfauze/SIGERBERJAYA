@@ -13,19 +13,20 @@ class SavePage extends StatelessWidget {
     final appBar = AppBar(
       backgroundColor: Color(0xff14C38E),
       title: Text(
-        "Tandai",
+        "Tersimpan",
       ),
       bottom: TabBar(
+        indicatorColor: Colors.white,
         tabs: [
           Padding(
-            padding: const EdgeInsets.only(bottom: 8),
+            padding: const EdgeInsets.only(bottom: 8, top: 8),
             child: Text(
               "Tempat Tersimpan",
               style: TextStyle(fontFamily: "Roboto-Regular", fontSize: 16),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 8.0),
+            padding: const EdgeInsets.only(bottom: 8.0, top: 8),
             child: Text(
               "Blog Tersimpan",
               style: TextStyle(
@@ -87,7 +88,7 @@ class ListArsipArtikel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(5),
+      padding: const EdgeInsets.only(top: 12, left: 8, right: 8),
       child: GestureDetector(
         onTap: (() {
           Navigator.of(context).push(
@@ -107,7 +108,9 @@ class ListArsipArtikel extends StatelessWidget {
                   child: SizedBox(
                     height: 100,
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(8),
+                          bottomLeft: Radius.circular(8)),
                       child: Image.network(
                         alignment: Alignment.centerLeft,
                         "https://picsum.photos/300/200",
@@ -211,7 +214,9 @@ class ListArsipTempat extends StatelessWidget {
                   child: SizedBox(
                     height: 100,
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(8),
+                          bottomLeft: Radius.circular(8)),
                       child: Image.network(
                         alignment: Alignment.centerLeft,
                         "https://picsum.photos/300/200",

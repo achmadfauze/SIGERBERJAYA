@@ -183,7 +183,7 @@ class _Homepage extends State<HomePage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => AllPopularList()));
+                                    builder: (context) => HomePage()));
                           },
                         ),
 

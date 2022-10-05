@@ -1,9 +1,45 @@
+import 'dart:convert';
+
 import 'package:first_app/model/popular_model.dart';
 import 'package:first_app/view/component/detailTempat.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
-class PopularList extends StatelessWidget {
-  const PopularList({super.key});
+class PopularList extends StatefulWidget {
+  @override
+  State<PopularList> createState() => _PopularListState();
+}
+
+class _PopularListState extends State<PopularList> {
+  // const PopularList({super.key});
+  final List<Space> _Space = [];
+
+  Future<List<Space>> fetchJson() async {
+    var response = await http
+        // .get(Uri.parse('http://bwa-cozy.herokuapp.com/recommended-spaces'));
+        .get(Uri.parse(
+            'http://api-siger.uacak.com/public/api/v1/populertour/5'));
+    print(response);
+    List<Space> slist = [];
+    if (response.statusCode == 200) {
+      var urjson = (json.decode(response.body));
+      print(urjson);
+      for (var jsondata in urjson) {
+        slist.add(Space.fromJson(jsondata));
+      }
+    }
+    return slist;
+  }
+
+  @override
+  void initState() {
+    fetchJson().then((value) {
+      setState(() {
+        _Space.addAll(value);
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,14 +54,17 @@ class PopularList extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => DetailTempat()));
               },
               child: ListView.builder(
-                itemCount: itemsPopular.length,
+                itemCount: _Space.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) => Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       // color: Colors.green[700],
                       image: DecorationImage(
-                        image: NetworkImage("${itemsPopular[index]['Image']}"),
+                        image: NetworkImage(
+                          "${itemsPopular[index]['Image']}",
+                          // _Space[index].image.toString(),
+                        ),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -65,7 +104,7 @@ class PopularList extends StatelessWidget {
                                         width: 4,
                                       ),
                                       Text(
-                                        "${itemsPopular[index]['Liked']}",
+                                        _Space[index].like.toString(),
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontFamily: 'Roboto-Regular',
@@ -97,7 +136,7 @@ class PopularList extends StatelessWidget {
                             padding: const EdgeInsets.only(
                                 left: 12, right: 12, top: 10, bottom: 10),
                             child: Text(
-                              "${itemsPopular[index]['Name']}",
+                              _Space[index].name.toString(),
                               style: TextStyle(
                                 color: Colors.white,
                                 fontFamily: 'Robot-Regular',
