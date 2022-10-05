@@ -77,62 +77,59 @@ class _CityPage extends State<CityPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
-                    child: InkWell(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => (HomePage())));
-                    // AllKabupatenList()));
-                  },
-                  child:
-                      //   if (snapshot.connectionState == ConnectionState.waiting) {
-                      //   return Center(child: CircularProgressIndicator());
-                      // } else {
-                      //   if (snapshot.hasData) {
-                      // _Space.isNotEmpty
-                      //     ?
-                      ListView.builder(
+                  child: ListView.builder(
                     itemCount: _Space.length,
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    itemBuilder: (context, index) => Container(
-                      height: 180,
-                      width: double.infinity,
-                      margin: EdgeInsets.only(bottom: 8),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        image: DecorationImage(
-                            // image: AssetImage(itemsfestifalbudaya[index].image),
-                            image: NetworkImage(_Space[index].image.toString(),
-                                scale: 1.0),
-                            // _Space[index].image_url.toString()),
-                            // _Space[index].image.toString()),
-                            fit: BoxFit.cover,
-                            opacity: 0.8),
-                      ),
+                    itemBuilder: (context, index) => InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ((AllKabupatenList()))));
+                        // AllKabupatenList()));
+                      },
                       child: Container(
-                          child: Center(
-                            child: Text(
-                              _Space[index].state.toString(),
-                              // _Space[index].name.toString(),
-                              // _Space[index].state.toString(),
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'Mulish-Regular',
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
+                        height: 180,
+                        width: double.infinity,
+                        margin: EdgeInsets.only(bottom: 8),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          image: DecorationImage(
+                              // image: AssetImage(itemsfestifalbudaya[index].image),
+                              image: NetworkImage(
+                                  _Space[index].image.toString(),
+                                  scale: 1.0),
+                              // _Space[index].image_url.toString()),
+                              // _Space[index].image.toString()),
+                              fit: BoxFit.cover,
+                              opacity: 0.8),
+                        ),
+                        child: Container(
+                            child: Center(
+                              child: Text(
+                                _Space[index].state.toString(),
+                                // _Space[index].name.toString(),
+                                // _Space[index].state.toString(),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Mulish-Regular',
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                textAlign: TextAlign.center,
                               ),
-                              textAlign: TextAlign.center,
                             ),
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.black45,
-                          )),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.black45,
+                            )),
+                      ),
                     ),
                   ),
-                ))
+                ),
               ],
             ),
           ),
