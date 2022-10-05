@@ -11,6 +11,7 @@ class SavePage extends StatelessWidget {
     final MediaQueryWidth = MediaQuery.of(context).size.width;
     final bodyWidth = MediaQueryWidth;
     final appBar = AppBar(
+      backgroundColor: Color(0xff14C38E),
       title: Text(
         "Tandai",
       ),

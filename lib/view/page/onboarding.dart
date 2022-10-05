@@ -31,50 +31,61 @@ class _OnBoardPageState extends State<OnBoardPage> {
             IntroPage3(),
           ],
         ),
-        Container(
-          alignment: Alignment(
-            0,
-            0.58,
-          ),
-          child: SmoothPageIndicator(
-            controller: _controller,
-            count: 3,
-            effect: ScrollingDotsEffect(
-              activeDotColor: Color(0xff14C38E),
-              activeDotScale: 2,
-              spacing: 8,
-              dotColor: Color.fromARGB(255, 202, 196, 196),
-              dotHeight: 6,
-              dotWidth: 6,
-            ),
-          ),
-        ),
+
         Padding(
-          padding: const EdgeInsets.only(top: 600, left: 45, right: 0),
-          child: Container(
-            //alignment: Alignment.center,
-            width: 270,
-            height: 45,
-            child: TextButton(
-                style: TextButton.styleFrom(
-                    // backgroundColor: Colors.blue,
-                    backgroundColor: Color(0xff14C38E),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    )),
-                onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => Home()));
-                },
-                child: Text(
-                  'Get Started',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'Mulish-Regular',
-                    fontSize: 16,
-                    //fontWeight: FontWeight.bold,
+          padding: const EdgeInsets.only(top: 600),
+          child: Center(
+            child: Column(
+              children: [
+                Container(
+                  // alignment: Alignment(
+                  //   0,
+                  //   0.58,
+                  // ),
+                  child: SmoothPageIndicator(
+                    controller: _controller,
+                    count: 3,
+                    effect: ScrollingDotsEffect(
+                      activeDotColor: Color(0xff14C38E),
+                      activeDotScale: 2,
+                      spacing: 8,
+                      dotColor: Color.fromARGB(255, 202, 196, 196),
+                      dotHeight: 6,
+                      dotWidth: 6,
+                    ),
                   ),
-                )),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                SizedBox(
+                  //alignment: Alignment.center,
+                  width: 270,
+                  height: 45,
+                  child: TextButton(
+                      style: TextButton.styleFrom(
+                          // backgroundColor: Colors.blue,
+                          backgroundColor: Color(0xff14C38E),
+                          // fixedSize: ,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          )),
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Home()));
+                      },
+                      child: Text(
+                        'Get Started',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Mulish-Regular',
+                          fontSize: 16,
+                          //fontWeight: FontWeight.bold,
+                        ),
+                      )),
+                ),
+              ],
+            ),
           ),
         )
 

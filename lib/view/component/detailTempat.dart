@@ -22,7 +22,10 @@ class _DetailTempatState extends State<DetailTempat> {
   @override
   Widget build(BuildContext context) {
     final List<Map> images = [
-      {"image": "https://picsum.photos/id/237/200/300"},
+      {
+        "image":
+            "https://cdn.popbela.com/content-images/post/20200131/1000x6679-1b0e2274922249bf33b28ce274d87531_750x500.jpg"
+      },
       {"image": "https://picsum.photos/id/238/200/300"},
       {"image": "https://picsum.photos/id/239/200/300"},
     ];
