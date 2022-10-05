@@ -26,10 +26,29 @@ class _EmergencyPage extends State<EmergencyPage> {
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
-                height: 300,
-                width: 200,
-              )
+              Center(
+                child: SizedBox(
+                  height: 200,
+                  width: 200,
+                  child: Image.asset('assets/panic1.png'),
+                ),
+              ),
+              Row(
+                children: [
+                  Center(
+                    child: SizedBox(
+                      height: 100,
+                      width: 150,
+                      child: Image.asset('assets/panic2.png'),
+                    ),
+                  )
+                  // SizedBox(
+                  //   height: 100,
+                  //   width: 150,
+                  //   child: Image.asset('assets/panic3.png'),
+                  // )
+                ],
+              ),
             ],
           ),
         ));

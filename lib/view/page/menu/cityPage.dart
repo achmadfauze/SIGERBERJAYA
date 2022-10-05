@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:first_app/view/page/menu/homePage.dart';
 import 'package:provider/provider.dart';
 import 'package:first_app/model/KabupatenModel.dart';
 import 'package:first_app/view/page/detail/kabupaten/Kabupatendetail.dart';
@@ -25,13 +26,13 @@ class _CityPage extends State<CityPage> {
   final List<Space> _Space = [];
   Future<List<Space>> fetchJson() async {
     var response = await http
-        .get(Uri.parse('http://bwa-cozy.herokuapp.com/recommended-spaces'));
-    // .get(Uri.parse('http://192.168.0.87:8080/api/v1/state'));
+        // .get(Uri.parse('http://bwa-cozy.herokuapp.com/recommended-spaces'));
+        .get(Uri.parse('http://api-siger.uacak.com/api/v1/state'));
     print(response);
     List<Space> slist = [];
-
     if (response.statusCode == 200) {
-      var urjson = json.decode(response.body);
+      var urjson = (json.decode(response.body));
+      print(urjson);
       for (var jsondata in urjson) {
         slist.add(Space.fromJson(jsondata));
       }
@@ -78,12 +79,18 @@ class _CityPage extends State<CityPage> {
                 Container(
                     child: InkWell(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => AllKabupatenList()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => (HomePage())));
+                    // AllKabupatenList()));
                   },
-                  child: ListView.builder(
+                  child:
+                      //   if (snapshot.connectionState == ConnectionState.waiting) {
+                      //   return Center(child: CircularProgressIndicator());
+                      // } else {
+                      //   if (snapshot.hasData) {
+                      // _Space.isNotEmpty
+                      //     ?
+                      ListView.builder(
                     itemCount: _Space.length,
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
@@ -95,8 +102,9 @@ class _CityPage extends State<CityPage> {
                         borderRadius: BorderRadius.circular(10),
                         image: DecorationImage(
                             // image: AssetImage(itemsfestifalbudaya[index].image),
-                            image: NetworkImage(
-                                _Space[index].image_url.toString()),
+                            image: NetworkImage(_Space[index].image.toString(),
+                                scale: 1.0),
+                            // _Space[index].image_url.toString()),
                             // _Space[index].image.toString()),
                             fit: BoxFit.cover,
                             opacity: 0.8),
@@ -104,7 +112,8 @@ class _CityPage extends State<CityPage> {
                       child: Container(
                           child: Center(
                             child: Text(
-                              _Space[index].name.toString(),
+                              _Space[index].state.toString(),
+                              // _Space[index].name.toString(),
                               // _Space[index].state.toString(),
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,

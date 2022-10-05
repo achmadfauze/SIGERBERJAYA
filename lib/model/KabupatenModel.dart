@@ -1,26 +1,49 @@
 class Space {
-  late int id;
-  late String name;
-  late String image_url;
+  late String stateCode;
+  late String state;
+  late String image;
 
   Space({
-    required this.id,
-    required this.name,
-    required this.image_url,
+    required this.stateCode,
+    required this.state,
+    required this.image,
   });
 
   factory Space.fromJson(Map<String, dynamic> json) => Space(
-        id: json['id'],
-        name: json['name'],
-        image_url: json['image_url'],
+        stateCode: json['stateCode'],
+        state: json['state'],
+        image: json['image'],
       );
 
   Map<String, dynamic> json() => {
-        "id": id,
-        "name": name,
-        "image_url": image_url,
+        "stateCode": stateCode,
+        "state": state,
+        "image": image,
       };
 }
+// class Space {
+//   late int id;
+//   late String name;
+//   late String image_url;
+
+//   Space({
+//     required this.id,
+//     required this.name,
+//     required this.image_url,
+//   });
+
+//   factory Space.fromJson(Map<String, dynamic> json) => Space(
+//         id: json['id'],
+//         name: json['name'],
+//         image_url: json['image_url'],
+//       );
+
+//   Map<String, dynamic> json() => {
+//         "id": id,
+//         "name": name,
+//         "image_url": image_url,
+//       };
+// }
 // class Space {
 //   late int stateCode;
 //   late String state;

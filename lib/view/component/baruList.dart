@@ -1,9 +1,45 @@
+import 'dart:convert';
+
 import 'package:first_app/model/baru_model.dart';
 import 'package:first_app/view/component/detailTempat.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
-class BaruList extends StatelessWidget {
+class BaruList extends StatefulWidget {
   const BaruList({super.key});
+
+  @override
+  State<BaruList> createState() => _BaruListState();
+}
+
+class _BaruListState extends State<BaruList> {
+  final List<Space> _Space = [];
+
+  Future<List<Space>> fetchJson() async {
+    var response = await http
+        // .get(Uri.parse('http://bwa-cozy.herokuapp.com/recommended-spaces'));
+        .get(Uri.parse('http://api-siger.uacak.com/public/api/v1/newtour/5'));
+    print(response);
+    List<Space> slist = [];
+    if (response.statusCode == 200) {
+      var urjson = (json.decode(response.body));
+      print(urjson);
+      for (var jsondata in urjson) {
+        slist.add(Space.fromJson(jsondata));
+      }
+    }
+    return slist;
+  }
+
+  @override
+  void initState() {
+    fetchJson().then((value) {
+      setState(() {
+        _Space.addAll(value);
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,13 +54,16 @@ class BaruList extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => DetailTempat()));
               },
               child: ListView.builder(
-                itemCount: itemsBaru.length,
+                itemCount: _Space.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) => Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       image: DecorationImage(
-                        image: NetworkImage("${itemsBaru[index]['Image']}"),
+                        image: NetworkImage(
+                          // _Space[index].image.toString(),
+                          "${itemsBaru[index]['Image']}".toString(),
+                        ),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -59,7 +98,7 @@ class BaruList extends StatelessWidget {
                                         width: 4,
                                       ),
                                       Text(
-                                        "0",
+                                        _Space[index].like.toString(),
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontFamily: 'Mulish-Regular',
@@ -91,7 +130,7 @@ class BaruList extends StatelessWidget {
                             padding: const EdgeInsets.only(
                                 left: 12, right: 12, top: 10, bottom: 10),
                             child: Text(
-                              "${itemsBaru[index]['Name']}",
+                              _Space[index].name.toString(),
                               style: TextStyle(
                                 color: Colors.white,
                                 fontFamily: 'Mulish-Regular',
