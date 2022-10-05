@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:first_app/model/recomendationModel.dart';
 import 'package:first_app/view/component/BaruList.dart';
 import 'package:first_app/view/component/Emergency.dart';
@@ -12,6 +14,7 @@ import 'package:first_app/view/page/detail/allPopularList.dart';
 import 'package:first_app/view/page/detail/allRecomendation.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
   @override
@@ -21,6 +24,35 @@ class HomePage extends StatefulWidget {
 }
 
 class _Homepage extends State<HomePage> {
+  final List<Space> _Space = [];
+
+  Future<List<Space>> fetchJson() async {
+    var response = await http
+        // .get(Uri.parse('http://bwa-cozy.herokuapp.com/recommended-spaces'));
+        .get(Uri.parse(
+            'http://api-siger.uacak.com/public/api/v1/recomendedtour/5'));
+    print(response);
+    List<Space> slist = [];
+    if (response.statusCode == 200) {
+      var urjson = (json.decode(response.body));
+      print(urjson);
+      for (var jsondata in urjson) {
+        slist.add(Space.fromJson(jsondata));
+      }
+    }
+    return slist;
+  }
+
+  @override
+  void initState() {
+    fetchJson().then((value) {
+      setState(() {
+        _Space.addAll(value);
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,8 +146,11 @@ class _Homepage extends State<HomePage> {
                   Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: TextField(
+                      scrollPadding: EdgeInsets.all(8),
                       decoration: InputDecoration(
+                        focusColor: Color(0xff14C38E),
                         border: OutlineInputBorder(
+                            gapPadding: 2.0,
                             borderRadius: BorderRadius.circular(8),
                             borderSide:
                                 BorderSide(color: Color(0xff14C38E), width: 1)),
@@ -356,7 +391,8 @@ class _Homepage extends State<HomePage> {
                                       image: DecorationImage(
                                         // image: AssetImage(itemsfestifalbudaya[index].image),
                                         image: NetworkImage(
-                                            "${itemsRecomendation[index]['Image']}"),
+                                            "${itemsRecomendation[index]['Image']}"
+                                                .toString()),
                                         fit: BoxFit.cover,
                                       ),
                                     ),
@@ -398,7 +434,9 @@ class _Homepage extends State<HomePage> {
                                                         width: 6,
                                                       ),
                                                       Text(
-                                                        "${itemsRecomendation[index]['Liked']}",
+                                                        _Space[index]
+                                                            .like
+                                                            .toString(),
                                                         style: TextStyle(
                                                           color: Colors.white,
                                                           fontFamily:
@@ -440,7 +478,7 @@ class _Homepage extends State<HomePage> {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  "${itemsRecomendation[index]['Name']}",
+                                                  _Space[index].name.toString(),
                                                   style: TextStyle(
                                                     color: Colors.white,
                                                     fontFamily:
@@ -457,7 +495,9 @@ class _Homepage extends State<HomePage> {
                                                   children: [
                                                     //Icon(Icons.location_on,size: 18,color: Colors.white,),
                                                     Text(
-                                                      "${itemsRecomendation[index]['Address']}",
+                                                      _Space[index]
+                                                          .locationName
+                                                          .toString(),
                                                       maxLines: 1,
                                                       overflow:
                                                           TextOverflow.ellipsis,
