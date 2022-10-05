@@ -20,8 +20,17 @@ class _EmergencyPage extends State<EmergencyPage> {
         debugShowCheckedModeBanner: false,
         home: Scaffold(
           appBar: AppBar(
-            title: Text("Keadaan Darurat"), //title aof appbar
+            title: Text("Tombol Darurat"), //title aof appbar
             backgroundColor: Color(0xff00a877),
+          ),
+          body: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 300,
+                width: 200,
+              )
+            ],
           ),
         ));
   }

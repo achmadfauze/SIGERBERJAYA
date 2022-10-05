@@ -1,23 +1,69 @@
-// import 'package:flutter/material.dart';
+class UsersDetail {
+  final int id;
+  final String name;
+  final String username;
+  final String email;
+  final Address address;
+  final String phone;
+  final String website;
+  final Company company;
 
-// class Recomendation {
-//   String title;
-//   String address;
-//   String description;
-//   String image;
+  UsersDetail(
+      {required this.id,
+      required this.name,
+      required this.username,
+      required this.email,
+      required this.address,
+      required this.phone,
+      required this.website,
+      required this.company});
 
-//   Recomendation({
-//     @required this.title,
-//     @required this.address,
-//     @required this.description,
-//     @required this.image,
-//   });
-// }
+  factory UsersDetail.fromJson(Map<String, dynamic> json) {
+    return new UsersDetail(
+        id: json['id'],
+        name: json['name'],
+        username: json['username'],
+        email: json['email'],
+        address: Address.fromJson(json['address']),
+        phone: json['phone'],
+        website: json['website'],
+        company: Company.fromJson(json['company']));
+  }
+}
 
-// List<Recomendation> RecomendationList = [
-//   Recomendation(
-//       title: "Slanik Waterpark, Jati Agung",
-//       address: "Jl. Raya Karang anyar",
-//       description: "babajbajnajan",
-//       image: "")
-// ];
+class Address {
+  final String street;
+  final String suite;
+  final String city;
+  final String zipcode;
+
+  Address(
+      {required this.street,
+      required this.suite,
+      required this.city,
+      required this.zipcode});
+
+  factory Address.fromJson(Map<String, dynamic> json) {
+    return new Address(
+      street: json['street'],
+      suite: json['suite'],
+      city: json['city'],
+      zipcode: json['zipcode'],
+    );
+  }
+}
+
+class Company {
+  final String name;
+  final String catchPhrase;
+  final String bs;
+
+  Company({required this.name, required this.catchPhrase, required this.bs});
+  factory Company.fromJson(Map<String, dynamic> json) {
+    return new Company(
+      name: json['name'],
+      catchPhrase: json['catchPhrase'],
+      bs: json['bs'],
+    );
+  }
+}

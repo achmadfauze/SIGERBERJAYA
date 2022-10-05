@@ -55,14 +55,14 @@ class _ProfilPageState extends State<ProfilPage> {
             padding: EdgeInsets.only(top: bodyHeight * 0.05),
             children: [
               CircleAvatar(
-                radius: bodyWidth * 0.25,
+                radius: bodyWidth * 0.20,
                 backgroundColor: Colors.grey,
                 child: ClipOval(
                   child: Column(
                     children: [
                       new SizedBox(
-                        width: bodyWidth * 0.5,
-                        height: bodyWidth * 0.5,
+                        width: bodyWidth * 0.40,
+                        height: bodyWidth * 0.40,
                         child: Image.network(
                           "https://picsum.photos/200/200",
                           fit: BoxFit.fill,
@@ -77,37 +77,54 @@ class _ProfilPageState extends State<ProfilPage> {
                 child: Text(
                   "Hiskia Perdamen Pulungan",
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 20 + (bodyHeight * 0.01)),
+                  style: TextStyle(
+                      fontFamily: 'Roboto-Regular',
+                      fontSize: 16 + (bodyHeight * 0.01),
+                      fontWeight: FontWeight.bold),
                 ),
               ),
               //profile
               Padding(
-                padding: EdgeInsets.only(
-                    top: bodyHeight * 0.05, left: bodyWidth * 0.05),
+                padding:
+                    EdgeInsets.only(top: bodyHeight * 0.02, left: 12, right: 8),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ListTile(
-                      title: Text("hiski46@gmail.com"),
+                      title: Text(
+                        "hiski46@gmail.com",
+                        style: TextStyle(
+                          fontFamily: 'Roboto-Regular',
+                        ),
+                      ),
                       leading: Icon(
                         Icons.email,
                         // color: Colors.blue,
                       ),
                     ),
                     ListTile(
-                      title: Text("25-09-2022"),
+                      title: Text("25-09-2022",
+                          style: TextStyle(
+                            fontFamily: 'Roboto-Regular',
+                          )),
                       leading: Icon(
                         Icons.watch_later_sharp,
                         // color: Colors.blue,
                       ),
                     ),
                     ListTile(
-                      title: Text("Edit Profile"),
+                      title: Text("Edit Profile",
+                          style: TextStyle(
+                            fontFamily: 'Roboto-Regular',
+                          )),
                       leading: Icon(
                         Icons.edit,
                         // color: Colors.blue,
                       ),
-                      trailing: Icon(Icons.arrow_forward_ios),
+                      trailing: Icon(
+                        Icons.arrow_forward_ios,
+                        size: 20,
+                      ),
                       onTap: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
@@ -119,32 +136,44 @@ class _ProfilPageState extends State<ProfilPage> {
                       },
                     ),
                     ListTile(
-                      title: Text("Keluar"),
+                      title: Text("Keluar",
+                          style: TextStyle(
+                            fontFamily: 'Roboto-Regular',
+                          )),
                       leading: Icon(
                         Icons.logout,
                         // color: Colors.blue,
                       ),
-                      trailing: Icon(Icons.arrow_forward_ios),
+                      trailing: Icon(
+                        Icons.arrow_forward_ios,
+                        size: 20,
+                      ),
                       onTap: () {},
                     ),
                   ],
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(
-                    top: bodyHeight * 0.05, left: bodyWidth * 0.05),
+                padding: EdgeInsets.only(top: bodyHeight * 0.02, left: 30),
+                child: Text(
+                  "Pengaturan Umum",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              Padding(
+                padding:
+                    EdgeInsets.only(top: bodyHeight * 0.02, left: 12, right: 8),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Pengaturan Umum",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
                     ListTile(
-                      title: Text("Dapatkan Pemberitahuan"),
+                      title: Text("Dapatkan Pemberitahuan",
+                          style: TextStyle(
+                            fontFamily: 'Roboto-Regular',
+                          )),
                       leading: Icon(
                         Icons.notifications,
                         // color: Colors.blue,
@@ -159,12 +188,18 @@ class _ProfilPageState extends State<ProfilPage> {
                       ),
                     ),
                     ListTile(
-                      title: Text("Bahasa"),
+                      title: Text("Bahasa",
+                          style: TextStyle(
+                            fontFamily: 'Roboto-Regular',
+                          )),
                       leading: Icon(
                         Icons.language,
                         // color: Colors.blue,
                       ),
-                      trailing: Icon(Icons.arrow_forward_ios),
+                      trailing: Icon(
+                        Icons.arrow_forward_ios,
+                        size: 20,
+                      ),
                       onTap: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
