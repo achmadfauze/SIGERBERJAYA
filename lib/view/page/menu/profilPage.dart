@@ -2,6 +2,8 @@ import 'package:first_app/view/component/editBahasa.dart';
 import 'package:first_app/view/component/editProfile.dart';
 import 'package:flutter/material.dart';
 
+import '../../component/Emergency.dart';
+
 class ProfilPage extends StatefulWidget {
   const ProfilPage({super.key});
 
@@ -214,6 +216,23 @@ class _ProfilPageState extends State<ProfilPage> {
                 ),
               ),
             ],
+          ),
+        ),
+        floatingActionButton: SizedBox(
+          height: MediaQuery.of(context).size.width * 0.2,
+          width: MediaQuery.of(context).size.width * 0.2,
+          child: FloatingActionButton(
+            backgroundColor: Colors.amber,
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => EmergencyPage()));
+            },
+            child: Image(
+              image: AssetImage(
+                'assets/icons/emergency.png',
+              ),
+              height: 40,
+            ),
           ),
         ),
       ),

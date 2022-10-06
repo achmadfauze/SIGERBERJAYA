@@ -7,6 +7,8 @@ import 'package:first_app/view/page/detail/kabupaten/Kabupatendetail.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import '../../component/Emergency.dart';
+
 class CityPage extends StatefulWidget {
   // const CityPage({super.key});
 
@@ -131,6 +133,23 @@ class _CityPage extends State<CityPage> {
                   ),
                 ),
               ],
+            ),
+          ),
+        ),
+        floatingActionButton: SizedBox(
+          height: MediaQuery.of(context).size.width * 0.2,
+          width: MediaQuery.of(context).size.width * 0.2,
+          child: FloatingActionButton(
+            backgroundColor: Colors.amber,
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => EmergencyPage()));
+            },
+            child: Image(
+              image: AssetImage(
+                'assets/icons/emergency.png',
+              ),
+              height: 40,
             ),
           ),
         ),
