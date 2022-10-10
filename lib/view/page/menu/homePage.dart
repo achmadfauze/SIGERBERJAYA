@@ -4,6 +4,7 @@ import 'package:first_app/model/recomendationModel.dart';
 import 'package:first_app/view/component/BaruList.dart';
 import 'package:first_app/view/component/Emergency.dart';
 import 'package:first_app/view/component/carousel.dart';
+import 'package:first_app/view/component/detailRecomendation.dart';
 import 'package:first_app/view/component/detailTempat.dart';
 import 'package:first_app/view/component/festivalBudayaList.dart';
 import 'package:first_app/view/component/pdfviewer.dart';
@@ -218,7 +219,7 @@ class _Homepage extends State<HomePage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => HomePage()));
+                                    builder: (context) => AllPopularList()));
                           },
                         ),
 
@@ -371,18 +372,19 @@ class _Homepage extends State<HomePage> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Container(
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => DetailTempat()));
-                              },
-                              child: ListView.builder(
-                                itemCount: itemsRecomendation.length,
-                                physics: NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemBuilder: (context, index) => Container(
+                            child: ListView.builder(
+                              itemCount: itemsRecomendation.length,
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) => InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              DetailRecomendation()));
+                                },
+                                child: Container(
                                     height: 200,
                                     width: double.infinity,
                                     margin: EdgeInsets.only(bottom: 8),
@@ -410,7 +412,7 @@ class _Homepage extends State<HomePage> {
                                                       BorderRadius.only(
                                                           bottomLeft:
                                                               Radius.circular(
-                                                                  15),
+                                                                  28),
                                                           topRight:
                                                               Radius.circular(
                                                                   10)),
@@ -493,7 +495,11 @@ class _Homepage extends State<HomePage> {
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
-                                                    //Icon(Icons.location_on,size: 18,color: Colors.white,),
+                                                    Icon(
+                                                      Icons.location_on,
+                                                      size: 16,
+                                                      color: Colors.white,
+                                                    ),
                                                     Text(
                                                       _Space[index]
                                                           .locationName

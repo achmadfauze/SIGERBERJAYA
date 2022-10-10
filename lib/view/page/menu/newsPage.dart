@@ -3,6 +3,8 @@ import 'package:first_app/view/component/detailArtikel.dart';
 import 'package:first_app/view/component/detailTempat.dart';
 import 'package:flutter/material.dart';
 
+import '../../component/Emergency.dart';
+
 class NewsPage extends StatelessWidget {
   const NewsPage({super.key});
 
@@ -295,6 +297,23 @@ class NewsPage extends StatelessWidget {
                 //     )),
               ),
             ),
+          ),
+        ),
+      ),
+      floatingActionButton: SizedBox(
+        height: MediaQuery.of(context).size.width * 0.2,
+        width: MediaQuery.of(context).size.width * 0.2,
+        child: FloatingActionButton(
+          backgroundColor: Colors.amber,
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => EmergencyPage()));
+          },
+          child: Image(
+            image: AssetImage(
+              'assets/icons/emergency.png',
+            ),
+            height: 40,
           ),
         ),
       ),

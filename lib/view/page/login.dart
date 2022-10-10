@@ -15,7 +15,8 @@ class LoginPage extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/bg_login.png"),
+                opacity: 1,
+                image: AssetImage("assets/Menara-Siger-Lampung.jpg"),
                 fit: BoxFit.cover,
               ),
             ),
@@ -85,12 +86,12 @@ class LoginPage extends StatelessWidget {
                   //textAlign: TextAlign.center,
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 16,
                 ),
                 Image.asset(
-                  'assets/logo.png',
+                  'assets/Lampung.png',
                   height: 180,
-                  width: 180,
+                  // width: 180,
                 ),
                 const SizedBox(
                   height: 10,
@@ -171,6 +172,7 @@ class LoginPage extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => OnBoardPage()));
+                            // builder: (context) => OnBoardPage()));
                           },
                         ),
                       ),
