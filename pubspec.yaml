@@ -54,6 +54,8 @@ dependencies:
   json_serializable: ^6.4.1
   build_runner: ^2.2.1
   json_annotation: ^4.7.0
+  google_sign_in: ^5.4.2
+  firebase_auth: ^3.11.2
 
 dev_dependencies:
   flutter_test:

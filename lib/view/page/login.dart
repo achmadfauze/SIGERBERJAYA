@@ -1,179 +1,220 @@
+import 'package:first_app/view/page/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'onboarding.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter/foundation.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
-class LoginPage extends StatelessWidget {
+final GoogleSignIn _googleSignIn = GoogleSignIn(
+  scopes: [
+    'email',
+    'https://www.googleapis.com/auth/contacts.readonly',
+  ],
+);
+
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  GoogleSignInAccount? _currentUser;
+
+  @override
+  void initState() {
+    _googleSignIn.onCurrentUserChanged.listen((account) {
+      setState(() {
+        _currentUser = account;
+      });
+    });
+    _googleSignIn.signInSilently();
+    super.initState();
+  }
+
+  Future<void> _handleSignIn() async {
+    try {
+      await _googleSignIn.signIn();
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => OnBoardPage()));
+    } catch (error) {
+      if (kDebugMode) {
+        print(error);
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // color: Colors.white,
-      body: Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                opacity: 1,
-                image: AssetImage("assets/Menara-Siger-Lampung.jpg"),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          // Image.asset(
-          //   'assets/bg_login.png',
-          //   height: 200,
-          //   width: 60,
-          // ),
-          Padding(
-            padding: const EdgeInsets.only(left: 235, top: 40),
-            child: Row(
-              //crossAxisAlignment: CrossAxisAlignment.end,
+    return _currentUser != null
+        ? Home()
+        : Scaffold(
+            // color: Colors.white,
+            body: Stack(
               children: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => OnBoardPage()));
-                    },
-                    child: const Text(
-                      "Lewati",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Roboto-Regular',
-                        fontSize: 16,
-                      ),
-                    )),
-                const SizedBox(
-                  width: 24,
-                ),
-                const Icon(
-                  Icons.language,
-                  size: 22,
-                  color: Colors.white,
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 100),
-            child: Column(
-              // mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  "Selamat Datanggg di",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'Roboto-Regular',
-                    fontSize: 20,
+                Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      opacity: 1,
+                      image: AssetImage("assets/Menara-Siger-Lampung.jpg"),
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                  //textAlign: TextAlign.center,
                 ),
-                const SizedBox(
-                  height: 5,
-                ),
-                const Text(
-                  "SI SIGER BERJAYA",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'Roboto-Bold',
-                    fontSize: 35,
-                    // color: Colors.white,
-                    fontWeight: FontWeight.w900,
-                  ),
-                  //textAlign: TextAlign.center,
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                Image.asset(
-                  'assets/Lampung.png',
-                  height: 180,
-                  // width: 180,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const SizedBox(
-                  height: 22,
-                ),
-                const Text(
-                  //TextAlign.center;
-                  "Jelajahi setiap tempat terkenal di\nLampung dan temukan hotel\n terdekat serta restoran dengan\n cara termudah. Dapatkan petunjuk",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'Roboto-Regular',
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                const Text(
-                  //TextAlign.center;
-                  "arah terkini, perkiraan biaya dan\njelalahi blog perjalanan tanpa rasa\nkhawatir akan keamanan anda\nselama perjalanan.",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'Roboto-Regular',
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Center(
-                  child: Container(
-                      height: 3,
-                      width: 180,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Color(0xff14C38E),
-                      )),
-                ),
-                // const SizedBox(
-                //   height: 100,
+                // Image.asset(
+                //   'assets/bg_login.png',
+                //   height: 200,
+                //   width: 60,
                 // ),
-                Flexible(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                Padding(
+                  padding: const EdgeInsets.only(left: 235, top: 40),
+                  child: Row(
+                    //crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Container(
-                        alignment: Alignment.center,
-                        padding: EdgeInsets.all(10),
-                        child: ElevatedButton.icon(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xff14C38E),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 60, vertical: 1),
-                          ),
-                          // icon: Icon(Icons.language),
-                          icon: const Text(
-                            "G",
-                            style: TextStyle(
-                                fontFamily: 'RedHat',
-                                fontSize: 30,
-                                fontWeight: FontWeight.w700),
-                          ),
-                          label: const Text(
-                            "Sign In With Google",
-                            style: TextStyle(
-                              fontFamily: 'Roboto-Regular',
-                              fontSize: 16,
-                            ),
-                          ),
-                          // onPressed: () async {
-                          //   Navigator.push(context,
-                          //       MaterialPageRoute(builder: (context) => Home()));
+                      TextButton(
                           onPressed: () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => OnBoardPage()));
-                            // builder: (context) => OnBoardPage()));
                           },
+                          child: const Text(
+                            "Lewati",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Roboto-Regular',
+                              fontSize: 16,
+                            ),
+                          )),
+                      const SizedBox(
+                        width: 24,
+                      ),
+                      const Icon(
+                        Icons.language,
+                        size: 22,
+                        color: Colors.white,
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 100),
+                  child: Column(
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "Selamat Datanggg di",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Roboto-Regular',
+                          fontSize: 20,
+                        ),
+                        //textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      const Text(
+                        "SI SIGER BERJAYA",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Roboto-Bold',
+                          fontSize: 35,
+                          // color: Colors.white,
+                          fontWeight: FontWeight.w900,
+                        ),
+                        //textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Image.asset(
+                        'assets/Lampung.png',
+                        height: 180,
+                        // width: 180,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const SizedBox(
+                        height: 22,
+                      ),
+                      const Text(
+                        //TextAlign.center;
+                        "Jelajahi setiap tempat terkenal di\nLampung dan temukan hotel\n terdekat serta restoran dengan\n cara termudah. Dapatkan petunjuk",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Roboto-Regular',
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const Text(
+                        //TextAlign.center;
+                        "arah terkini, perkiraan biaya dan\njelalahi blog perjalanan tanpa rasa\nkhawatir akan keamanan anda\nselama perjalanan.",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Roboto-Regular',
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Center(
+                        child: Container(
+                            height: 3,
+                            width: 180,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Color(0xff14C38E),
+                            )),
+                      ),
+                      // const SizedBox(
+                      //   height: 100,
+                      // ),
+                      Flexible(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.all(10),
+                              child: ElevatedButton.icon(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Color(0xff14C38E),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 60, vertical: 1),
+                                ),
+                                // icon: Icon(Icons.language),
+                                icon: const Text(
+                                  "G",
+                                  style: TextStyle(
+                                      fontFamily: 'RedHat',
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.w700),
+                                ),
+                                label: const Text(
+                                  "Sign In With Google",
+                                  style: TextStyle(
+                                    fontFamily: 'Roboto-Regular',
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                // onPressed: () async {
+                                //   Navigator.push(context,
+                                //       MaterialPageRoute(builder: (context) => Home()));
+                                onPressed: () async {
+                                  await _handleSignIn();
+                                },
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
@@ -181,9 +222,6 @@ class LoginPage extends StatelessWidget {
                 ),
               ],
             ),
-          ),
-        ],
-      ),
-    );
+          );
   }
 }

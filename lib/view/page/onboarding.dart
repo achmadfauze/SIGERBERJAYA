@@ -20,77 +20,81 @@ class _OnBoardPageState extends State<OnBoardPage> {
   PageController _controller = PageController();
   @override
   Widget build(BuildContext context) {
+    final MediaQueryHeight =
+        MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     return Scaffold(
-        body: Stack(
-      children: [
-        PageView(
-          controller: _controller,
-          children: const [
-            IntroPage1(),
-            IntroPage2(),
-            IntroPage3(),
-          ],
-        ),
-
-        Padding(
-          padding: const EdgeInsets.only(top: 600),
-          child: Center(
-            child: Column(
-              children: [
-                Container(
-                  // alignment: Alignment(
-                  //   0,
-                  //   0.58,
-                  // ),
-                  child: SmoothPageIndicator(
-                    controller: _controller,
-                    count: 3,
-                    effect: ScrollingDotsEffect(
-                      activeDotColor: Color(0xff14C38E),
-                      activeDotScale: 2,
-                      spacing: 8,
-                      dotColor: Color.fromARGB(255, 202, 196, 196),
-                      dotHeight: 6,
-                      dotWidth: 6,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                SizedBox(
-                  //alignment: Alignment.center,
-                  width: 270,
-                  height: 45,
-                  child: TextButton(
-                      style: TextButton.styleFrom(
-                          // backgroundColor: Colors.blue,
-                          backgroundColor: Color(0xff14C38E),
-                          // fixedSize: ,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          )),
-                      onPressed: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Home()));
-                      },
-                      child: Text(
-                        'Get Started',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'Mulish-Regular',
-                          fontSize: 16,
-                          //fontWeight: FontWeight.bold,
-                        ),
-                      )),
-                ),
+      body: Container(
+        height: MediaQueryHeight,
+        child: Stack(
+          children: [
+            PageView(
+              controller: _controller,
+              children: const [
+                IntroPage1(),
+                IntroPage2(),
+                IntroPage3(),
               ],
             ),
-          ),
-        )
+            Container(
+              alignment: Alignment.bottomCenter,
+              child: Column(
+                children: [
+                  SizedBox(height: MediaQueryHeight * 0.85),
+                  Container(
+                    // alignment: Alignment(
+                    //   0,
+                    //   0.58,
+                    // ),
+                    child: SmoothPageIndicator(
+                      controller: _controller,
+                      count: 3,
+                      effect: ScrollingDotsEffect(
+                        activeDotColor: Color(0xff14C38E),
+                        activeDotScale: 2,
+                        spacing: 8,
+                        dotColor: Color.fromARGB(255, 202, 196, 196),
+                        dotHeight: 6,
+                        dotWidth: 6,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: MediaQueryHeight * 0.03,
+                  ),
+                  SizedBox(
+                    //alignment: Alignment.center,
+                    width: 270,
+                    height: 45,
+                    child: TextButton(
+                        style: TextButton.styleFrom(
+                            // backgroundColor: Colors.blue,
+                            backgroundColor: Color(0xff14C38E),
+                            // fixedSize: ,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            )),
+                        onPressed: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Home()));
+                        },
+                        child: Text(
+                          'Get Started',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Mulish-Regular',
+                            fontSize: 16,
+                            //fontWeight: FontWeight.bold,
+                          ),
+                        )),
+                  ),
+                ],
+              ),
+            ),
 
-        // SmoothPageIndicator(controller: _controller, count: 3)
-      ],
-    ));
+            // SmoothPageIndicator(controller: _controller, count: 3)
+          ],
+        ),
+      ),
+    );
   }
 }
