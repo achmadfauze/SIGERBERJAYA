@@ -13,8 +13,10 @@ import 'package:first_app/view/component/test.dart';
 import 'package:first_app/view/page/detail/allBaruList.dart';
 import 'package:first_app/view/page/detail/allPopularList.dart';
 import 'package:first_app/view/page/detail/allRecomendation.dart';
+import 'package:first_app/view/page/menu/profilPage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
@@ -24,8 +26,16 @@ class HomePage extends StatefulWidget {
   }
 }
 
+final GoogleSignIn _googleSignIn = GoogleSignIn(
+  scopes: [
+    'email',
+    'https://www.googleapis.com/auth/contacts.readonly',
+  ],
+);
+
 class _Homepage extends State<HomePage> {
   final List<Space> _Space = [];
+  GoogleSignInAccount? _currentUser;
 
   Future<List<Space>> fetchJson() async {
     var response = await http
@@ -51,6 +61,12 @@ class _Homepage extends State<HomePage> {
         _Space.addAll(value);
       });
     });
+    _googleSignIn.onCurrentUserChanged.listen((account) {
+      setState(() {
+        _currentUser = account;
+      });
+    });
+    _googleSignIn.signInSilently();
     super.initState();
   }
 
@@ -126,10 +142,13 @@ class _Homepage extends State<HomePage> {
                                 shape: BoxShape.circle,
                                 //color: Colors.green,
                                 image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: NetworkImage(
-                                      "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-                                    )),
+                                  fit: BoxFit.cover,
+                                  image: NetworkImage(
+                                    _currentUser == null
+                                        ? ""
+                                        : _currentUser!.photoUrl.toString(),
+                                  ),
+                                ),
                               ),
                             )
                           ],

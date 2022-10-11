@@ -1,4 +1,3 @@
-import 'package:first_app/view/component/Emergency.dart';
 import 'package:provider/provider.dart';
 import 'package:first_app/providers/space_provider.dart';
 import 'package:first_app/view/component/editProfile.dart';

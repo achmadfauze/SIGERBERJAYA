@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "255785924129",
+    "project_id": "siger-berjaya-4a3c7",
+    "storage_bucket": "siger-berjaya-4a3c7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:255785924129:android:ccdc8a93738b9a87585560",
+        "android_client_info": {
+          "package_name": "com.example.first_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "255785924129-flcro683elk78brjbg6p046bcetcpg9o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.first_app",
+            "certificate_hash": "7840e5053ffc38093c34c6168653436230a3bfd4"
+          }
+        },
+        {
+          "client_id": "255785924129-f5p3mfg7v66es3gateqhlppo3bcvl13e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpqqkVekD5G61-gfWHsjJuCqIS86tJ4i4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "255785924129-f5p3mfg7v66es3gateqhlppo3bcvl13e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

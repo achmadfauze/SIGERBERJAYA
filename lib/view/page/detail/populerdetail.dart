@@ -9,7 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../model/popular_model.dart';
 import '../../component/listLayanan.dart';
 
-class DetailPlace extends StatelessWidget {
+class DetailPlace extends StatefulWidget {
   // const DetailPlace({super.key});
 
   final Populer populer;
@@ -18,7 +18,13 @@ class DetailPlace extends StatelessWidget {
     required this.populer,
   }) : super(key: key);
 
+  @override
+  State<DetailPlace> createState() => _DetailPlaceState();
+}
+
+class _DetailPlaceState extends State<DetailPlace> {
   final controller = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     final myAppBar = ScrollAppBar(
@@ -27,7 +33,9 @@ class DetailPlace extends StatelessWidget {
       backgroundColor: Colors.transparent,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(15), bottomRight: Radius.circular(15)),
+          bottomLeft: Radius.circular(15),
+          bottomRight: Radius.circular(15),
+        ),
       ),
       flexibleSpace: ClipRRect(
         // borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10)),
@@ -60,49 +68,11 @@ class DetailPlace extends StatelessWidget {
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(250),
-          child: AppBar(
-            elevation: 0,
-            actions: [
-              IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.favorite_border),
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.bookmark_border),
-              )
-            ],
-            flexibleSpace: ClipRRect(
-              // borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10)),
-              child: Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage(
-                      "https://cdn0-production-images-kly.akamaized.net/m-HxppUnYITVR8z1QAVSQsE90Sc=/1200x1200/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/1005140/original/081444800_1443597770-8.jpg",
-                    ),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Container(
-                        width: double.infinity,
-                        height: 20,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20)),
-                          color: Colors.white,
-                        )),
-                  ],
-                ),
-              ),
-            ),
-          ),
+          child: myAppBar,
         ),
         body: Container(
             child: ListView(
+          controller: controller,
           children: [
             // SizedBox(
             //   height: 300,
@@ -126,7 +96,7 @@ class DetailPlace extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          populer.name.toString(),
+                          widget.populer.name.toString(),
                           style: TextStyle(
                               fontFamily: 'Roboto-Regular',
                               fontSize: 20,
@@ -143,7 +113,7 @@ class DetailPlace extends StatelessWidget {
                               width: 4,
                             ),
                             Text(
-                              populer.like.toString(),
+                              widget.populer.like.toString(),
                               style: TextStyle(
                                 fontFamily: 'Roboto-Regular',
                                 fontSize: 18,
@@ -161,7 +131,7 @@ class DetailPlace extends StatelessWidget {
                               width: 4,
                             ),
                             Text(
-                              populer.like.toString(),
+                              widget.populer.like.toString(),
                               style: TextStyle(
                                 fontFamily: 'Roboto-Regular',
                                 fontSize: 18,
@@ -188,7 +158,7 @@ class DetailPlace extends StatelessWidget {
                             ),
                             Flexible(
                               child: Text(
-                                populer.locationName.toString(),
+                                widget.populer.locationName.toString(),
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(

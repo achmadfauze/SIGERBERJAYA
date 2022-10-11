@@ -1,8 +1,21 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:first_app/view/component/editBahasa.dart';
 import 'package:first_app/view/component/editProfile.dart';
+import 'package:first_app/view/page/login.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../component/Emergency.dart';
+
+final GoogleSignIn _googleSignIn = GoogleSignIn(
+  scopes: [
+    'email',
+    'https://www.googleapis.com/auth/contacts.readonly',
+  ],
+);
+final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
 class ProfilPage extends StatefulWidget {
   const ProfilPage({super.key});
@@ -27,11 +40,61 @@ class _ProfilPageState extends State<ProfilPage> {
     900: Color.fromRGBO(20, 195, 142, 1),
   });
 
+  GoogleSignInAccount? _currentUser;
+  @override
+  void initState() {
+    super.initState();
+    _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount? account) {
+      setState(() {
+        _currentUser = account;
+      });
+      // if (_currentUser != null) {
+      //   _handleGetContact(_currentUser!);
+      // }
+    });
+    _googleSignIn.signInSilently();
+  }
+
+  Future<void> _handleSignIn() async {
+    try {
+      await _googleSignIn.signIn();
+    } catch (error) {
+      print(error);
+    }
+  }
+  // User? _currentUser;
+  // User? _currentUser = await FirebaseAuth.instance.currentUser;
+  // void getCurrentUser() {
+  //   _currentUser = firebaseAuth.currentUser;
+  // }
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   Firebase.initializeApp().whenComplete(() {
+  //     print("completed");
+  //     setState(() {
+  //       FirebaseAuth.instance.authStateChanges().listen((User? user) {
+  //         if (user != null) {
+  //           _currentUser = user;
+  //         }
+  //       });
+  //     });
+  //   });
+  // }
+  // Future getCurrentUser() async {
+  //   _currentUser = await FirebaseAuth.instance.currentUser;
+  // }
+
+  Future<void> _handleSignOut() => _googleSignIn.disconnect();
   @override
   Widget build(BuildContext context) {
     final MediaQueryHeight = MediaQuery.of(context).size.height;
     final MediaQueryWidth = MediaQuery.of(context).size.width;
     final bodyWidth = MediaQueryWidth;
+    (_currentUser != null)
+        ? print(_currentUser!.displayName.toString())
+        : print("tidak ada");
     final appBar = AppBar(
       title: Text("Profil"),
     );
@@ -56,28 +119,36 @@ class _ProfilPageState extends State<ProfilPage> {
           child: ListView(
             padding: EdgeInsets.only(top: bodyHeight * 0.05),
             children: [
-              CircleAvatar(
-                radius: bodyWidth * 0.20,
-                backgroundColor: Colors.grey,
-                child: ClipOval(
-                  child: Column(
-                    children: [
-                      new SizedBox(
-                        width: bodyWidth * 0.40,
-                        height: bodyWidth * 0.40,
-                        child: Image.network(
-                          "https://picsum.photos/200/200",
-                          fit: BoxFit.fill,
+              _currentUser == null
+                  ? SizedBox(
+                      height: 20,
+                    )
+                  : CircleAvatar(
+                      radius: bodyWidth * 0.20,
+                      backgroundColor: Colors.grey,
+                      child: ClipOval(
+                        child: Column(
+                          children: [
+                            new SizedBox(
+                              width: bodyWidth * 0.40,
+                              height: bodyWidth * 0.40,
+                              child: Image.network(
+                                _currentUser != null
+                                    ? _currentUser!.photoUrl.toString()
+                                    : '',
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
+                    ),
               Padding(
                 padding: EdgeInsets.only(top: bodyHeight * 0.05),
                 child: Text(
-                  "Hiskia Perdamen Pulungan",
+                  _currentUser != null
+                      ? _currentUser!.displayName.toString()
+                      : '',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontFamily: 'Roboto-Regular',
@@ -86,75 +157,111 @@ class _ProfilPageState extends State<ProfilPage> {
                 ),
               ),
               //profile
-              Padding(
-                padding:
-                    EdgeInsets.only(top: bodyHeight * 0.02, left: 12, right: 8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ListTile(
-                      title: Text(
-                        "hiski46@gmail.com",
-                        style: TextStyle(
-                          fontFamily: 'Roboto-Regular',
+              _currentUser == null
+                  ? Padding(
+                      padding: const EdgeInsets.only(left: 12),
+                      child: ListTile(
+                        title: Text("Masuk",
+                            style: TextStyle(
+                              fontFamily: 'Roboto-Regular',
+                            )),
+                        leading: Icon(
+                          Icons.login,
+                          // color: Colors.blue,
                         ),
+                        trailing: Icon(
+                          Icons.arrow_forward_ios,
+                          size: 20,
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LoginPage(),
+                            ),
+                          );
+                        },
                       ),
-                      leading: Icon(
-                        Icons.email,
-                        // color: Colors.blue,
-                      ),
-                    ),
-                    ListTile(
-                      title: Text("25-09-2022",
-                          style: TextStyle(
-                            fontFamily: 'Roboto-Regular',
-                          )),
-                      leading: Icon(
-                        Icons.watch_later_sharp,
-                        // color: Colors.blue,
-                      ),
-                    ),
-                    ListTile(
-                      title: Text("Edit Profile",
-                          style: TextStyle(
-                            fontFamily: 'Roboto-Regular',
-                          )),
-                      leading: Icon(
-                        Icons.edit,
-                        // color: Colors.blue,
-                      ),
-                      trailing: Icon(
-                        Icons.arrow_forward_ios,
-                        size: 20,
-                      ),
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: ((context) {
-                              return EditProfile();
-                            }),
+                    )
+                  : Padding(
+                      padding: EdgeInsets.only(
+                          top: bodyHeight * 0.02, left: 12, right: 8),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ListTile(
+                            title: Text(
+                              _currentUser != null
+                                  ? _currentUser!.email.toString()
+                                  : '',
+                              style: TextStyle(
+                                fontFamily: 'Roboto-Regular',
+                              ),
+                            ),
+                            leading: Icon(
+                              Icons.email,
+                              // color: Colors.blue,
+                            ),
                           ),
-                        );
-                      },
-                    ),
-                    ListTile(
-                      title: Text("Keluar",
-                          style: TextStyle(
-                            fontFamily: 'Roboto-Regular',
-                          )),
-                      leading: Icon(
-                        Icons.logout,
-                        // color: Colors.blue,
+                          ListTile(
+                            title: Text("25-09-2022",
+                                style: TextStyle(
+                                  fontFamily: 'Roboto-Regular',
+                                )),
+                            leading: Icon(
+                              Icons.watch_later_sharp,
+                              // color: Colors.blue,
+                            ),
+                          ),
+                          ListTile(
+                            title: Text("Edit Profile",
+                                style: TextStyle(
+                                  fontFamily: 'Roboto-Regular',
+                                )),
+                            leading: Icon(
+                              Icons.edit,
+                              // color: Colors.blue,
+                            ),
+                            trailing: Icon(
+                              Icons.arrow_forward_ios,
+                              size: 20,
+                            ),
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: ((context) {
+                                    return EditProfile();
+                                  }),
+                                ),
+                              );
+                            },
+                          ),
+                          ListTile(
+                            title: Text("Keluar",
+                                style: TextStyle(
+                                  fontFamily: 'Roboto-Regular',
+                                )),
+                            leading: Icon(
+                              Icons.logout,
+                              // color: Colors.blue,
+                            ),
+                            trailing: Icon(
+                              Icons.arrow_forward_ios,
+                              size: 20,
+                            ),
+                            onTap: () async {
+                              _handleSignOut();
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => LoginPage(),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
                       ),
-                      trailing: Icon(
-                        Icons.arrow_forward_ios,
-                        size: 20,
-                      ),
-                      onTap: () {},
                     ),
-                  ],
-                ),
-              ),
               Padding(
                 padding: EdgeInsets.only(top: bodyHeight * 0.02, left: 30),
                 child: Text(
