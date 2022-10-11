@@ -40,7 +40,7 @@ final List<Map<String, dynamic>> itemsPopular = [
   }
 ];
 
-class Populer {
+class Space {
   late String tourCode;
   late String name;
   late String locationName;
@@ -48,7 +48,7 @@ class Populer {
   late String like;
   late String comment;
 
-  Populer(
+  Space(
       {required this.tourCode,
       required this.name,
       required this.image,
@@ -56,7 +56,7 @@ class Populer {
       required this.like,
       required this.comment});
 
-  factory Populer.fromJson(Map<String, dynamic> json) => Populer(
+  factory Space.fromJson(Map<String, dynamic> json) => Space(
         tourCode: json['tourCode'],
         name: json['name'],
         image: json['image'].toString(),

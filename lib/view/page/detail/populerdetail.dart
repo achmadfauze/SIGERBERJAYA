@@ -12,10 +12,11 @@ import '../../component/listLayanan.dart';
 class DetailPlace extends StatefulWidget {
   // const DetailPlace({super.key});
 
-  final Populer populer;
+  final Space space;
   DetailPlace({
     Key? key,
-    required this.populer,
+    required this.space,
+    // required Space space,
   }) : super(key: key);
 
   @override
@@ -24,7 +25,6 @@ class DetailPlace extends StatefulWidget {
 
 class _DetailPlaceState extends State<DetailPlace> {
   final controller = ScrollController();
-
   @override
   Widget build(BuildContext context) {
     final myAppBar = ScrollAppBar(
@@ -96,7 +96,7 @@ class _DetailPlaceState extends State<DetailPlace> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          widget.populer.name.toString(),
+                          widget.space.name.toString(),
                           style: TextStyle(
                               fontFamily: 'Roboto-Regular',
                               fontSize: 20,
@@ -113,7 +113,7 @@ class _DetailPlaceState extends State<DetailPlace> {
                               width: 4,
                             ),
                             Text(
-                              widget.populer.like.toString(),
+                              widget.space.like.toString(),
                               style: TextStyle(
                                 fontFamily: 'Roboto-Regular',
                                 fontSize: 18,
@@ -131,7 +131,7 @@ class _DetailPlaceState extends State<DetailPlace> {
                               width: 4,
                             ),
                             Text(
-                              widget.populer.like.toString(),
+                              widget.space.like.toString(),
                               style: TextStyle(
                                 fontFamily: 'Roboto-Regular',
                                 fontSize: 18,
@@ -158,7 +158,7 @@ class _DetailPlaceState extends State<DetailPlace> {
                             ),
                             Flexible(
                               child: Text(
-                                widget.populer.locationName.toString(),
+                                widget.space.locationName.toString(),
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(

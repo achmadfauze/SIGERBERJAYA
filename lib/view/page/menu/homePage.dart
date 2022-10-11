@@ -19,6 +19,8 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 
+import '../detail/populerdetail.dart';
+
 class HomePage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -263,87 +265,87 @@ class _Homepage extends State<HomePage> {
                   // SizedBox(
                   //   height: 10,
                   // ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: 12, right: 4, top: 10, bottom: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      // crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Festival Budaya Lampung",
-                          style: TextStyle(
-                              fontFamily: 'Mulish-Regular', fontSize: 18),
-                        ),
-                        // SizedBox(
-                        //   width: 100,
-                        // ),
-                        IconButton(
-                          icon: const Icon(Icons.east, size: 26),
-                          color: Colors.black,
-                          onPressed: () {
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => AllPopularList()));
-                          },
-                        ),
-                        // Icon(
-                        //   Icons.east,
-                        //   size: 26,
-                        // ),
-                      ],
-                    ),
-                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.only(
+                  //       left: 12, right: 4, top: 10, bottom: 10),
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //     // crossAxisAlignment: CrossAxisAlignment.center,
+                  //     children: [
+                  //       Text(
+                  //         "Festival Budaya Lampung",
+                  //         style: TextStyle(
+                  //             fontFamily: 'Mulish-Regular', fontSize: 18),
+                  //       ),
+                  //       // SizedBox(
+                  //       //   width: 100,
+                  //       // ),
+                  //       IconButton(
+                  //         icon: const Icon(Icons.east, size: 26),
+                  //         color: Colors.black,
+                  //         onPressed: () {
+                  //           // Navigator.push(
+                  //           //     context,
+                  //           //     MaterialPageRoute(
+                  //           //         builder: (context) => AllPopularList()));
+                  //         },
+                  //       ),
+                  //       // Icon(
+                  //       //   Icons.east,
+                  //       //   size: 26,
+                  //       // ),
+                  //     ],
+                  //   ),
+                  // ),
                   // SizedBox(
                   //   height: 10,
                   // ),
-                  Container(
-                    height: 220,
-                    child: PageView(
-                      children: <Widget>[
-                        FestivalBudayaList(),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: 12, right: 4, top: 10, bottom: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      // crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Baru-baru ini ditambahkan",
-                          style: TextStyle(
-                              fontFamily: 'Roboto-Regular', fontSize: 18),
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.east, size: 26),
-                          color: Colors.black,
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => AllBaruList()));
-                          },
-                        ),
+                  // Container(
+                  //   height: 220,
+                  //   child: PageView(
+                  //     children: <Widget>[
+                  //       FestivalBudayaList(),
+                  //     ],
+                  //   ),
+                  // ),
+                  // Padding(
+                  //   padding: const EdgeInsets.only(
+                  //       left: 12, right: 4, top: 10, bottom: 10),
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //     // crossAxisAlignment: CrossAxisAlignment.center,
+                  //     children: [
+                  //       Text(
+                  //         "Baru-baru ini ditambahkan",
+                  //         style: TextStyle(
+                  //             fontFamily: 'Roboto-Regular', fontSize: 18),
+                  //       ),
+                  //       IconButton(
+                  //         icon: const Icon(Icons.east, size: 26),
+                  //         color: Colors.black,
+                  //         onPressed: () {
+                  //           Navigator.push(
+                  //               context,
+                  //               MaterialPageRoute(
+                  //                   builder: (context) => AllBaruList()));
+                  //         },
+                  //       ),
 
-                        // Icon(
-                        //   Icons.east,
-                        //   size: 26,
-                        // ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    height: 220,
-                    child: PageView(
-                      children: <Widget>[
-                        BaruList(),
-                      ],
-                    ),
-                  ),
+                  //       // Icon(
+                  //       //   Icons.east,
+                  //       //   size: 26,
+                  //       // ),
+                  //     ],
+                  //   ),
+                  // ),
+                  // Container(
+                  //   height: 220,
+                  //   child: PageView(
+                  //     children: <Widget>[
+                  //       BaruList(),
+                  //     ],
+                  //   ),
+                  // ),
                   Padding(
                     padding: const EdgeInsets.only(
                       left: 12,
@@ -391,157 +393,172 @@ class _Homepage extends State<HomePage> {
                         children: [
                           Container(
                             child: ListView.builder(
-                              itemCount: itemsRecomendation.length,
-                              physics: NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) => InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              DetailRecomendation()));
-                                },
-                                child: Container(
-                                    height: 200,
-                                    width: double.infinity,
-                                    margin: EdgeInsets.only(bottom: 8),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      image: DecorationImage(
-                                        // image: AssetImage(itemsfestifalbudaya[index].image),
-                                        image: NetworkImage(
-                                            "${itemsRecomendation[index]['Image']}"
-                                                .toString()),
-                                        fit: BoxFit.cover,
+                                itemCount: 3,
+                                physics: NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) {
+                                  final space = _Space[index];
+                                  // InkWell(
+                                  //   onTap: () {
+                                  //     Navigator.push(
+                                  //         context,
+                                  //         MaterialPageRoute(
+                                  //             builder: (context) =>
+                                  //                 DetailRecomendation()));
+                                  //   },
+                                  return Container(
+                                      height: 200,
+                                      width: double.infinity,
+                                      margin: EdgeInsets.only(bottom: 8),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        image: DecorationImage(
+                                          // image: AssetImage(itemsfestifalbudaya[index].image),
+                                          image: NetworkImage(
+                                              "${itemsRecomendation[index]['Image']}"
+                                                  .toString()),
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                            children: [
-                                              Container(
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.only(
-                                                          bottomLeft:
-                                                              Radius.circular(
-                                                                  28),
-                                                          topRight:
-                                                              Radius.circular(
-                                                                  10)),
-                                                  color: Colors.black
-                                                      .withOpacity(0.5),
-                                                  // color: Color.fromARGB(157, 222, 238, 5)
-                                                ),
-                                                height: 40,
-                                                width: 100,
-                                                child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      const Icon(
-                                                        Icons.favorite,
-                                                        size: 22,
-                                                        color: Colors.white,
-                                                      ),
-                                                      SizedBox(
-                                                        width: 6,
-                                                      ),
-                                                      Text(
-                                                        _Space[index]
-                                                            .like
-                                                            .toString(),
-                                                        style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontFamily:
-                                                              'Roboto-Regular',
-                                                          fontSize: 18,
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                        width: 8,
-                                                      ),
-                                                      const Icon(
-                                                        Icons.warning,
-                                                        size: 22,
-                                                        color: Colors.yellow,
-                                                      ),
-                                                    ]),
-                                              ),
-                                            ]),
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.only(
-                                                bottomRight:
-                                                    Radius.circular(10),
-                                                bottomLeft:
-                                                    Radius.circular(10)),
-                                            color:
-                                                Colors.black.withOpacity(0.5),
-                                            // color: Color.fromARGB(157, 222, 238, 5)
-                                          ),
-                                          height: 60,
-                                          width: double.infinity,
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 12, right: 12),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  _Space[index].name.toString(),
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontFamily:
-                                                        'Mulish-Regular',
-                                                    fontSize: 16,
+                                      child: InkWell(
+                                        onTap: () {
+                                          // Navigator.push(
+                                          //     context,
+                                          //     MaterialPageRoute(
+                                          //         builder: (context) =>
+                                          //             DetailPlace(space: space)));
+                                        },
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                children: [
+                                                  Container(
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                              bottomLeft: Radius
+                                                                  .circular(28),
+                                                              topRight: Radius
+                                                                  .circular(
+                                                                      10)),
+                                                      color: Colors.black
+                                                          .withOpacity(0.5),
+                                                      // color: Color.fromARGB(157, 222, 238, 5)
+                                                    ),
+                                                    height: 40,
+                                                    width: 100,
+                                                    child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          const Icon(
+                                                            Icons.favorite,
+                                                            size: 22,
+                                                            color: Colors.white,
+                                                          ),
+                                                          SizedBox(
+                                                            width: 6,
+                                                          ),
+                                                          Text(
+                                                            _Space[index]
+                                                                .like
+                                                                .toString(),
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontFamily:
+                                                                  'Roboto-Regular',
+                                                              fontSize: 18,
+                                                            ),
+                                                          ),
+                                                          SizedBox(
+                                                            width: 8,
+                                                          ),
+                                                          const Icon(
+                                                            Icons.warning,
+                                                            size: 22,
+                                                            color:
+                                                                Colors.yellow,
+                                                          ),
+                                                        ]),
                                                   ),
-                                                ),
-                                                SizedBox(
-                                                  height: 8,
-                                                ),
-                                                Row(
+                                                ]),
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.only(
+                                                    bottomRight:
+                                                        Radius.circular(10),
+                                                    bottomLeft:
+                                                        Radius.circular(10)),
+                                                color: Colors.black
+                                                    .withOpacity(0.5),
+                                                // color: Color.fromARGB(157, 222, 238, 5)
+                                              ),
+                                              height: 60,
+                                              width: double.infinity,
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 12, right: 12),
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
-                                                    Icon(
-                                                      Icons.location_on,
-                                                      size: 16,
-                                                      color: Colors.white,
-                                                    ),
                                                     Text(
                                                       _Space[index]
-                                                          .locationName
+                                                          .name
                                                           .toString(),
-                                                      maxLines: 1,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style: const TextStyle(
+                                                      style: TextStyle(
                                                         color: Colors.white,
                                                         fontFamily:
                                                             'Mulish-Regular',
-                                                        fontSize: 12,
+                                                        fontSize: 16,
                                                       ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 8,
+                                                    ),
+                                                    Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Icon(
+                                                          Icons.location_on,
+                                                          size: 16,
+                                                          color: Colors.white,
+                                                        ),
+                                                        Text(
+                                                          _Space[index]
+                                                              .locationName
+                                                              .toString(),
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          style:
+                                                              const TextStyle(
+                                                            color: Colors.white,
+                                                            fontFamily:
+                                                                'Mulish-Regular',
+                                                            fontSize: 12,
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
                                                   ],
                                                 ),
-                                              ],
+                                              ),
                                             ),
-                                          ),
+                                          ],
                                         ),
-                                      ],
-                                    )),
-                              ),
-                            ),
+                                      ));
+                                }),
                           ),
                         ]),
                   )

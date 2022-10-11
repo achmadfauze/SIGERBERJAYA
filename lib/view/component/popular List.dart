@@ -13,20 +13,20 @@ class PopularList extends StatefulWidget {
 
 class _PopularListState extends State<PopularList> {
   // const PopularList({super.key});
-  final List<Populer> _Populer = [];
+  final List<Space> _Space = [];
 
-  Future<List<Populer>> fetchJson() async {
+  Future<List<Space>> fetchJson() async {
     var response = await http
         // .get(Uri.parse('http://bwa-cozy.herokuapp.com/recommended-spaces'));
         .get(Uri.parse(
             'http://api-siger.uacak.com/public/api/v1/populertour/5'));
     print(response);
-    List<Populer> slist = [];
+    List<Space> slist = [];
     if (response.statusCode == 200) {
       var urjson = (json.decode(response.body));
       print(urjson);
       for (var jsondata in urjson) {
-        slist.add(Populer.fromJson(jsondata));
+        slist.add(Space.fromJson(jsondata));
       }
     }
     return slist;
@@ -36,7 +36,7 @@ class _PopularListState extends State<PopularList> {
   void initState() {
     fetchJson().then((value) {
       setState(() {
-        _Populer.addAll(value);
+        _Space.addAll(value);
       });
     });
     super.initState();
@@ -50,10 +50,10 @@ class _PopularListState extends State<PopularList> {
         child: SizedBox(
           height: 220,
           child: ListView.builder(
-              itemCount: _Populer.length,
+              itemCount: _Space.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
-                final populer = _Populer[index];
+                final space = _Space[index];
                 return Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
@@ -67,7 +67,7 @@ class _PopularListState extends State<PopularList> {
                       ),
                     ),
                     height: double.infinity,
-                    width: 130,
+                    width: 180,
                     margin: EdgeInsets.only(left: 12),
                     child: InkWell(
                         onTap: () {
@@ -75,7 +75,7 @@ class _PopularListState extends State<PopularList> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      DetailPlace(populer: populer)));
+                                      DetailPlace(space: space)));
                         },
                         // child: Image.asset(
                         //   items[index].image,
@@ -92,7 +92,8 @@ class _PopularListState extends State<PopularList> {
                                       borderRadius: BorderRadius.only(
                                           bottomLeft: Radius.circular(15),
                                           topRight: Radius.circular(15)),
-                                      color: Colors.black.withOpacity(0.5),
+                                      // color: Colors.black.withOpacity(0.5),
+                                      color: Colors.green,
                                       // color: Color.fromARGB(157, 222, 238, 5)
                                     ),
                                     height: 28,
@@ -110,7 +111,7 @@ class _PopularListState extends State<PopularList> {
                                             width: 4,
                                           ),
                                           Text(
-                                            populer.like.toString(),
+                                            space.like.toString(),
                                             style: TextStyle(
                                               color: Colors.white,
                                               fontFamily: 'Roboto-Regular',
@@ -142,7 +143,7 @@ class _PopularListState extends State<PopularList> {
                                 padding: const EdgeInsets.only(
                                     left: 12, right: 12, top: 10, bottom: 10),
                                 child: Text(
-                                  populer.name.toString(),
+                                  space.name.toString(),
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontFamily: 'Robot-Regular',

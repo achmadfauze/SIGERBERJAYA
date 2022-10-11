@@ -64,7 +64,14 @@ class _ProfilPageState extends State<ProfilPage> {
     final bodyWidth = MediaQueryWidth;
 
     final appBar = AppBar(
-      title: Text("Profil"),
+      elevation: 0,
+      title: Text(
+        "Profil",
+        style: TextStyle(color: Colors.white),
+      ),
+      backgroundColor: Color(
+        0xff00a877,
+      ),
     );
     final bodyHeight = MediaQueryHeight -
         appBar.preferredSize.height -
@@ -112,7 +119,7 @@ class _ProfilPageState extends State<ProfilPage> {
                       ),
                     ),
               Padding(
-                padding: EdgeInsets.only(top: bodyHeight * 0.05),
+                padding: EdgeInsets.only(top: bodyHeight * 0.03),
                 child: Text(
                   _currentUser != null
                       ? _currentUser!.displayName.toString()
@@ -125,6 +132,7 @@ class _ProfilPageState extends State<ProfilPage> {
                 ),
               ),
               //profile
+
               _currentUser == null
                   ? Padding(
                       padding: const EdgeInsets.only(left: 12),
@@ -137,18 +145,6 @@ class _ProfilPageState extends State<ProfilPage> {
                           Icons.login,
                           // color: Colors.blue,
                         ),
-                        trailing: Icon(
-                          Icons.arrow_forward_ios,
-                          size: 20,
-                        ),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => LoginPage(),
-                            ),
-                          );
-                        },
                       ),
                     )
                   : Padding(
