@@ -96,7 +96,14 @@ class _ProfilPageState extends State<ProfilPage> {
         ? print(_currentUser!.displayName.toString())
         : print("tidak ada");
     final appBar = AppBar(
-      title: Text("Profil"),
+      elevation: 0,
+      title: Text(
+        "Profil",
+        style: TextStyle(color: Colors.white),
+      ),
+      backgroundColor: Color(
+        0xff00a877,
+      ),
     );
     final bodyHeight = MediaQueryHeight -
         appBar.preferredSize.height -
@@ -144,7 +151,7 @@ class _ProfilPageState extends State<ProfilPage> {
                       ),
                     ),
               Padding(
-                padding: EdgeInsets.only(top: bodyHeight * 0.05),
+                padding: EdgeInsets.only(top: bodyHeight * 0.03),
                 child: Text(
                   _currentUser != null
                       ? _currentUser!.displayName.toString()
@@ -157,6 +164,7 @@ class _ProfilPageState extends State<ProfilPage> {
                 ),
               ),
               //profile
+
               _currentUser == null
                   ? Padding(
                       padding: const EdgeInsets.only(left: 12),
@@ -168,6 +176,18 @@ class _ProfilPageState extends State<ProfilPage> {
                         leading: Icon(
                           Icons.login,
                           // color: Colors.blue,
+
+              Padding(
+                padding:
+                    EdgeInsets.only(top: bodyHeight * 0.04, left: 12, right: 8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ListTile(
+                      title: Text(
+                        "hiski46@gmail.com",
+                        style: TextStyle(
+                          fontFamily: 'Roboto-Regular',
                         ),
                         trailing: Icon(
                           Icons.arrow_forward_ios,

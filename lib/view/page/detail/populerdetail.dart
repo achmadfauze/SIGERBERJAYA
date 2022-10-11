@@ -12,10 +12,11 @@ import '../../component/listLayanan.dart';
 class DetailPlace extends StatefulWidget {
   // const DetailPlace({super.key});
 
-  final Populer populer;
+  final Space space;
   DetailPlace({
     Key? key,
-    required this.populer,
+    required this.space,
+    // required Space space,
   }) : super(key: key);
 
   @override
@@ -96,7 +97,8 @@ class _DetailPlaceState extends State<DetailPlace> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          widget.populer.name.toString(),
+
+                          space.name.toString(),
                           style: TextStyle(
                               fontFamily: 'Roboto-Regular',
                               fontSize: 20,
@@ -113,7 +115,9 @@ class _DetailPlaceState extends State<DetailPlace> {
                               width: 4,
                             ),
                             Text(
-                              widget.populer.like.toString(),
+
+
+                              space.like.toString(),
                               style: TextStyle(
                                 fontFamily: 'Roboto-Regular',
                                 fontSize: 18,
@@ -131,7 +135,9 @@ class _DetailPlaceState extends State<DetailPlace> {
                               width: 4,
                             ),
                             Text(
-                              widget.populer.like.toString(),
+
+
+                              space.like.toString(),
                               style: TextStyle(
                                 fontFamily: 'Roboto-Regular',
                                 fontSize: 18,
@@ -158,7 +164,8 @@ class _DetailPlaceState extends State<DetailPlace> {
                             ),
                             Flexible(
                               child: Text(
-                                widget.populer.locationName.toString(),
+
+                                space.locationName.toString(),
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(

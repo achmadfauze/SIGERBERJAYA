@@ -13,6 +13,9 @@ class EditProfile extends StatelessWidget {
     final bodyWidth = MediaQueryWidth;
     final appBar = AppBar(
       title: Text("Edit Profile"),
+      backgroundColor: Color(
+        0xff00a877,
+      ),
     );
     final bodyHeight = MediaQueryHeight -
         appBar.preferredSize.height -
@@ -55,7 +58,7 @@ class EditProfile extends StatelessWidget {
                     fillColor: Colors.white,
                     child: Icon(
                       Icons.camera_enhance_outlined,
-                      color: Colors.blue,
+                      color: Color(0xff00a877),
                     ),
                     shape: CircleBorder(),
                   ),
@@ -78,6 +81,13 @@ class EditProfile extends StatelessWidget {
             width: 100,
             padding: EdgeInsets.symmetric(horizontal: bodyWidth * 0.25),
             child: ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(
+                  Color(
+                    0xff00a877,
+                  ),
+                ),
+              ),
               child: Text(
                 "Perbaharui Profile",
                 style: TextStyle(fontSize: 15),
