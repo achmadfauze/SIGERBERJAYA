@@ -33,7 +33,14 @@ class _ProfilPageState extends State<ProfilPage> {
     final MediaQueryWidth = MediaQuery.of(context).size.width;
     final bodyWidth = MediaQueryWidth;
     final appBar = AppBar(
-      title: Text("Profil"),
+      elevation: 0,
+      title: Text(
+        "Profil",
+        style: TextStyle(color: Colors.white),
+      ),
+      backgroundColor: Color(
+        0xff00a877,
+      ),
     );
     final bodyHeight = MediaQueryHeight -
         appBar.preferredSize.height -
@@ -75,7 +82,7 @@ class _ProfilPageState extends State<ProfilPage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: bodyHeight * 0.05),
+                padding: EdgeInsets.only(top: bodyHeight * 0.03),
                 child: Text(
                   "Hiskia Perdamen Pulungan",
                   textAlign: TextAlign.center,
@@ -88,7 +95,7 @@ class _ProfilPageState extends State<ProfilPage> {
               //profile
               Padding(
                 padding:
-                    EdgeInsets.only(top: bodyHeight * 0.02, left: 12, right: 8),
+                    EdgeInsets.only(top: bodyHeight * 0.04, left: 12, right: 8),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

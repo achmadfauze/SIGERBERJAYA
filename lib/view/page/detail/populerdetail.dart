@@ -12,10 +12,11 @@ import '../../component/listLayanan.dart';
 class DetailPlace extends StatelessWidget {
   // const DetailPlace({super.key});
 
-  final Populer populer;
+  final Space space;
   DetailPlace({
     Key? key,
-    required this.populer,
+    required this.space,
+    // required Space space,
   }) : super(key: key);
 
   final controller = ScrollController();
@@ -126,7 +127,7 @@ class DetailPlace extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          populer.name.toString(),
+                          space.name.toString(),
                           style: TextStyle(
                               fontFamily: 'Roboto-Regular',
                               fontSize: 20,
@@ -143,7 +144,7 @@ class DetailPlace extends StatelessWidget {
                               width: 4,
                             ),
                             Text(
-                              populer.like.toString(),
+                              space.like.toString(),
                               style: TextStyle(
                                 fontFamily: 'Roboto-Regular',
                                 fontSize: 18,
@@ -161,7 +162,7 @@ class DetailPlace extends StatelessWidget {
                               width: 4,
                             ),
                             Text(
-                              populer.like.toString(),
+                              space.like.toString(),
                               style: TextStyle(
                                 fontFamily: 'Roboto-Regular',
                                 fontSize: 18,
@@ -188,7 +189,7 @@ class DetailPlace extends StatelessWidget {
                             ),
                             Flexible(
                               child: Text(
-                                populer.locationName.toString(),
+                                space.locationName.toString(),
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(

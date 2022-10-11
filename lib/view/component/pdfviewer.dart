@@ -19,19 +19,9 @@ class _Pdf extends State<PdfView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         title: const Text('Tentang Koronavirus'),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(
-              Icons.bookmark,
-              color: Colors.white,
-              semanticLabel: 'Bookmark',
-            ),
-            onPressed: () {
-              _pdfViewerKey.currentState?.openBookmarkView();
-            },
-          ),
-        ],
+        backgroundColor: Color(0xff00a877),
       ),
       body: SfPdfViewer.network(
         'https://covid19.go.id/storage/app/media/Regulasi/2021/November/revisi-se-ka-satgas-nomor-23-tahun-2021-tentang-protokol-kesehatan-perjalanan-internasional-pada-masa-pandemi-corona-virus-disease-2019-covid-19.pdf',
