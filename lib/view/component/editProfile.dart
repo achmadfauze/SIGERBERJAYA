@@ -2,9 +2,34 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
-class EditProfile extends StatelessWidget {
+class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
+
+  @override
+  State<EditProfile> createState() => _EditProfileState();
+}
+
+class _EditProfileState extends State<EditProfile> {
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: [
+      'email',
+      'https://www.googleapis.com/auth/contacts.readonly',
+    ],
+  );
+  GoogleSignInAccount? _currentUser;
+
+  @override
+  void initState() {
+    super.initState();
+    _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount? account) {
+      setState(() {
+        _currentUser = account;
+      });
+    });
+    _googleSignIn.signInSilently();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +57,9 @@ class EditProfile extends StatelessWidget {
                     width: bodyWidth * 0.5,
                     height: bodyWidth * 0.5,
                     child: Image.network(
-                      "https://picsum.photos/200/200",
+                      _currentUser!.photoUrl != null
+                          ? _currentUser!.photoUrl.toString()
+                          : "",
                       fit: BoxFit.fill,
                     ),
                   ),
@@ -67,8 +94,10 @@ class EditProfile extends StatelessWidget {
             padding: EdgeInsets.symmetric(
                 vertical: bodyHeight * 0.05, horizontal: bodyWidth * 0.05),
             child: TextField(
-              controller:
-                  TextEditingController(text: "Hiskia Perdamen Pulungan"),
+              controller: TextEditingController(
+                  text: _currentUser!.displayName != null
+                      ? _currentUser!.displayName.toString()
+                      : ""),
               decoration: InputDecoration(label: Text("Nama")),
               style: TextStyle(fontSize: 20),
             ),
