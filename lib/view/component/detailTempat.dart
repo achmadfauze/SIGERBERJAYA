@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:first_app/view/component/baruList.dart';
 import 'package:first_app/view/component/listLayanan.dart';
@@ -8,9 +10,13 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:scroll_app_bar/scroll_app_bar.dart';
+import 'package:http/http.dart' as http;
+
+import '../../model/tourModel.dart';
 
 class DetailTempat extends StatefulWidget {
-  const DetailTempat({super.key});
+  final String? tourCode;
+  const DetailTempat({super.key, this.tourCode});
 
   @override
   State<DetailTempat> createState() => _DetailTempatState();
@@ -19,8 +25,34 @@ class DetailTempat extends StatefulWidget {
 class _DetailTempatState extends State<DetailTempat> {
   int currentPos = 0;
   final controller = ScrollController();
+  final List<tour> Tour = [];
+  Future<List<tour>> fetchJson() async {
+    var response = await http.get(
+        Uri.parse('http://api-siger.uacak.com/api/v1/tour/${widget.tourCode}'));
+    print(response);
+    List<tour> slist = [];
+    if (response.statusCode == 200) {
+      var urjson = (json.decode(response.body));
+      for (var jsondata in urjson) {
+        slist.add(tour.fromJson(jsondata));
+      }
+    }
+    return slist;
+  }
+
+  @override
+  void initState() {
+    fetchJson().then((value) {
+      setState(() {
+        Tour.addAll(value);
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    // final data = Tour[0];
     final List<Map> images = [
       {
         "image":
@@ -29,6 +61,9 @@ class _DetailTempatState extends State<DetailTempat> {
       {"image": "https://picsum.photos/id/238/200/300"},
       {"image": "https://picsum.photos/id/239/200/300"},
     ];
+
+    // final data = Tour[0];
+
     final MediaQueryHeight =
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     final MediaQueryWidth = MediaQuery.of(context).size.width;
@@ -131,7 +166,7 @@ class _DetailTempatState extends State<DetailTempat> {
                   Container(
                     margin: EdgeInsets.only(bottom: 15),
                     child: Text(
-                      "Danau Bekri",
+                      widget.tourCode.toString(),
                       maxLines: 1,
                       style: TextStyle(
                         fontSize: 20,
