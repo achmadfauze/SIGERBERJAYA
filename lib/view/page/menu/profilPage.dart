@@ -176,31 +176,7 @@ class _ProfilPageState extends State<ProfilPage> {
                         leading: Icon(
                           Icons.login,
                           // color: Colors.blue,
-
-              Padding(
-                padding:
-                    EdgeInsets.only(top: bodyHeight * 0.04, left: 12, right: 8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ListTile(
-                      title: Text(
-                        "hiski46@gmail.com",
-                        style: TextStyle(
-                          fontFamily: 'Roboto-Regular',
                         ),
-                        trailing: Icon(
-                          Icons.arrow_forward_ios,
-                          size: 20,
-                        ),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => LoginPage(),
-                            ),
-                          );
-                        },
                       ),
                     )
                   : Padding(
