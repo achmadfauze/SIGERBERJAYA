@@ -87,9 +87,15 @@ class _CityPage extends State<CityPage> {
                     itemBuilder: (context, index) => InkWell(
                       onTap: () {
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ((AllKabupatenList()))));
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => (AllKabupatenList(
+                              stateCode: _Space[index].stateCode,
+                              state: _Space[index].state,
+                              image: _Space[index].image.toString(),
+                            )),
+                          ),
+                        );
                         // AllKabupatenList()));
                       },
                       child: Container(

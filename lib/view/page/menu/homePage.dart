@@ -32,15 +32,14 @@ class HomePage extends StatefulWidget {
   }
 }
 
-final GoogleSignIn _googleSignIn = GoogleSignIn(
-  scopes: [
-    'email',
-    'https://www.googleapis.com/auth/contacts.readonly',
-  ],
-);
-
 class _Homepage extends State<HomePage> {
   final List<Space> _Space = [];
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: [
+      'email',
+      'https://www.googleapis.com/auth/contacts.readonly',
+    ],
+  );
   GoogleSignInAccount? _currentUser;
 
   Future<List<Space>> fetchJson() async {

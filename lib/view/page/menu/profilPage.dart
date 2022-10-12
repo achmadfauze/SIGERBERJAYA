@@ -2,21 +2,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:first_app/view/component/editBahasa.dart';
 import 'package:first_app/view/component/editProfile.dart';
+import 'package:first_app/view/page/home.dart';
 import 'package:first_app/view/page/login.dart';
 import 'package:flutter/foundation.dart';
 import 'package:route_transitions/route_transitions.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:intl/intl.dart';
 
 import '../../component/Emergency.dart';
-
-final GoogleSignIn _googleSignIn = GoogleSignIn(
-  scopes: [
-    'email',
-    'https://www.googleapis.com/auth/contacts.readonly',
-  ],
-);
-final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
 class ProfilPage extends StatefulWidget {
   const ProfilPage({super.key});
@@ -40,8 +34,14 @@ class _ProfilPageState extends State<ProfilPage> {
     800: Color.fromRGBO(20, 195, 142, 0.9),
     900: Color.fromRGBO(20, 195, 142, 1),
   });
-
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: [
+      'email',
+      'https://www.googleapis.com/auth/contacts.readonly',
+    ],
+  );
   GoogleSignInAccount? _currentUser;
+
   @override
   void initState() {
     super.initState();
@@ -49,53 +49,21 @@ class _ProfilPageState extends State<ProfilPage> {
       setState(() {
         _currentUser = account;
       });
-      // if (_currentUser != null) {
-      //   _handleGetContact(_currentUser!);
-      // }
     });
     _googleSignIn.signInSilently();
   }
 
-  Future<void> _handleSignIn() async {
-    try {
-      await _googleSignIn.signIn();
-    } catch (error) {
-      print(error);
-    }
-  }
-  // User? _currentUser;
-  // User? _currentUser = await FirebaseAuth.instance.currentUser;
-  // void getCurrentUser() {
-  //   _currentUser = firebaseAuth.currentUser;
-  // }
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   Firebase.initializeApp().whenComplete(() {
-  //     print("completed");
-  //     setState(() {
-  //       FirebaseAuth.instance.authStateChanges().listen((User? user) {
-  //         if (user != null) {
-  //           _currentUser = user;
-  //         }
-  //       });
-  //     });
-  //   });
-  // }
-  // Future getCurrentUser() async {
-  //   _currentUser = await FirebaseAuth.instance.currentUser;
-  // }
-
   Future<void> _handleSignOut() => _googleSignIn.disconnect();
+
+  DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
+  dynamic currentTime = DateFormat("yyyy-MM-dd").format(DateTime.now());
+
   @override
   Widget build(BuildContext context) {
     final MediaQueryHeight = MediaQuery.of(context).size.height;
     final MediaQueryWidth = MediaQuery.of(context).size.width;
     final bodyWidth = MediaQueryWidth;
-    (_currentUser != null)
-        ? print(_currentUser!.displayName.toString())
-        : print("tidak ada");
+
     final appBar = AppBar(
       elevation: 0,
       title: Text(
@@ -201,7 +169,7 @@ class _ProfilPageState extends State<ProfilPage> {
                             ),
                           ),
                           ListTile(
-                            title: Text("25-09-2022",
+                            title: Text(currentTime.toString(),
                                 style: TextStyle(
                                   fontFamily: 'Roboto-Regular',
                                 )),

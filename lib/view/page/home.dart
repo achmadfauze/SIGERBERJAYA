@@ -5,6 +5,7 @@ import 'package:first_app/view/page/menu/tessssst.dart';
 import 'package:first_app/view/page/menu/profilPage.dart';
 import 'package:first_app/view/page/menu/savePage.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 class Home extends StatefulWidget {
@@ -15,7 +16,6 @@ class Home extends StatefulWidget {
 class _Home extends State<Home> {
   var _currentIndex = 0;
   final screen = [HomePage(), CityPage(), NewsPage(), SavePage(), ProfilPage()];
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
