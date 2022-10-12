@@ -3,18 +3,18 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:first_app/model/artikel.dart';
 
-class DetailArtikel extends StatefulWidget {
-  final Space space;
-  DetailArtikel({
-    Key? key,
-    required this.space,
-    // required Space space,
-  }) : super(key: key);
+class DetailArtikelSave extends StatefulWidget {
+  // final Space space;
+  // DetailArtikelSave({
+  //   Key? key,
+  //   required this.space,
+  //   // required Space space,
+  // }) : super(key: key);
   @override
-  State<DetailArtikel> createState() => _DetailArtikelState();
+  State<DetailArtikelSave> createState() => _DetailArtikelState();
 }
 
-class _DetailArtikelState extends State<DetailArtikel> {
+class _DetailArtikelState extends State<DetailArtikelSave> {
   @override
   Widget build(BuildContext context) {
     final myAppbar = AppBar(
@@ -44,8 +44,8 @@ class _DetailArtikelState extends State<DetailArtikel> {
                   ),
                   WidgetSpan(
                       child: Text(
-                    widget.space.createAt.toString(),
-                    // " 23 September 22",
+                    // widget.space.createAt.toString(),
+                    " 23 September 22",
                     style:
                         TextStyle(fontSize: 16, fontFamily: 'Roboto-Regular'),
                   )),
@@ -54,8 +54,7 @@ class _DetailArtikelState extends State<DetailArtikel> {
               Container(
                 padding: EdgeInsets.only(top: 10),
                 child: Text(
-                  widget.space.title.toString(),
-                  // "Tempat Rekomendasi Wisata Di Lampung asdasadadas",
+                  "Tempat Rekomendasi Wisata Di Lampung asdasadadas",
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 ),
               ),
@@ -166,8 +165,8 @@ class _DetailArtikelState extends State<DetailArtikel> {
               Container(
                 margin: EdgeInsets.only(top: 15),
                 child: Text(
-                  widget.space.description.toString(),
-                  // "Contented get distrusts certainty nay are frankness concealed ham. On unaffected resolution on considered of. No thought me husband or colonel forming effects. End sitting shewing who saw besides son musical adapted. Contrasted interested eat alteration pianoforte sympathize was. He families believed if no elegance interest surprise an. It abode wrong miles an so delay plate. She relation own put outlived may disposed. ",
+                  // widget.space.description.toString(),
+                  "Contented get distrusts certainty nay are frankness concealed ham. On unaffected resolution on considered of. No thought me husband or colonel forming effects. End sitting shewing who saw besides son musical adapted. Contrasted interested eat alteration pianoforte sympathize was. He families believed if no elegance interest surprise an. It abode wrong miles an so delay plate. She relation own put outlived may disposed. ",
                   style: TextStyle(fontSize: 18, height: 1.5),
                   textAlign: TextAlign.justify,
                 ),

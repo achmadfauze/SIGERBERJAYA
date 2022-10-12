@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:first_app/model/popular_model.dart';
 import 'package:first_app/view/component/detailTempat.dart';
 import 'package:first_app/view/page/detail/populerdetail.dart';
+import 'package:route_transitions/route_transitions.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -67,16 +68,43 @@ class _PopularListState extends State<PopularList> {
                       ),
                     ),
                     height: double.infinity,
-                    width: 180,
+                    width: 150,
                     margin: EdgeInsets.only(left: 12),
                     child: InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      DetailPlace(space: space)));
-                        },
+                        onTap: () => customAnimationWidget(
+                              newPage: DetailPlace(
+                                space: space,
+                              ),
+                              context: context,
+                              transitionBuilder: (context, animation,
+                                  secondaryAnimation, child) {
+                                var begin = 0.0;
+                                var end = 1.0;
+                                var curve = Curves.easeIn;
+
+                                var tween = Tween(begin: begin, end: end)
+                                    .chain(CurveTween(curve: curve));
+
+                                return ScaleTransition(
+                                  scale: animation.drive(tween),
+                                  child: child,
+                                );
+                              },
+                            ),
+
+                        // scaleWidget(
+                        //       newPage: DetailPlace(
+                        //         space: space,
+                        //       ),
+                        //       context: context,
+                        //     ),
+                        // {
+                        //   Navigator.push(
+                        //       context,
+                        //       MaterialPageRoute(
+                        //           builder: (context) =>
+                        //               DetailPlace(space: space)));
+                        // },
                         // child: Image.asset(
                         //   items[index].image,
                         //   fit: BoxFit.cover,
@@ -93,7 +121,7 @@ class _PopularListState extends State<PopularList> {
                                           bottomLeft: Radius.circular(15),
                                           topRight: Radius.circular(15)),
                                       // color: Colors.black.withOpacity(0.5),
-                                      color: Colors.green,
+                                      color: Color(0xff00a877),
                                       // color: Color.fromARGB(157, 222, 238, 5)
                                     ),
                                     height: 28,
@@ -137,7 +165,7 @@ class _PopularListState extends State<PopularList> {
                                 color: Colors.black.withOpacity(0.5),
                                 // color: Color.fromARGB(157, 222, 238, 5)
                               ),
-                              height: 60,
+                              height: 50,
                               width: double.infinity,
                               child: Padding(
                                 padding: const EdgeInsets.only(

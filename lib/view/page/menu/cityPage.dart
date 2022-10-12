@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:first_app/model/KabupatenModel.dart';
 import 'package:first_app/view/page/detail/kabupaten/Kabupatendetail.dart';
 import 'package:flutter/material.dart';
+import 'package:route_transitions/route_transitions.dart';
 import 'package:http/http.dart' as http;
 
 import '../../component/Emergency.dart';
@@ -140,11 +141,15 @@ class _CityPage extends State<CityPage> {
           height: MediaQuery.of(context).size.width * 0.2,
           width: MediaQuery.of(context).size.width * 0.2,
           child: FloatingActionButton(
-            backgroundColor: Colors.amber,
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => EmergencyPage()));
-            },
+            backgroundColor: Colors.yellow,
+            onPressed: () => slideRightWidget(
+              newPage: EmergencyPage(),
+              context: context,
+            ),
+            // {
+            //   Navigator.push(context,
+            //       MaterialPageRoute(builder: (context) => EmergencyPage()));
+            // },
             child: Image(
               image: AssetImage(
                 'assets/icons/emergency.png',

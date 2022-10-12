@@ -4,6 +4,7 @@ import 'package:first_app/view/component/editBahasa.dart';
 import 'package:first_app/view/component/editProfile.dart';
 import 'package:first_app/view/page/login.dart';
 import 'package:flutter/foundation.dart';
+import 'package:route_transitions/route_transitions.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -325,11 +326,11 @@ class _ProfilPageState extends State<ProfilPage> {
           height: MediaQuery.of(context).size.width * 0.2,
           width: MediaQuery.of(context).size.width * 0.2,
           child: FloatingActionButton(
-            backgroundColor: Colors.amber,
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => EmergencyPage()));
-            },
+            backgroundColor: Colors.yellow,
+            onPressed: () => slideRightWidget(
+              newPage: EmergencyPage(),
+              context: context,
+            ),
             child: Image(
               image: AssetImage(
                 'assets/icons/emergency.png',

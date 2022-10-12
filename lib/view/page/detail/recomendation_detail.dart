@@ -6,24 +6,24 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:scroll_app_bar/scroll_app_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../model/popular_model.dart';
+import '../../../model/recomendationModel.dart';
 import '../../component/listLayanan.dart';
 
-class DetailPlace extends StatefulWidget {
+class DetailRecomPlace extends StatefulWidget {
   // const DetailPlace({super.key});
 
   final Space space;
-  DetailPlace({
+  DetailRecomPlace({
     Key? key,
     required this.space,
     // required Space space,
   }) : super(key: key);
 
   @override
-  State<DetailPlace> createState() => _DetailPlaceState();
+  State<DetailRecomPlace> createState() => _DetailPlaceState();
 }
 
-class _DetailPlaceState extends State<DetailPlace> {
+class _DetailPlaceState extends State<DetailRecomPlace> {
   final controller = ScrollController();
   @override
   Widget build(BuildContext context) {
@@ -184,6 +184,15 @@ class _DetailPlaceState extends State<DetailPlace> {
                       ],
                     ),
                   ),
+                  // Padding(
+                  //   padding:
+                  //       const EdgeInsets.only(left: 12, top: 10, right: 16),
+                  //   child: Column(
+                  //     mainAxisAlignment: MainAxisAlignment.start,
+                  //     crossAxisAlignment: CrossAxisAlignment.start,
+                  //     children: [],
+                  //   ),
+                  // ),
                   Padding(
                     padding:
                         const EdgeInsets.only(left: 12, top: 10, right: 16),

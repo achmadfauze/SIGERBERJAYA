@@ -1,16 +1,53 @@
-import 'package:first_app/model/baru_model.dart';
+import 'dart:convert';
+
+// import 'package:first_app/model/baru_model.dart';
 import 'package:first_app/view/component/detailArtikel.dart';
 import 'package:first_app/view/component/detailTempat.dart';
 import 'package:flutter/material.dart';
-
+import 'package:http/http.dart' as http;
+import 'package:first_app/model/artikel.dart';
 import '../../component/Emergency.dart';
+import 'package:route_transitions/route_transitions.dart';
 
-class NewsPage extends StatelessWidget {
-  const NewsPage({super.key});
+class NewsPage extends StatefulWidget {
+  // const NewsPage({super.key});
+
+  @override
+  State<NewsPage> createState() => _NewsPageState();
+}
+
+class _NewsPageState extends State<NewsPage> {
+  final List<Space> _Space = [];
+
+  Future<List<Space>> fetchJson() async {
+    var response =
+        await http.get(Uri.parse('http://api-siger.uacak.com/api/v1/article'));
+    print(response);
+    List<Space> slist = [];
+    if (response.statusCode == 200) {
+      var urjson = (json.decode(response.body));
+      print(urjson);
+      for (var jsondata in urjson) {
+        slist.add(Space.fromJson(jsondata));
+      }
+    }
+    return slist;
+  }
+
+  @override
+  void initState() {
+    fetchJson().then((value) {
+      setState(() {
+        _Space.addAll(value);
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MaterialApp(
+        home: Scaffold(
       appBar: AppBar(
         //appbar widget on Scaffold
         title: Text("Berita Wisata Lampung"), //title aof appbar
@@ -23,39 +60,59 @@ class NewsPage extends StatelessWidget {
             preferredSize: Size.fromHeight(4.0)),
       ),
       backgroundColor: Color.fromARGB(255, 236, 228, 228),
-      body: Container(
-        // margin: EdgeInsets.only(top: 8),
-        child: Container(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 12, right: 12, top: 0),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 12, right: 12, top: 0),
 
-            // child: Container(
-            child: InkWell(
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => DetailArtikel()));
-              },
-              child: ListView.builder(
-                itemCount: itemsBaru.length,
-                // physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemBuilder: (context, index) => Container(
+          // child: Container(
+          child: ListView.builder(
+              itemCount: _Space.length,
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                // {
+                final space = _Space[index];
+                return Container(
                   height: 280,
                   margin: EdgeInsets.only(top: 10),
                   width: double.infinity,
                   child: Column(
                     children: [
-                      Container(
-                        height: 160,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(10),
-                              topRight: Radius.circular(10)),
-                          image: DecorationImage(
-                            // image: AssetImage(itemsfestifalbudaya[index].image),
-                            image: NetworkImage("${itemsBaru[index]['Image']}"),
-                            fit: BoxFit.cover,
+                      InkWell(
+                        onTap: () => customAnimationWidget(
+                          newPage: DetailArtikel(
+                            space: space,
+                          ),
+                          context: context,
+                          transitionBuilder:
+                              (context, animation, secondaryAnimation, child) {
+                            var begin = 0.0;
+                            var end = 1.0;
+                            var curve = Curves.easeIn;
+
+                            var tween = Tween(begin: begin, end: end)
+                                .chain(CurveTween(curve: curve));
+
+                            return ScaleTransition(
+                              scale: animation.drive(tween),
+                              child: child,
+                            );
+                          },
+                        ),
+                        child: Container(
+                          height: 160,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10)),
+                            image: DecorationImage(
+                              // image: AssetImage(itemsfestifalbudaya[index].image),
+                              image: NetworkImage(
+                                  "${itemsArtikel[index]['Image']}".toString(),
+                                  scale: 1.0),
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       ),
@@ -80,12 +137,17 @@ class NewsPage extends StatelessWidget {
                                   // SizedBox(
                                   //   width: 3,
                                   // ),
-                                  Text(
-                                    "${itemsBaru[index]['Name']}",
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontFamily: 'Mulish-Regular',
-                                      fontSize: 16,
+                                  Flexible(
+                                    child: Text(
+                                      // space.title.toString(),
+                                      _Space[index].title.toString(),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontFamily: 'Mulish-Regular',
+                                        fontSize: 16,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -103,7 +165,10 @@ class NewsPage extends StatelessWidget {
                                   //   size: 16,
                                   // ),
                                   Flexible(
-                                    child: Text("${itemsBaru[index]['Desc']}",
+                                    child: Text(
+                                        // "${itemsArtikel[index]['Image']}"
+                                        //     .toString(),
+                                        _Space[index].description.toString(),
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
@@ -131,7 +196,8 @@ class NewsPage extends StatelessWidget {
                                         color: Colors.black38,
                                         size: 13,
                                       ),
-                                      Text("${itemsBaru[index]['Date']}",
+                                      Text(_Space[index].createAt.toString(),
+                                          // space.createAt.toString(),
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
@@ -151,9 +217,8 @@ class NewsPage extends StatelessWidget {
                                       SizedBox(
                                         width: 2,
                                       ),
-                                      Text("${itemsBaru[index]['Liked']}",
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
+                                      Text(_Space[index].like.toString(),
+                                          // space.like.toString(),
                                           style: TextStyle(
                                             color: Colors.black38,
                                             fontFamily: 'Roboto-Regular',
@@ -162,22 +227,6 @@ class NewsPage extends StatelessWidget {
                                       SizedBox(
                                         width: 8,
                                       ),
-                                      // Icon(
-                                      //   Icons.comment,
-                                      //   color: Colors.black38,
-                                      //   size: 14,
-                                      // ),
-                                      // SizedBox(
-                                      //   width: 2,
-                                      // ),
-                                      // Text("${itemsBaru[index]['Comment']}",
-                                      //     maxLines: 1,
-                                      //     overflow: TextOverflow.ellipsis,
-                                      //     style: TextStyle(
-                                      //       color: Colors.black38,
-                                      //       fontFamily: 'Roboto-Regular',
-                                      //       fontSize: 14,
-                                      //     )),
                                     ],
                                   ),
                                 ],
@@ -188,127 +237,19 @@ class NewsPage extends StatelessWidget {
                       ))
                     ],
                   ),
-                ),
-
-                // Container(
-                //     height: 200,
-                //     width: double.infinity,
-                //     margin: EdgeInsets.only(bottom: 8),
-                //     decoration: BoxDecoration(
-                //       borderRadius: BorderRadius.circular(10),
-                //       image: DecorationImage(
-                //         // image: AssetImage(itemsfestifalbudaya[index].image),
-                //         image: NetworkImage("${itemsBaru[index]['Image']}"),
-                //         fit: BoxFit.cover,
-                //       ),
-                //     ),
-                //     child: Column(
-                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //       children: [
-                //         Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                //           Container(
-                //             decoration: BoxDecoration(
-                //               borderRadius: BorderRadius.only(
-                //                   bottomLeft: Radius.circular(15),
-                //                   topRight: Radius.circular(10)),
-                //               color: Colors.black.withOpacity(0.5),
-                //               // color: Color.fromARGB(157, 222, 238, 5)
-                //             ),
-                //             height: 40,
-                //             width: 100,
-                //             child: Row(
-                //                 mainAxisAlignment: MainAxisAlignment.center,
-                //                 children: [
-                //                   const Icon(
-                //                     Icons.favorite,
-                //                     size: 22,
-                //                     color: Colors.white,
-                //                   ),
-                //                   SizedBox(
-                //                     width: 6,
-                //                   ),
-                //                   Text(
-                //                     "${itemsBaru[index]['Liked']}",
-                //                     style: TextStyle(
-                //                       color: Colors.white,
-                //                       fontFamily: 'Roboto-Regular',
-                //                       fontSize: 18,
-                //                     ),
-                //                   ),
-                //                   SizedBox(
-                //                     width: 8,
-                //                   ),
-                //                   const Icon(
-                //                     Icons.warning,
-                //                     size: 22,
-                //                     color: Colors.yellow,
-                //                   ),
-                //                 ]),
-                //           ),
-                //         ]),
-                //         Container(
-                //           decoration: BoxDecoration(
-                //             borderRadius: BorderRadius.only(
-                //                 bottomRight: Radius.circular(10),
-                //                 bottomLeft: Radius.circular(10)),
-                //             color: Colors.black.withOpacity(0.5),
-                //             // color: Color.fromARGB(157, 222, 238, 5)
-                //           ),
-                //           height: 60,
-                //           width: double.infinity,
-                //           child: Padding(
-                //             padding: const EdgeInsets.only(left: 12, right: 12),
-                //             child: Column(
-                //               mainAxisAlignment: MainAxisAlignment.center,
-                //               crossAxisAlignment: CrossAxisAlignment.start,
-                //               children: [
-                //                 Text(
-                //                   "${itemsBaru[index]['Name']}",
-                //                   style: TextStyle(
-                //                     color: Colors.white,
-                //                     fontFamily: 'Mulish-Regular',
-                //                     fontSize: 16,
-                //                   ),
-                //                 ),
-                //                 SizedBox(
-                //                   height: 8,
-                //                 ),
-                //                 Row(
-                //                   crossAxisAlignment: CrossAxisAlignment.start,
-                //                   children: [
-                //                     //Icon(Icons.location_on,size: 18,color: Colors.white,),
-                //                     Text(
-                //                       "${itemsBaru[index]['Desc']}",
-                //                       maxLines: 1,
-                //                       overflow: TextOverflow.ellipsis,
-                //                       style: const TextStyle(
-                //                         color: Colors.white,
-                //                         fontFamily: 'Mulish-Regular',
-                //                         fontSize: 12,
-                //                       ),
-                //                     ),
-                //                   ],
-                //                 ),
-                //               ],
-                //             ),
-                //           ),
-                //         ),
-                //       ],
-                //     )),
-              ),
-            ),
-          ),
+                );
+              }),
         ),
       ),
       floatingActionButton: SizedBox(
         height: MediaQuery.of(context).size.width * 0.2,
         width: MediaQuery.of(context).size.width * 0.2,
         child: FloatingActionButton(
-          backgroundColor: Colors.amber,
-          onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => EmergencyPage()));
-          },
+          backgroundColor: Colors.yellow,
+          onPressed: () => slideRightWidget(
+            newPage: EmergencyPage(),
+            context: context,
+          ),
           child: Image(
             image: AssetImage(
               'assets/icons/emergency.png',
@@ -317,6 +258,6 @@ class NewsPage extends StatelessWidget {
           ),
         ),
       ),
-    );
+    ));
   }
 }

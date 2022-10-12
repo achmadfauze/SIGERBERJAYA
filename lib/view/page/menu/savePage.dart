@@ -1,7 +1,8 @@
 import 'package:first_app/view/component/detailArtikel.dart';
+import 'package:first_app/view/component/detailArtikelSave.dart';
 import 'package:first_app/view/component/detailTempat.dart';
 import 'package:flutter/material.dart';
-
+import 'package:route_transitions/route_transitions.dart';
 import '../../component/Emergency.dart';
 
 class SavePage extends StatelessWidget {
@@ -78,11 +79,11 @@ class SavePage extends StatelessWidget {
           height: MediaQuery.of(context).size.width * 0.2,
           width: MediaQuery.of(context).size.width * 0.2,
           child: FloatingActionButton(
-            backgroundColor: Colors.amber,
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => EmergencyPage()));
-            },
+            backgroundColor: Colors.yellow,
+            onPressed: () => slideRightWidget(
+              newPage: EmergencyPage(),
+              context: context,
+            ),
             child: Image(
               image: AssetImage(
                 'assets/icons/emergency.png',
@@ -112,7 +113,7 @@ class ListArsipArtikel extends StatelessWidget {
         onTap: (() {
           Navigator.of(context).push(
             MaterialPageRoute(builder: (context) {
-              return DetailArtikel();
+              return DetailArtikelSave();
             }),
           );
         }),

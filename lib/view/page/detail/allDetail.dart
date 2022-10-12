@@ -1,29 +1,28 @@
 import 'package:first_app/view/component/popular%20List.dart';
-import 'package:first_app/view/page/menu/homePage.dart';
+import 'package:first_app/model/API_wisata.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:scroll_app_bar/scroll_app_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../model/popular_model.dart';
+import '../../../model/modelAll.dart';
 import '../../component/listLayanan.dart';
 
-class DetailPlace extends StatefulWidget {
+class AllDetailPlace extends StatefulWidget {
   // const DetailPlace({super.key});
 
   final Space space;
-  DetailPlace({
+  AllDetailPlace({
     Key? key,
     required this.space,
     // required Space space,
   }) : super(key: key);
 
   @override
-  State<DetailPlace> createState() => _DetailPlaceState();
+  State<AllDetailPlace> createState() => _DetailPlaceState();
 }
 
-class _DetailPlaceState extends State<DetailPlace> {
+class _DetailPlaceState extends State<AllDetailPlace> {
   final controller = ScrollController();
   @override
   Widget build(BuildContext context) {
@@ -77,7 +76,7 @@ class _DetailPlaceState extends State<DetailPlace> {
                   color: Colors.white,
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 12, top: 10),
+                  padding: const EdgeInsets.only(left: 12, top: 8),
                   child: Text(
                     widget.space.name.toString(),
                     style: TextStyle(
@@ -184,6 +183,36 @@ class _DetailPlaceState extends State<DetailPlace> {
                       ],
                     ),
                   ),
+                  // Padding(
+                  //   padding:
+                  //       const EdgeInsets.only(left: 12, top: 10, right: 16),
+                  //   child: Column(
+                  //     mainAxisAlignment: MainAxisAlignment.start,
+                  //     crossAxisAlignment: CrossAxisAlignment.start,
+                  //     children: [
+                  //       Row(
+                  //         children: [
+                  //           Icon(
+                  //             Icons.place,
+                  //             size: 16,
+                  //             color: Colors.black,
+                  //           ),
+                  //           Flexible(
+                  //             child: Text(
+                  //               widget.space.locationName.toString(),
+                  //               maxLines: 2,
+                  //               overflow: TextOverflow.ellipsis,
+                  //               style: TextStyle(
+                  //                 fontFamily: 'Roboto-Regular',
+                  //                 fontSize: 14,
+                  //               ),
+                  //             ),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                   Padding(
                     padding:
                         const EdgeInsets.only(left: 12, top: 10, right: 16),
