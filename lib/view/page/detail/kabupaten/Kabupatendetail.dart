@@ -73,9 +73,9 @@ class _AllKabupatenListState extends State<AllKabupatenList> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => (DetailTempat(
-                          tourCode: Tour[index].tourCode,
-                        )),
+                        builder: (builder) => DetailTempat(
+                          data: Tour[index],
+                        ),
                       ),
                     );
                   },

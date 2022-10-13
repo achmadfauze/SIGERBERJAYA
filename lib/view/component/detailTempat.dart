@@ -16,7 +16,8 @@ import '../../model/tourModel.dart';
 
 class DetailTempat extends StatefulWidget {
   final String? tourCode;
-  const DetailTempat({super.key, this.tourCode});
+  final tour? data;
+  const DetailTempat({super.key, this.tourCode, this.data});
 
   @override
   State<DetailTempat> createState() => _DetailTempatState();
@@ -148,8 +149,7 @@ class _DetailTempatState extends State<DetailTempat> {
                 Expanded(flex: 1, child: Icon(Icons.place)),
                 Expanded(
                   flex: 8,
-                  child: Text(
-                      "Sinar Banten/Bekri, Bekri, Kabupaten Lampung Tenga"),
+                  child: Text(widget.data!.locationName),
                 ),
                 Expanded(flex: 1, child: Icon(Icons.favorite_border)),
                 Expanded(flex: 1, child: Icon(Icons.comment)),
@@ -166,7 +166,7 @@ class _DetailTempatState extends State<DetailTempat> {
                   Container(
                     margin: EdgeInsets.only(bottom: 15),
                     child: Text(
-                      widget.tourCode.toString(),
+                      widget.data!.name,
                       maxLines: 1,
                       style: TextStyle(
                         fontSize: 20,
@@ -179,7 +179,7 @@ class _DetailTempatState extends State<DetailTempat> {
                       Row(
                         children: [
                           Expanded(
-                            flex: 6,
+                            flex: 3,
                             child: Text.rich(
                               TextSpan(
                                 children: [
@@ -189,7 +189,7 @@ class _DetailTempatState extends State<DetailTempat> {
                                     size: 18,
                                   )),
                                   WidgetSpan(
-                                    child: Text(" 20 Orang Menyukai ini",
+                                    child: Text(widget.data!.like,
                                         maxLines: 1,
                                         style: TextStyle(fontSize: 16)),
                                   ),
@@ -208,7 +208,7 @@ class _DetailTempatState extends State<DetailTempat> {
                                     size: 18,
                                   )),
                                   TextSpan(
-                                      text: " 50",
+                                      text: widget.data!.comment,
                                       style: TextStyle(fontSize: 16)),
                                 ],
                               ),
@@ -297,7 +297,7 @@ class _DetailTempatState extends State<DetailTempat> {
                                   )),
                                   WidgetSpan(
                                     child: Text(
-                                      " 100 Orang Saat Ini",
+                                      " ${widget.data!.numberOfTourists.toString()} Orang Saat Ini",
                                       maxLines: 1,
                                       style: TextStyle(
                                           fontSize: 16,
@@ -336,7 +336,7 @@ class _DetailTempatState extends State<DetailTempat> {
                       Container(
                         margin: EdgeInsets.only(top: 15),
                         child: Text(
-                          "Contented get distrusts certainty nay are frankness concealed ham. On unaffected resolution on considered of. No thought me husband or colonel forming effects. End sitting shewing who saw besides son musical adapted. Contrasted interested eat alteration pianoforte sympathize was. He families believed if no elegance interest surprise an. It abode wrong miles an so delay plate. She relation own put outlived may disposed. ",
+                          widget.data!.description.toString(),
                           style: TextStyle(fontSize: 18, height: 1.5),
                           textAlign: TextAlign.justify,
                         ),
