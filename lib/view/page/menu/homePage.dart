@@ -4,6 +4,7 @@ import 'package:first_app/model/recomendationModel.dart';
 // import 'package:first_app/view/component/BaruList.dart';
 import 'package:first_app/view/component/Emergency.dart';
 import 'package:first_app/view/component/all_place.dart';
+import 'package:first_app/view/component/baruList.dart';
 import 'package:first_app/view/component/carousel.dart';
 // import 'package:first_app/view/component/detailRecomendation.dart';
 // import 'package:first_app/view/component/detailTempat.dart';
@@ -16,10 +17,12 @@ import 'package:first_app/view/component/popular%20List.dart';
 // import 'package:first_app/view/page/detail/allPopularList.dart';
 import 'package:first_app/view/page/detail/allRecomendation.dart';
 import 'package:first_app/view/page/detail/recomendation_detail.dart';
+import 'package:first_app/view/component/search.dart';
 // import 'package:first_app/view/page/menu/profilPage.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:route_transitions/route_transitions.dart';
+import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 
@@ -172,10 +175,11 @@ class _Homepage extends State<HomePage> {
                       padding: const EdgeInsets.all(12.0),
                       child: InkWell(
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => AllPlace()));
+                          showSearch(context: context, delegate: SearchUser());
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) => AllPlace()));
                         },
                         child: Container(
                           width: double.infinity,
@@ -235,6 +239,53 @@ class _Homepage extends State<HomePage> {
                       ],
                     ),
                   ),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  // Container(
+                  //   child: DefaultTabController(
+                  //     length: 2,
+                  //     child: Column(
+                  //       children: <Widget>[
+                  //         ButtonsTabBar(
+                  //           backgroundColor: Colors.red,
+                  //           unselectedBackgroundColor: Colors.grey[300],
+                  //           unselectedLabelStyle:
+                  //               TextStyle(color: Colors.black),
+                  //           labelStyle: TextStyle(
+                  //               color: Colors.white,
+                  //               fontWeight: FontWeight.bold),
+                  //           tabs: [
+                  //             Tab(
+                  //               icon: Icon(Icons.directions_car),
+                  //               text: "Populer",
+                  //             ),
+                  //             Tab(
+                  //               icon: Icon(Icons.directions_transit),
+                  //               text: "Terbaru",
+                  //             ),
+                  //           ],
+                  //         ),
+                  //         Container(
+                  //           child: TabBarView(
+                  //             children: <Widget>[
+                  //               PageView(
+                  //                 children: <Widget>[
+                  //                   PopularList(),
+                  //                 ],
+                  //               ),
+                  //               PageView(
+                  //                 children: <Widget>[
+                  //                   BaruList(),
+                  //                 ],
+                  //               ),
+                  //             ],
+                  //           ),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
                   Padding(
                     padding: const EdgeInsets.only(
                         left: 12, right: 4, top: 0, bottom: 10),

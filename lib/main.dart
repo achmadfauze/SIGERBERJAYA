@@ -49,6 +49,8 @@ class _FirstAppState extends State<FirstApp> {
         MaterialApp(
       debugShowCheckedModeBanner: false,
       home: _currentUser == null ? LoginPage() : Home(),
+      // debugShowCheckedModeBanner: false,
+      // home: _currentUser == null ? LoginPage() : Home(),
     );
   }
 }
