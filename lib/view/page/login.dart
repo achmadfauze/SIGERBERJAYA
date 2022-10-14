@@ -1,4 +1,5 @@
 import 'package:first_app/main.dart';
+import 'package:first_app/model/theme.dart';
 import 'package:first_app/view/page/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -68,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
           //   width: 60,
           // ),
           Padding(
-            padding: const EdgeInsets.only(left: 235, top: 40),
+            padding: const EdgeInsets.only(left: 230, top: 40),
             child: Row(
               //crossAxisAlignment: CrossAxisAlignment.end,
               children: [
@@ -79,14 +80,8 @@ class _LoginPageState extends State<LoginPage> {
                           MaterialPageRoute(
                               builder: (context) => OnBoardPage()));
                     },
-                    child: const Text(
-                      "Lewati",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Roboto-Regular',
-                        fontSize: 16,
-                      ),
-                    )),
+                    child: Text("Lewati",
+                        style: whiteTextStyle.copyWith(fontSize: 16))),
                 const SizedBox(
                   width: 24,
                 ),
@@ -103,35 +98,36 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               // mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
-                  "Selamat Datanggg di",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'Roboto-Regular',
-                    fontSize: 20,
-                  ),
+                Text(
+                  "Selamat Datang di",
+                  style: whiteTextStyle.copyWith(fontSize: 20),
+                  // color: Colors.white,
+                  // fontFamily: 'Roboto-Regular',
+                  // fontSize: 20,
+
                   //textAlign: TextAlign.center,
                 ),
                 const SizedBox(
                   height: 5,
                 ),
-                const Text(
-                  "SI SIGER BERJAYA",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'Roboto-Bold',
-                    fontSize: 35,
-                    // color: Colors.white,
-                    fontWeight: FontWeight.w900,
-                  ),
-                  //textAlign: TextAlign.center,
-                ),
+                Text("PARIWISATA BERJAYA",
+                    style: whiteTextStyle.copyWith(
+                        fontSize: 28, fontWeight: FontWeight.bold)
+                    // TextStyle(
+                    //   color: Colors.white,
+                    //   fontFamily: 'Roboto-Bold',
+                    //   fontSize: 35,
+                    //   // color: Colors.white,
+                    //   fontWeight: FontWeight.w900,
+                    // ),
+                    //textAlign: TextAlign.center,
+                    ),
                 const SizedBox(
                   height: 16,
                 ),
                 Image.asset(
-                  'assets/Lampung.png',
-                  height: 180,
+                  'assets/LOGO_PARIWISATA.png',
+                  height: 160,
                   // width: 180,
                 ),
                 const SizedBox(
@@ -140,26 +136,28 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(
                   height: 22,
                 ),
-                const Text(
+                Text(
                   //TextAlign.center;
                   "Jelajahi setiap tempat terkenal di\nLampung dan temukan hotel\n terdekat serta restoran dengan\n cara termudah. Dapatkan petunjuk",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'Roboto-Regular',
+                  style: whiteTextStyle.copyWith(
                     fontSize: 18,
-                    fontWeight: FontWeight.w600,
+                    wordSpacing: 1,
                   ),
+                  // TextStyle(
+                  //   color: Colors.white,
+                  //   fontFamily: 'Roboto-Regular',
+                  //   fontSize: 18,
+                  //   fontWeight: FontWeight.w600,
+                  // ),
                   textAlign: TextAlign.center,
                 ),
-                const Text(
+                Text(
                   //TextAlign.center;
                   "arah terkini, perkiraan biaya dan\njelalahi blog perjalanan tanpa rasa\nkhawatir akan keamanan anda\nselama perjalanan.",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'Roboto-Regular',
+                  style: whiteTextStyle.copyWith(
                     fontSize: 18,
-                    fontWeight: FontWeight.w600,
                   ),
+
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(

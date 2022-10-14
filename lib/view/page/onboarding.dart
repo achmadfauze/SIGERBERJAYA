@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:first_app/view/page/introScreen/introPage4.dart';
 import 'package:first_app/view/page/introScreen/intropage1.dart';
 import 'package:first_app/view/page/introScreen/intropage2.dart';
 import 'package:first_app/view/page/introScreen/intropage3.dart';
@@ -33,6 +34,7 @@ class _OnBoardPageState extends State<OnBoardPage> {
                 IntroPage1(),
                 IntroPage2(),
                 IntroPage3(),
+                IntroPage4(),
               ],
             ),
             Container(
@@ -47,7 +49,7 @@ class _OnBoardPageState extends State<OnBoardPage> {
                     // ),
                     child: SmoothPageIndicator(
                       controller: _controller,
-                      count: 3,
+                      count: 4,
                       effect: ScrollingDotsEffect(
                         activeDotColor: Color(0xff14C38E),
                         activeDotScale: 2,

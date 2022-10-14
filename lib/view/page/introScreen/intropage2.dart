@@ -1,3 +1,4 @@
+import 'package:first_app/model/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -22,14 +23,13 @@ class IntroPage2 extends StatelessWidget {
           const SizedBox(
             height: 30,
           ),
-          const Text(
-            "Memandu Perjalanan               \nRealtime",
-            style: TextStyle(
-              fontFamily: 'Mulish-Bold',
-              fontSize: 20,
+          Text(
+            "Lama Perjalanan dan Harga\nTiket Destinasi",
+            style: blackTextStyle.copyWith(
+              fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
-            textAlign: TextAlign.left,
+            textAlign: TextAlign.center,
           ),
           const SizedBox(
             height: 10,
@@ -44,12 +44,11 @@ class IntroPage2 extends StatelessWidget {
           const SizedBox(
             height: 24,
           ),
-          const Text(
+          Text(
             //TextAlign.center;
             "Arah wisata, harga tiket, info\nperjalanan, serta semua tentang\ntempat populer di provinsi Lampung\ndalam satu aplikasi",
-            style: TextStyle(
-              fontFamily: 'Mulish-Regular',
-              fontSize: 16,
+            style: regularTextStyle.copyWith(
+              fontSize: 15,
             ),
             textAlign: TextAlign.center,
           ),

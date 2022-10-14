@@ -6,6 +6,7 @@ import 'package:first_app/view/component/detailTempat.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:first_app/model/artikel.dart';
+import '../../../model/theme.dart';
 import '../../component/Emergency.dart';
 import 'package:route_transitions/route_transitions.dart';
 
@@ -50,7 +51,9 @@ class _NewsPageState extends State<NewsPage> {
         home: Scaffold(
       appBar: AppBar(
         //appbar widget on Scaffold
-        title: Text("Berita Wisata Lampung"), //title aof appbar
+        title: Text("Berita Wisata Lampung",
+            style: regularTextStyle.copyWith(
+                fontSize: 18, color: Colors.white)), //title aof appbar
         backgroundColor: Color(0xff00a877),
         bottom: PreferredSize(
             child: Container(
@@ -143,11 +146,10 @@ class _NewsPageState extends State<NewsPage> {
                                       _Space[index].title.toString(),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontFamily: 'Mulish-Regular',
-                                        fontSize: 16,
-                                      ),
+                                      style: regularTextStyle.copyWith(
+                                          color: Colors.black,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
                                     ),
                                   ),
                                 ],
@@ -171,9 +173,8 @@ class _NewsPageState extends State<NewsPage> {
                                         _Space[index].description.toString(),
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                          color: Colors.black38,
-                                          fontFamily: 'Mulish-Regular',
+                                        style: regularTextStyle.copyWith(
+                                          color: Colors.black,
                                           fontSize: 14,
                                         )),
                                   )
@@ -200,9 +201,8 @@ class _NewsPageState extends State<NewsPage> {
                                           // space.createAt.toString(),
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                            color: Colors.black38,
-                                            fontFamily: 'Mulish-Regular',
+                                          style: regularTextStyle.copyWith(
+                                            color: Colors.black,
                                             fontSize: 14,
                                           )),
                                     ],
@@ -219,9 +219,8 @@ class _NewsPageState extends State<NewsPage> {
                                       ),
                                       Text(_Space[index].like.toString(),
                                           // space.like.toString(),
-                                          style: TextStyle(
-                                            color: Colors.black38,
-                                            fontFamily: 'Roboto-Regular',
+                                          style: regularTextStyle.copyWith(
+                                            color: Colors.black,
                                             fontSize: 14,
                                           )),
                                       SizedBox(

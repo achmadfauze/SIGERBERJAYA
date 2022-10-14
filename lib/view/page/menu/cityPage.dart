@@ -1,13 +1,11 @@
 import 'dart:convert';
-
-import 'package:first_app/view/page/menu/homePage.dart';
-import 'package:provider/provider.dart';
 import 'package:first_app/model/KabupatenModel.dart';
 import 'package:first_app/view/page/detail/kabupaten/Kabupatendetail.dart';
 import 'package:flutter/material.dart';
 import 'package:route_transitions/route_transitions.dart';
 import 'package:http/http.dart' as http;
 
+import '../../../model/theme.dart';
 import '../../component/Emergency.dart';
 
 class CityPage extends StatefulWidget {
@@ -55,20 +53,15 @@ class _CityPage extends State<CityPage> {
 
   @override
   Widget build(BuildContext context) {
-    // var spaceProvider = Provider.of<SpaceProvider>(context);
-    // spaceProvider..getSpace();
-    // Future fetchSpace() async {
-    //   var url = Uri.https('http://bwa-cozy.herokuapp.com/recommended-spaces');
-    //   var response = await http.get(url);
-    //   var spaces = [];
-    // }
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: Text("Kabupaten / Kota"), //title aof appbar
-          backgroundColor: Color(0xff00a877),
+          title: Text(
+            "Kabupaten / Kota",
+            style: regularTextStyle.copyWith(fontSize: 18, color: Colors.white),
+          ), //title aof appbar
+          backgroundColor: const Color(0xff00a877),
         ),
         // color: Color(0xffB4D6EF),
         body: SingleChildScrollView(
@@ -82,7 +75,7 @@ class _CityPage extends State<CityPage> {
                 Container(
                   child: ListView.builder(
                     itemCount: _Space.length,
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemBuilder: (context, index) => InkWell(
                       onTap: () {
@@ -115,6 +108,10 @@ class _CityPage extends State<CityPage> {
                               opacity: 0.8),
                         ),
                         child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.black45,
+                            ),
                             child: Center(
                               child: Text(
                                 _Space[index].state.toString(),
@@ -122,18 +119,13 @@ class _CityPage extends State<CityPage> {
                                 // _Space[index].state.toString(),
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
+                                style: regularTextStyle.copyWith(
                                   color: Colors.white,
-                                  fontFamily: 'Mulish-Regular',
                                   fontSize: 24,
                                   fontWeight: FontWeight.bold,
                                 ),
                                 textAlign: TextAlign.center,
                               ),
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.black45,
                             )),
                       ),
                     ),
@@ -156,7 +148,7 @@ class _CityPage extends State<CityPage> {
             //   Navigator.push(context,
             //       MaterialPageRoute(builder: (context) => EmergencyPage()));
             // },
-            child: Image(
+            child: const Image(
               image: AssetImage(
                 'assets/icons/emergency.png',
               ),
