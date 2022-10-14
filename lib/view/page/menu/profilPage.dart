@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:first_app/model/userModel.dart';
 import 'package:first_app/view/component/editBahasa.dart';
 import 'package:first_app/view/component/editProfile.dart';
 import 'package:first_app/view/page/home.dart';
@@ -9,11 +10,14 @@ import 'package:route_transitions/route_transitions.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 import '../../component/Emergency.dart';
 
 class ProfilPage extends StatefulWidget {
-  const ProfilPage({super.key});
+  final String? uid;
+  const ProfilPage({super.key, this.uid});
 
   @override
   State<ProfilPage> createState() => _ProfilPageState();
@@ -41,22 +45,47 @@ class _ProfilPageState extends State<ProfilPage> {
     ],
   );
   GoogleSignInAccount? _currentUser;
-
+  user Users = new user();
   @override
   void initState() {
-    super.initState();
     _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount? account) {
       setState(() {
         _currentUser = account;
       });
     });
     _googleSignIn.signInSilently();
+    fetchJson().then((value) {
+      setState(() {
+        Users = value;
+      });
+    });
+    super.initState();
   }
 
   Future<void> _handleSignOut() => _googleSignIn.disconnect();
 
   DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
   dynamic currentTime = DateFormat("yyyy-MM-dd").format(DateTime.now());
+
+  Future<user> fetchJson() async {
+    var response = await http
+        .get(Uri.parse('http://api-siger.uacak.com/api/v1/user/${widget.uid}'));
+
+    user slist = new user();
+    if (response.statusCode == 200) {
+      var urjson = (json.decode(response.body));
+      // print(urjson['name']);
+      slist = user(
+          userCode: urjson['userCode'],
+          uid: urjson['uid'],
+          email: urjson['email'],
+          image: urjson['image'],
+          name: urjson['name'],
+          createAt: urjson['createAt']);
+    }
+
+    return slist;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +139,7 @@ class _ProfilPageState extends State<ProfilPage> {
                               height: bodyWidth * 0.40,
                               child: Image.network(
                                 _currentUser != null
-                                    ? _currentUser!.photoUrl.toString()
+                                    ? Users.image.toString()
                                     : '',
                                 fit: BoxFit.fill,
                               ),
@@ -123,7 +152,8 @@ class _ProfilPageState extends State<ProfilPage> {
                 padding: EdgeInsets.only(top: bodyHeight * 0.03),
                 child: Text(
                   _currentUser != null
-                      ? _currentUser!.displayName.toString()
+                      // ? _currentUser!.displayName.toString()
+                      ? Users.name.toString()
                       : '',
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -138,10 +168,21 @@ class _ProfilPageState extends State<ProfilPage> {
                   ? Padding(
                       padding: const EdgeInsets.only(left: 12),
                       child: ListTile(
-                        title: Text("Masuk",
-                            style: TextStyle(
-                              fontFamily: 'Roboto-Regular',
-                            )),
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: ((context) {
+                                return LoginPage();
+                              }),
+                            ),
+                          );
+                        },
+                        title: Text(
+                          "Masuk",
+                          style: TextStyle(
+                            fontFamily: 'Roboto-Regular',
+                          ),
+                        ),
                         leading: Icon(
                           Icons.login,
                           // color: Colors.blue,
@@ -157,7 +198,8 @@ class _ProfilPageState extends State<ProfilPage> {
                           ListTile(
                             title: Text(
                               _currentUser != null
-                                  ? _currentUser!.email.toString()
+                                  // ? _currentUser!.email.toString()
+                                  ? Users.email.toString()
                                   : '',
                               style: TextStyle(
                                 fontFamily: 'Roboto-Regular',
@@ -169,7 +211,7 @@ class _ProfilPageState extends State<ProfilPage> {
                             ),
                           ),
                           ListTile(
-                            title: Text(currentTime.toString(),
+                            title: Text(Users.createAt.toString(),
                                 style: TextStyle(
                                   fontFamily: 'Roboto-Regular',
                                 )),
@@ -195,7 +237,9 @@ class _ProfilPageState extends State<ProfilPage> {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder: ((context) {
-                                    return EditProfile();
+                                    return EditProfile(
+                                      User: Users,
+                                    );
                                   }),
                                 ),
                               );

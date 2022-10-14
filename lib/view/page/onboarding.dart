@@ -114,11 +114,13 @@ class _OnBoardPageState extends State<OnBoardPage> {
                               borderRadius: BorderRadius.circular(30),
                             )),
                         onPressed: () {
-                          createUser(
-                              _currentUser!.id,
-                              _currentUser!.displayName.toString(),
-                              _currentUser!.email,
-                              _currentUser!.photoUrl.toString());
+                          if (_currentUser != null) {
+                            createUser(
+                                _currentUser!.id,
+                                _currentUser!.displayName.toString(),
+                                _currentUser!.email,
+                                _currentUser!.photoUrl.toString());
+                          }
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) => Home()));
                         },
