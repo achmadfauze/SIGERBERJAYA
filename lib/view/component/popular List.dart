@@ -1,33 +1,40 @@
 import 'dart:convert';
 
-import 'package:first_app/model/popular_model.dart';
-import 'package:first_app/view/component/detailTempat.dart';
+// import 'package:first_app/model/popular_model.dart';
+// import 'package:first_app/model/TourModel.dart';
+// import 'package:first_app/view/component/detailTempat.dart';
+import 'package:first_app/model/tourModel.dart';
 import 'package:first_app/view/page/detail/populerdetail.dart';
 import 'package:route_transitions/route_transitions.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import '../../model/theme.dart';
+
 class PopularList extends StatefulWidget {
+  // final String? stateCode, state, image;
+  // AllKabupatenList({super.key, this.stateCode, this.state, this.image});
+
   @override
   State<PopularList> createState() => _PopularListState();
 }
 
 class _PopularListState extends State<PopularList> {
   // const PopularList({super.key});
-  final List<Space> _Space = [];
+  final List<tour> _Tour = [];
 
-  Future<List<Space>> fetchJson() async {
+  Future<List<tour>> fetchJson() async {
     var response = await http
         // .get(Uri.parse('http://bwa-cozy.herokuapp.com/recommended-spaces'));
         .get(Uri.parse(
             'http://api-siger.uacak.com/public/api/v1/populertour/5'));
     print(response);
-    List<Space> slist = [];
+    List<tour> slist = [];
     if (response.statusCode == 200) {
       var urjson = (json.decode(response.body));
       print(urjson);
       for (var jsondata in urjson) {
-        slist.add(Space.fromJson(jsondata));
+        slist.add(tour.fromJson(jsondata));
       }
     }
     return slist;
@@ -37,7 +44,7 @@ class _PopularListState extends State<PopularList> {
   void initState() {
     fetchJson().then((value) {
       setState(() {
-        _Space.addAll(value);
+        _Tour.addAll(value);
       });
     });
     super.initState();
@@ -51,18 +58,18 @@ class _PopularListState extends State<PopularList> {
         child: SizedBox(
           height: 220,
           child: ListView.builder(
-              itemCount: _Space.length,
+              itemCount: _Tour.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
-                final space = _Space[index];
+                // final space = _Tour[index];
                 return Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       // color: Colors.green[700],
                       image: DecorationImage(
                         image: NetworkImage(
-                          "${itemsPopular[index]['Image']}",
-                          // _Space[index].image.toString(),
+                          // "${itemsPopular[index]['Image']}",
+                          _Tour[index].image.toString(),
                         ),
                         fit: BoxFit.cover,
                       ),
@@ -73,7 +80,7 @@ class _PopularListState extends State<PopularList> {
                     child: InkWell(
                         onTap: () => customAnimationWidget(
                               newPage: DetailPlace(
-                                space: space,
+                                data: _Tour[index],
                               ),
                               context: context,
                               transitionBuilder: (context, animation,
@@ -139,10 +146,10 @@ class _PopularListState extends State<PopularList> {
                                             width: 4,
                                           ),
                                           Text(
-                                            space.like.toString(),
-                                            style: TextStyle(
+                                            _Tour[index].like.toString(),
+                                            // space.like.toString(),
+                                            style: regularTextStyle.copyWith(
                                               color: Colors.white,
-                                              fontFamily: 'Roboto-Regular',
                                               fontSize: 12,
                                             ),
                                           ),
@@ -165,18 +172,34 @@ class _PopularListState extends State<PopularList> {
                                 color: Colors.black.withOpacity(0.5),
                                 // color: Color.fromARGB(157, 222, 238, 5)
                               ),
-                              height: 50,
+                              height: 60,
                               width: double.infinity,
                               child: Padding(
                                 padding: const EdgeInsets.only(
                                     left: 12, right: 12, top: 10, bottom: 10),
-                                child: Text(
-                                  space.name.toString(),
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: 'Robot-Regular',
-                                    fontSize: 16,
-                                  ),
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      // space.name.toString(),
+                                      _Tour[index].name.toString(),
+                                      style: regularTextStyle.copyWith(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                      ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    Text(
+                                      // space.ticket.toString(),
+                                      _Tour[index].ticket.toString(),
+                                      // "10.000",
+                                      style: TextStyle(
+                                          fontSize: 13, color: Colors.white),
+                                    ),
+                                  ],
                                 ),
                               ),
                             )

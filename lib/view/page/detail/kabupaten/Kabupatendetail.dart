@@ -1,13 +1,16 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:first_app/model/popular_model.dart';
+// import 'package:first_app/model/popular_model.dart';
 import 'package:first_app/model/tourModel.dart';
 import 'package:first_app/view/component/detailTempat.dart';
+import 'package:first_app/view/page/detail/populerdetail.dart';
 import 'package:first_app/view/page/menu/cityPage.dart';
 import 'package:flutter/material.dart';
-import 'package:first_app/model/KabupatenModel.dart';
+// import 'package:first_app/model/KabupatenModel.dart';
 import 'package:http/http.dart' as http;
+
+import '../../../../model/theme.dart';
 
 class AllKabupatenList extends StatefulWidget {
   final String? stateCode, state, image;
@@ -18,7 +21,7 @@ class AllKabupatenList extends StatefulWidget {
 }
 
 class _AllKabupatenListState extends State<AllKabupatenList> {
-  final List<tour> Tour = [];
+  final List<tour> _Tour = [];
 
   Future<List<tour>> fetchJson() async {
     var response = await http.get(Uri.parse(
@@ -37,7 +40,7 @@ class _AllKabupatenListState extends State<AllKabupatenList> {
   void initState() {
     fetchJson().then((value) {
       setState(() {
-        Tour.addAll(value);
+        _Tour.addAll(value);
       });
     });
     super.initState();
@@ -48,7 +51,10 @@ class _AllKabupatenListState extends State<AllKabupatenList> {
     return Scaffold(
       appBar: AppBar(
         //appbar widget on Scaffold
-        title: Text(widget.state.toString()), //title aof appbar
+        title: Text(
+          widget.state.toString(),
+          style: regularTextStyle.copyWith(fontSize: 18, color: Colors.white),
+        ), //title aof appbar
         backgroundColor: Color(0xff00a877),
       ),
       backgroundColor: Color.fromARGB(255, 236, 228, 228),
@@ -60,12 +66,12 @@ class _AllKabupatenListState extends State<AllKabupatenList> {
 
             // child: Container(
             child: ListView.builder(
-              itemCount: Tour.length,
+              itemCount: _Tour.length,
               // physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
 
               itemBuilder: (context, index) => Container(
-                height: 200,
+                height: 210,
                 margin: EdgeInsets.only(top: 10),
                 width: double.infinity,
                 child: InkWell(
@@ -73,8 +79,9 @@ class _AllKabupatenListState extends State<AllKabupatenList> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (builder) => DetailTempat(
-                          data: Tour[index],
+                        builder: (builder) => DetailPlace(
+                          //  DetailTempat(
+                          data: _Tour[index],
                         ),
                       ),
                     );
@@ -85,12 +92,12 @@ class _AllKabupatenListState extends State<AllKabupatenList> {
                         height: 124,
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(10),
                               topRight: Radius.circular(10)),
                           image: DecorationImage(
                             // image: AssetImage(itemsfestifalbudaya[index].image),
-                            image: NetworkImage(Tour[index].image.toString()),
+                            image: NetworkImage(_Tour[index].image.toString()),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -98,7 +105,7 @@ class _AllKabupatenListState extends State<AllKabupatenList> {
                       Flexible(
                           child: Container(
                         width: double.infinity,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(10),
                               bottomRight: Radius.circular(10)),
@@ -113,38 +120,37 @@ class _AllKabupatenListState extends State<AllKabupatenList> {
                             children: [
                               Row(
                                 children: [
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 3,
                                   ),
                                   Text(
-                                    "${Tour[index].name}",
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontFamily: 'Mulish-Regular',
+                                    "${_Tour[index].name}",
+                                    style: regularTextStyle.copyWith(
                                       fontSize: 16,
                                     ),
                                   ),
                                 ],
                               ),
+                              const SizedBox(
+                                height: 4,
+                              ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Icon(
+                                  const Icon(
                                     Icons.location_on_outlined,
                                     color: Colors.black38,
                                     size: 16,
                                   ),
                                   Flexible(
-                                    child: Text("${Tour[index].locationName}",
+                                    child: Text("${_Tour[index].locationName}",
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                          color: Colors.black38,
-                                          fontFamily: 'Mulish-Regular',
+                                        style: regularTextStyle.copyWith(
                                           fontSize: 14,
                                         )),
-                                  )
+                                  ),
                                 ],
                               ),
                               Row(
@@ -161,13 +167,11 @@ class _AllKabupatenListState extends State<AllKabupatenList> {
                                         color: Colors.black38,
                                         size: 13,
                                       ),
-                                      Text("${Tour[index].createAt}",
+                                      Text("${_Tour[index].createAt}",
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                            color: Colors.black38,
-                                            fontFamily: 'Mulish-Regular',
-                                            fontSize: 14,
+                                          style: regularTextStyle.copyWith(
+                                            fontSize: 13,
                                           )),
                                     ],
                                   ),
@@ -181,13 +185,12 @@ class _AllKabupatenListState extends State<AllKabupatenList> {
                                       SizedBox(
                                         width: 2,
                                       ),
-                                      Text("${Tour[index].like}",
+                                      Text("${_Tour[index].like}",
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
+                                          style: regularTextStyle.copyWith(
                                             color: Colors.black38,
-                                            fontFamily: 'Roboto-Regular',
-                                            fontSize: 14,
+                                            fontSize: 13,
                                           )),
                                       SizedBox(
                                         width: 8,
@@ -200,13 +203,12 @@ class _AllKabupatenListState extends State<AllKabupatenList> {
                                       SizedBox(
                                         width: 2,
                                       ),
-                                      Text("${Tour[index].comment}",
+                                      Text("${_Tour[index].comment}",
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
+                                          style: regularTextStyle.copyWith(
                                             color: Colors.black38,
-                                            fontFamily: 'Roboto-Regular',
-                                            fontSize: 14,
+                                            fontSize: 13,
                                           )),
                                     ],
                                   ),

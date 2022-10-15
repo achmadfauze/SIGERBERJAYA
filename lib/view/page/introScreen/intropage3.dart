@@ -1,3 +1,4 @@
+import 'package:first_app/model/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -24,14 +25,13 @@ class IntroPage3 extends StatelessWidget {
           const SizedBox(
             height: 30,
           ),
-          const Text(
-            "Temukan Kantor Polisi             \nTerdekat",
-            style: TextStyle(
-              fontFamily: 'Mulish-Bold',
-              fontSize: 20,
+          Text(
+            "Temukan Kantor Polisi\nTerdekat",
+            style: blackTextStyle.copyWith(
+              fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
-            textAlign: TextAlign.left,
+            textAlign: TextAlign.center,
           ),
           const SizedBox(
             height: 10,
@@ -46,12 +46,11 @@ class IntroPage3 extends StatelessWidget {
           const SizedBox(
             height: 24,
           ),
-          const Text(
+          Text(
             //TextAlign.center;
             "Dalam kondisi darurat, jangan takut.\nAplikasi ini menyediakan informasi\ntempat kepolisian terdekat",
-            style: TextStyle(
-              fontFamily: 'Mulish-Regular',
-              fontSize: 16,
+            style: regularTextStyle.copyWith(
+              fontSize: 15,
             ),
             textAlign: TextAlign.center,
           ),

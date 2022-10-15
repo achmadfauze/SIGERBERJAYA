@@ -13,6 +13,7 @@ import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import '../../../model/theme.dart';
 import '../../component/Emergency.dart';
 
 class ProfilPage extends StatefulWidget {
@@ -97,7 +98,7 @@ class _ProfilPageState extends State<ProfilPage> {
       elevation: 0,
       title: Text(
         "Profil",
-        style: TextStyle(color: Colors.white),
+        style: regularTextStyle.copyWith(fontSize: 18, color: Colors.white),
       ),
       backgroundColor: Color(
         0xff00a877,
@@ -156,8 +157,7 @@ class _ProfilPageState extends State<ProfilPage> {
                       ? Users.name.toString()
                       : '',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontFamily: 'Roboto-Regular',
+                  style: regularTextStyle.copyWith(
                       fontSize: 16 + (bodyHeight * 0.01),
                       fontWeight: FontWeight.bold),
                 ),
@@ -168,6 +168,7 @@ class _ProfilPageState extends State<ProfilPage> {
                   ? Padding(
                       padding: const EdgeInsets.only(left: 12),
                       child: ListTile(
+
                         onTap: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
@@ -179,9 +180,7 @@ class _ProfilPageState extends State<ProfilPage> {
                         },
                         title: Text(
                           "Masuk",
-                          style: TextStyle(
-                            fontFamily: 'Roboto-Regular',
-                          ),
+                          style: regularTextStyle.copyWith(fontSize: 16))
                         ),
                         leading: Icon(
                           Icons.login,
@@ -201,9 +200,7 @@ class _ProfilPageState extends State<ProfilPage> {
                                   // ? _currentUser!.email.toString()
                                   ? Users.email.toString()
                                   : '',
-                              style: TextStyle(
-                                fontFamily: 'Roboto-Regular',
-                              ),
+                              style: regularTextStyle.copyWith(fontSize: 16),
                             ),
                             leading: Icon(
                               Icons.email,
@@ -211,10 +208,13 @@ class _ProfilPageState extends State<ProfilPage> {
                             ),
                           ),
                           ListTile(
+
                             title: Text(Users.createAt.toString(),
-                                style: TextStyle(
-                                  fontFamily: 'Roboto-Regular',
-                                )),
+                                style: regularTextStyle.copyWith(fontSize: 16)),
+
+                            title: Text(currentTime.toString(),
+                                style: regularTextStyle.copyWith(fontSize: 16)),
+
                             leading: Icon(
                               Icons.watch_later_sharp,
                               // color: Colors.blue,
@@ -222,9 +222,7 @@ class _ProfilPageState extends State<ProfilPage> {
                           ),
                           ListTile(
                             title: Text("Edit Profile",
-                                style: TextStyle(
-                                  fontFamily: 'Roboto-Regular',
-                                )),
+                                style: regularTextStyle.copyWith(fontSize: 16)),
                             leading: Icon(
                               Icons.edit,
                               // color: Colors.blue,
@@ -247,9 +245,7 @@ class _ProfilPageState extends State<ProfilPage> {
                           ),
                           ListTile(
                             title: Text("Keluar",
-                                style: TextStyle(
-                                  fontFamily: 'Roboto-Regular',
-                                )),
+                                style: regularTextStyle.copyWith(fontSize: 16)),
                             leading: Icon(
                               Icons.logout,
                               // color: Colors.blue,
@@ -273,13 +269,9 @@ class _ProfilPageState extends State<ProfilPage> {
                     ),
               Padding(
                 padding: EdgeInsets.only(top: bodyHeight * 0.02, left: 30),
-                child: Text(
-                  "Pengaturan Umum",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                child: Text("Pengaturan Umum",
+                    style: regularTextStyle.copyWith(
+                        fontSize: 18, fontWeight: FontWeight.bold)),
               ),
               Padding(
                 padding:
@@ -289,9 +281,7 @@ class _ProfilPageState extends State<ProfilPage> {
                   children: [
                     ListTile(
                       title: Text("Dapatkan Pemberitahuan",
-                          style: TextStyle(
-                            fontFamily: 'Roboto-Regular',
-                          )),
+                          style: regularTextStyle.copyWith(fontSize: 16)),
                       leading: Icon(
                         Icons.notifications,
                         // color: Colors.blue,
@@ -307,9 +297,7 @@ class _ProfilPageState extends State<ProfilPage> {
                     ),
                     ListTile(
                       title: Text("Bahasa",
-                          style: TextStyle(
-                            fontFamily: 'Roboto-Regular',
-                          )),
+                          style: regularTextStyle.copyWith(fontSize: 16)),
                       leading: Icon(
                         Icons.language,
                         // color: Colors.blue,

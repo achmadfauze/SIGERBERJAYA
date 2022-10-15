@@ -6,20 +6,30 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:scroll_app_bar/scroll_app_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../model/popular_model.dart';
+// import '../../../model/popular_model.dart';
+import '../../../model/tourModel.dart';
 import '../../component/listLayanan.dart';
 import 'package:first_app/model/theme.dart';
 import 'package:first_app/widget/facility_item.dart';
 
 class DetailPlace extends StatefulWidget {
-  final Space space;
+  final String? tourCode;
+  final tour? data;
+  // final TourPop? adata;
+  const DetailPlace({
+    super.key,
+    this.tourCode,
+    this.data,
+  });
 
   // final Space space;
-  DetailPlace({
-    Key? key,
-    required this.space,
-    // required Space space,
-  }) : super(key: key);
+
+  // // final Space space;
+  // DetailPlace({
+  //   Key? key,
+  //   required this.space,
+  //   // required Space space,
+  // }) : super(key: key);
 
   // DetailPlace(this.space);
 
@@ -156,88 +166,73 @@ class _DetailPageState extends State<DetailPlace> {
                         padding: EdgeInsets.symmetric(
                           horizontal: edge,
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  widget.space.name,
-                                  style: blackTextStyle.copyWith(
-                                    fontSize: 22,
+                            Text(
+                              widget.data!.name,
+                              style: blackTextStyle.copyWith(
+                                fontSize: 22,
+                              ),
+                              maxLines: 2,
+                              textAlign: TextAlign.start,
+                            ),
+                            SizedBox(
+                              height: 2,
+                            ),
+                            Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    widget.data!.ticket,
+                                    style: greyTextStyle.copyWith(
+                                      fontSize: 16,
+                                    ),
                                   ),
-                                  textAlign: TextAlign.start,
-                                ),
-                                SizedBox(
-                                  height: 2,
-                                ),
-                                Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                  SizedBox(
+                                    width: 100,
+                                  ),
+                                  Row(
                                     children: [
+                                      Icon(
+                                        Icons.favorite,
+                                        size: 22,
+                                        color: Colors.amber,
+                                      ),
+                                      SizedBox(
+                                        width: 4,
+                                      ),
                                       Text(
-                                        'Rp. 10.000 / Orang',
-                                        style: greyTextStyle.copyWith(
+                                        // widget.space.like.toString(),
+                                        widget.data!.like.toString(),
+                                        style: TextStyle(
+                                          fontFamily: 'Roboto-Regular',
                                           fontSize: 16,
                                         ),
                                       ),
                                       SizedBox(
-                                        width: 100,
+                                        width: 10,
                                       ),
-                                      Row(
-                                        children: [
-                                          Icon(
-                                            Icons.favorite,
-                                            size: 22,
-                                            color: Colors.amber,
-                                          ),
-                                          SizedBox(
-                                            width: 4,
-                                          ),
-                                          Text(
-                                            widget.space.like.toString(),
-                                            style: TextStyle(
-                                              fontFamily: 'Roboto-Regular',
-                                              fontSize: 16,
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Icon(
-                                            Icons.comment,
-                                            size: 22,
-                                            color: Colors.green,
-                                          ),
-                                          SizedBox(
-                                            width: 4,
-                                          ),
-                                          Text(
-                                            widget.space.like.toString(),
-                                            style: TextStyle(
-                                              fontFamily: 'Roboto-Regular',
-                                              fontSize: 16,
-                                            ),
-                                          ),
-                                        ],
+                                      Icon(
+                                        Icons.comment,
+                                        size: 22,
+                                        color: Colors.green,
                                       ),
-                                    ]),
-                              ],
-                            ),
-                            // Row(
-                            //   children: [1, 2, 3, 4, 5].map((index) {
-                            //     return Container(
-                            //       margin: EdgeInsets.only(
-                            //         left: 2,
-                            //       ),
-                            //       child: RatingItem(
-                            //         index: index,
-                            //         rating: widget.space.rating,
-                            //       ),
-                            //     );
-                            //   }).toList(),
-                            // ),
+                                      SizedBox(
+                                        width: 4,
+                                      ),
+                                      Text(
+                                        widget.data!.comment.toString(),
+                                        // widget.space.like.toString(),
+                                        style: TextStyle(
+                                          fontFamily: 'Roboto-Regular',
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ]),
                           ],
                         ),
                       ),
@@ -249,6 +244,7 @@ class _DetailPageState extends State<DetailPlace> {
                         padding: EdgeInsets.only(left: edge, right: edge),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text.rich(
                               TextSpan(
@@ -263,8 +259,8 @@ class _DetailPageState extends State<DetailPlace> {
                                     child: Text(
                                       " Wisata Buka",
                                       maxLines: 1,
-                                      style: TextStyle(
-                                          fontSize: 16,
+                                      style: regularTextStyle.copyWith(
+                                          fontSize: 14,
                                           color: Colors.green[800]),
                                     ),
                                   ),
@@ -282,8 +278,8 @@ class _DetailPageState extends State<DetailPlace> {
                                 WidgetSpan(
                                   child: Text(
                                     " Lancar",
-                                    style: TextStyle(
-                                        fontSize: 16, color: Colors.green[800]),
+                                    style: regularTextStyle.copyWith(
+                                        fontSize: 14, color: Colors.green[800]),
                                   ),
                                 ),
                               ],
@@ -301,11 +297,12 @@ class _DetailPageState extends State<DetailPlace> {
                                   WidgetSpan(
                                       child: Text(
                                     "Aman Dari Covid",
-                                    style: TextStyle(
-                                        color: Colors.green[800], fontSize: 16),
+                                    style: regularTextStyle.copyWith(
+                                        fontSize: 14, color: Colors.green[800]),
                                   ))
                                 ],
                               ),
+                              textAlign: TextAlign.center,
                             )
                           ],
                         ),
@@ -319,15 +316,19 @@ class _DetailPageState extends State<DetailPlace> {
                         child: Container(
                           margin: EdgeInsets.only(top: 15),
                           child: Text(
-                            "Contented get distrusts certainty nay are frankness concealed ham. On unaffected resolution on considered of. No thought me husband or colonel forming effects. End sitting shewing who saw besides son musical adapted. Contrasted interested eat alteration pianoforte sympathize was. He families believed if no elegance interest surprise an. It abode wrong miles an so delay plate. She relation own put outlived may disposed. ",
-                            style: TextStyle(fontSize: 18, height: 1.5),
+                            // '${widget.space.description}',
+                            widget.data!.description,
+                            // "Contented get distrusts certainty nay are frankness concealed ham. On unaffected resolution on considered of. No thought me husband or colonel forming effects. End sitting shewing who saw besides son musical adapted. Contrasted interested eat alteration pianoforte sympathize was. He families believed if no elegance interest surprise an. It abode wrong miles an so delay plate. She relation own put outlived may disposed. ",
+                            style: regularTextStyle.copyWith(fontSize: 14),
                             textAlign: TextAlign.justify,
                           ),
                         ),
                       ),
 
                       Padding(
-                        padding: EdgeInsets.only(left: edge),
+                        padding: EdgeInsets.only(
+                          left: edge,
+                        ),
                         child: Text(
                           'Lokasi Wisata',
                           style: regularTextStyle.copyWith(
@@ -341,7 +342,8 @@ class _DetailPageState extends State<DetailPlace> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              '${widget.space.locationName}',
+                              widget.data!.locationName,
+                              // '${widget.space.locationName}',
                               style: greyTextStyle,
                             ),
                             InkWell(
@@ -382,26 +384,132 @@ class _DetailPageState extends State<DetailPlace> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            FacilityItem(
-                              name: 'Kepolisian',
-                              imageUrl: 'assets/icon_kitchen.png',
-                              // total: widget.space.numberOfKitchens,
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  'assets/icon_kitchen.png',
+                                  width: 32,
+                                ),
+                                SizedBox(
+                                  height: 8,
+                                ),
+                                Text.rich(
+                                  // TextSpan(
+                                  //   text: '$total',
+                                  //   style: purpleTextStyle.copyWith(
+                                  //     fontSize: 14,
+                                  //   ),
+                                  //   children: [
+                                  TextSpan(
+                                    text: 'Kepolisian',
+                                    style: greyTextStyle.copyWith(
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                )
+                              ],
                             ),
-                            FacilityItem(
-                              name: 'Rumah Sakit',
-                              imageUrl: 'assets/icon_bedroom.png',
-                              // total: widget.space.numberOfBedrooms,
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  'assets/icon_bedroom.png',
+                                  width: 32,
+                                ),
+                                SizedBox(
+                                  height: 8,
+                                ),
+                                Text.rich(
+                                  // TextSpan(
+                                  //   text: '$total',
+                                  //   style: purpleTextStyle.copyWith(
+                                  //     fontSize: 14,
+                                  //   ),
+                                  //   children: [
+                                  TextSpan(
+                                    text: 'Rumah Sakit',
+                                    style: greyTextStyle.copyWith(
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                )
+                              ],
                             ),
-                            FacilityItem(
-                              name: 'Restoran',
-                              imageUrl: 'assets/icon_cupboard.png',
-                              // total: widget.space.numberOfCupboards,
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  'assets/icon_cupboard.png',
+                                  width: 32,
+                                ),
+                                SizedBox(
+                                  height: 8,
+                                ),
+                                Text.rich(
+                                  // TextSpan(
+                                  //   text: '$total',
+                                  //   style: purpleTextStyle.copyWith(
+                                  //     fontSize: 14,
+                                  //   ),
+                                  //   children: [
+                                  TextSpan(
+                                    text: 'Restoran',
+                                    style: greyTextStyle.copyWith(
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                )
+                              ],
                             ),
-                            FacilityItem(
-                              name: 'Hotel',
-                              imageUrl: 'assets/icon_cupboard.png',
-                              // total: widget.space.numberOfCupboards,
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  'assets/icon_cupboard.png',
+                                  width: 32,
+                                ),
+                                SizedBox(
+                                  height: 8,
+                                ),
+                                Text.rich(
+                                  // TextSpan(
+                                  //   text: '$total',
+                                  //   style: purpleTextStyle.copyWith(
+                                  //     fontSize: 14,
+                                  //   ),
+                                  //   children: [
+                                  TextSpan(
+                                    text: 'Hotel',
+                                    style: greyTextStyle.copyWith(
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                )
+                              ],
                             ),
+
+                            // FacilityItem(
+                            //   name: 'Kepolisian',
+                            //   imageUrl: 'assets/icon_kitchen.png',
+
+                            //   // total: widget.space.numberOfKitchens,
+                            // ),
+                            // FacilityItem(
+                            //   name: 'Rumah Sakit',
+                            //   imageUrl: 'assets/icon_bedroom.png',
+                            //   // total: widget.space.numberOfBedrooms,
+                            // ),
+                            // FacilityItem(
+                            //   name: 'Restoran',
+                            //   imageUrl: 'assets/icon_cupboard.png',
+                            //   // total: widget.space.numberOfCupboards,
+                            // ),
+                            // FacilityItem(
+                            //   name: 'Hotel',
+                            //   imageUrl: 'assets/icon_cupboard.png',
+                            //   // total: widget.space.numberOfCupboards,
+                            // ),
                           ],
                         ),
                       ),

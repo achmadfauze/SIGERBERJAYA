@@ -1,4 +1,5 @@
-import 'package:first_app/view/component/detailArtikel.dart';
+import 'package:first_app/model/theme.dart';
+
 import 'package:first_app/view/component/detailArtikelSave.dart';
 import 'package:first_app/view/component/detailTempat.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class SavePage extends StatelessWidget {
       backgroundColor: Color(0xff14C38E),
       title: Text(
         "Tersimpan",
+        style: regularTextStyle.copyWith(fontSize: 18, color: Colors.white),
       ),
       bottom: TabBar(
         indicatorColor: Colors.white,
@@ -25,16 +27,19 @@ class SavePage extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 8, top: 8),
             child: Text(
               "Tempat Tersimpan",
-              style: TextStyle(fontFamily: "Roboto-Regular", fontSize: 16),
+              style: regularTextStyle.copyWith(
+                fontSize: 15,
+                color: Colors.white,
+              ),
             ),
           ),
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0, top: 8),
             child: Text(
               "Blog Tersimpan",
-              style: TextStyle(
-                fontSize: 16,
-                fontFamily: "Roboto-Regular",
+              style: regularTextStyle.copyWith(
+                fontSize: 15,
+                color: Colors.white,
               ),
             ),
           )
@@ -84,7 +89,7 @@ class SavePage extends StatelessWidget {
               newPage: EmergencyPage(),
               context: context,
             ),
-            child: Image(
+            child: const Image(
               image: AssetImage(
                 'assets/icons/emergency.png',
               ),
@@ -128,7 +133,7 @@ class ListArsipArtikel extends StatelessWidget {
                   child: SizedBox(
                     height: 100,
                     child: ClipRRect(
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(8),
                           bottomLeft: Radius.circular(8)),
                       child: Image.network(
@@ -140,6 +145,7 @@ class ListArsipArtikel extends StatelessWidget {
                   ),
                 ),
                 Expanded(
+                  flex: 8,
                   child: Container(
                     height: 100,
                     padding: EdgeInsets.only(left: 10, top: 8, bottom: 8),
@@ -151,8 +157,9 @@ class ListArsipArtikel extends StatelessWidget {
                           "Sejumlah Tempat Wisata Lampung Mulai Beroperasi 6 Juni 2021",
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: 18,
+                          style: regularTextStyle.copyWith(
+                            fontSize: 16,
+                            // color: Colors.white,
                           ),
                         ),
                         Container(
@@ -169,6 +176,9 @@ class ListArsipArtikel extends StatelessWidget {
                                     ),
                                     Text(
                                       "20 Des 2021",
+                                      style: regularTextStyle.copyWith(
+                                        fontSize: 14,
+                                      ),
                                     )
                                   ],
                                 ),
@@ -182,7 +192,32 @@ class ListArsipArtikel extends StatelessWidget {
                                       size: 18,
                                       color: Colors.grey[600],
                                     ),
-                                    Text("0")
+                                    const SizedBox(
+                                      width: 4,
+                                    ),
+                                    Text(
+                                      "0",
+                                      style: regularTextStyle.copyWith(
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 8,
+                                    ),
+                                    Icon(
+                                      Icons.comment,
+                                      size: 18,
+                                      color: Colors.grey[600],
+                                    ),
+                                    const SizedBox(
+                                      width: 4,
+                                    ),
+                                    Text(
+                                      "2",
+                                      style: regularTextStyle.copyWith(
+                                        fontSize: 14,
+                                      ),
+                                    )
                                   ],
                                 ),
                               )
@@ -192,7 +227,6 @@ class ListArsipArtikel extends StatelessWidget {
                       ],
                     ),
                   ),
-                  flex: 8,
                 ),
               ],
             ),
@@ -234,7 +268,7 @@ class ListArsipTempat extends StatelessWidget {
                   child: SizedBox(
                     height: 100,
                     child: ClipRRect(
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(8),
                           bottomLeft: Radius.circular(8)),
                       child: Image.network(
@@ -246,6 +280,7 @@ class ListArsipTempat extends StatelessWidget {
                   ),
                 ),
                 Expanded(
+                  flex: 8,
                   child: Container(
                     height: 100,
                     padding: EdgeInsets.only(left: 10, top: 8, bottom: 8),
@@ -258,8 +293,8 @@ class ListArsipTempat extends StatelessWidget {
                           children: [
                             Text(
                               "Danau Bakeri",
-                              style: TextStyle(
-                                fontSize: 18,
+                              style: regularTextStyle.copyWith(
+                                fontSize: 16,
                               ),
                             ),
                             Container(
@@ -276,8 +311,8 @@ class ListArsipTempat extends StatelessWidget {
                                     flex: 9,
                                     child: Text(
                                       "Sinar Banten/Bekri, Bekri, Kabbupaten Lampung Tengah",
-                                      style: TextStyle(
-                                          fontSize: 16,
+                                      style: regularTextStyle.copyWith(
+                                          fontSize: 15,
                                           color: Colors.grey[600]),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
@@ -300,8 +335,13 @@ class ListArsipTempat extends StatelessWidget {
                                       size: 18,
                                       color: Colors.grey[600],
                                     ),
+                                    SizedBox(
+                                      width: 4,
+                                    ),
                                     Text(
                                       "20",
+                                      style: regularTextStyle.copyWith(
+                                          fontSize: 14),
                                     )
                                   ],
                                 ),
@@ -315,7 +355,14 @@ class ListArsipTempat extends StatelessWidget {
                                       size: 18,
                                       color: Colors.grey[600],
                                     ),
-                                    Text("0")
+                                    SizedBox(
+                                      width: 4,
+                                    ),
+                                    Text(
+                                      "0",
+                                      style: regularTextStyle.copyWith(
+                                          fontSize: 14),
+                                    )
                                   ],
                                 ),
                               )
@@ -325,7 +372,6 @@ class ListArsipTempat extends StatelessWidget {
                       ],
                     ),
                   ),
-                  flex: 8,
                 ),
               ],
             ),

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
-import 'package:first_app/model/recomendationModel.dart';
+// import 'package:first_app/model/recomendationModel.dart';
+import 'package:first_app/model/tourModel.dart';
 // import 'package:first_app/view/component/BaruList.dart';
 import 'package:first_app/view/component/Emergency.dart';
 import 'package:first_app/view/component/all_place.dart';
@@ -16,6 +17,7 @@ import 'package:first_app/view/component/popular%20List.dart';
 // import 'package:first_app/view/page/detail/allBaruList.dart';
 // import 'package:first_app/view/page/detail/allPopularList.dart';
 import 'package:first_app/view/page/detail/allRecomendation.dart';
+import 'package:first_app/view/page/detail/populerdetail.dart';
 import 'package:first_app/view/page/detail/recomendation_detail.dart';
 import 'package:first_app/view/component/search.dart';
 // import 'package:first_app/view/page/menu/profilPage.dart';
@@ -25,6 +27,8 @@ import 'package:route_transitions/route_transitions.dart';
 import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
+
+import '../../../model/theme.dart';
 
 // import '../detail/populerdetail.dart';
 
@@ -36,7 +40,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _Homepage extends State<HomePage> {
-  final List<Space> _Space = [];
+  final List<tour> _Tour = [];
   final GoogleSignIn _googleSignIn = GoogleSignIn(
     scopes: [
       'email',
@@ -45,18 +49,18 @@ class _Homepage extends State<HomePage> {
   );
   GoogleSignInAccount? _currentUser;
 
-  Future<List<Space>> fetchJson() async {
+  Future<List<tour>> fetchJson() async {
     var response = await http
         // .get(Uri.parse('http://bwa-cozy.herokuapp.com/recommended-spaces'));
         .get(Uri.parse(
             'http://api-siger.uacak.com/public/api/v1/recomendedtour/5'));
     print(response);
-    List<Space> slist = [];
+    List<tour> slist = [];
     if (response.statusCode == 200) {
       var urjson = (json.decode(response.body));
       print(urjson);
       for (var jsondata in urjson) {
-        slist.add(Space.fromJson(jsondata));
+        slist.add(tour.fromJson(jsondata));
       }
     }
     return slist;
@@ -66,7 +70,7 @@ class _Homepage extends State<HomePage> {
   void initState() {
     fetchJson().then((value) {
       setState(() {
-        _Space.addAll(value);
+        _Tour.addAll(value);
       });
     });
     _googleSignIn.onCurrentUserChanged.listen((account) {
@@ -98,18 +102,15 @@ class _Homepage extends State<HomePage> {
                       children: [
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                          children: [
                             Text(
                               "SIGER BERJAYA",
-                              style: TextStyle(
-                                  fontFamily: 'Roboto-Regular',
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold),
+                              style: blackTextStyle.copyWith(
+                                  fontSize: 24, fontWeight: FontWeight.bold),
                             ),
                             Text(
                               "Jelajahi Lampung",
-                              style: TextStyle(
-                                  fontFamily: 'Roboto-Regular', fontSize: 16),
+                              style: regularTextStyle.copyWith(fontSize: 16),
                             ),
                           ],
                         ),
@@ -294,9 +295,21 @@ class _Homepage extends State<HomePage> {
                       //crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          "Tempat terpopuler",
-                          style: TextStyle(
-                              fontFamily: 'Mulish-Regular', fontSize: 18),
+                          "Tempat Terpopuler",
+                          style: regularTextStyle.copyWith(fontSize: 18),
+                        ),
+                        InkWell(
+                          child: Text(
+                            "Lihat semua >>",
+                            style: regularTextStyle.copyWith(
+                                fontSize: 14, color: Color(0xff00a877)),
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AllPlace()));
+                          },
                         ),
                         // Container(
                         //   child: ElevatedButton.icon(
@@ -326,16 +339,16 @@ class _Homepage extends State<HomePage> {
                         // ),
                         // SizedBox(
                         //   child:
-                        IconButton(
-                          icon: const Icon(Icons.east, size: 26),
-                          color: Colors.black,
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => AllPlace()));
-                          },
-                        ),
+                        // IconButton(
+                        //   icon: const Icon(Icons.east, size: 26),
+                        //   color: Colors.black,
+                        //   onPressed: () {
+                        //     Navigator.push(
+                        //         context,
+                        //         MaterialPageRoute(
+                        //             builder: (context) => AllPlace()));
+                        //   },
+                        // ),
 
                         // Icon(
                         //   Icons.east,
@@ -345,9 +358,9 @@ class _Homepage extends State<HomePage> {
                       ],
                     ),
                   ),
-                  // SizedBox(
-                  //   height: 10,
-                  // ),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Container(
                     height: 220,
                     child: PageView(
@@ -451,8 +464,7 @@ class _Homepage extends State<HomePage> {
                       children: [
                         Text(
                           "Tempat rekomendasi",
-                          style: TextStyle(
-                              fontFamily: 'Mulish-Regular', fontSize: 18),
+                          style: regularTextStyle.copyWith(fontSize: 18),
                         ),
                       ],
                     ),
@@ -461,191 +473,205 @@ class _Homepage extends State<HomePage> {
                   //   height: -40,
                   // ),
                   Padding(
-                    padding:
-                        const EdgeInsets.only(left: 12, right: 12, bottom: 0),
+                      padding:
+                          const EdgeInsets.only(left: 12, right: 12, bottom: 0),
 
-                    // child: Container(
-                    child: Container(
-                      child: ListView.builder(
-                          itemCount: 3,
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            final space = _Space[index];
-                            // InkWell(
-                            //   onTap: () {
-                            //     Navigator.push(
-                            //         context,
-                            //         MaterialPageRoute(
-                            //             builder: (context) =>
-                            //                 DetailRecomendation()));
-                            //   },
-                            return InkWell(
-                              onTap: () => customAnimationWidget(
-                                newPage: DetailRecomPlace(
-                                  space: space,
-                                ),
-                                context: context,
-                                transitionBuilder: (context, animation,
-                                    secondaryAnimation, child) {
-                                  var begin = 0.0;
-                                  var end = 1.0;
-                                  var curve = Curves.easeIn;
+                      // child: Container(
+                      child: Column(
+                        children: [
+                          // Text("Tempat Rekomendasi"),
+                          Container(
+                            child: ListView.builder(
+                                itemCount: 3,
+                                physics: NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) {
+                                  // final space = _Space[index];
+                                  // InkWell(
+                                  //   onTap: () {
+                                  //     Navigator.push(
+                                  //         context,
+                                  //         MaterialPageRoute(
+                                  //             builder: (context) =>
+                                  //                 DetailRecomendation()));
+                                  //   },
+                                  return InkWell(
+                                    onTap: () => customAnimationWidget(
+                                      newPage: DetailPlace(
+                                        data: _Tour[index],
+                                      ),
+                                      context: context,
+                                      transitionBuilder: (context, animation,
+                                          secondaryAnimation, child) {
+                                        var begin = 0.0;
+                                        var end = 1.0;
+                                        var curve = Curves.easeIn;
 
-                                  var tween = Tween(begin: begin, end: end)
-                                      .chain(CurveTween(curve: curve));
+                                        var tween = Tween(
+                                                begin: begin, end: end)
+                                            .chain(CurveTween(curve: curve));
 
-                                  return ScaleTransition(
-                                    scale: animation.drive(tween),
-                                    child: child,
-                                  );
-                                },
-                              ),
-                              // {
-                              //   Navigator.push(
-                              //       context,
-                              //       MaterialPageRoute(
-                              //           builder: (context) => DetailRecomPlace(
-                              //                 space: space,
-                              //               )));
-                              // },
-                              child: Container(
-                                  height: 200,
-                                  width: double.infinity,
-                                  margin: EdgeInsets.only(bottom: 8),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15),
-                                    image: DecorationImage(
-                                      // image: AssetImage(itemsfestifalbudaya[index].image),
-                                      image: NetworkImage(
-                                          "${itemsRecomendation[index]['Image']}"
-                                              .toString(),
-                                          scale: 1.0),
-                                      fit: BoxFit.cover,
+                                        return ScaleTransition(
+                                          scale: animation.drive(tween),
+                                          child: child,
+                                        );
+                                      },
                                     ),
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
+                                    // {
+                                    //   Navigator.push(
+                                    //       context,
+                                    //       MaterialPageRoute(
+                                    //           builder: (context) => DetailRecomPlace(
+                                    //                 space: space,
+                                    //               )));
+                                    // },
+                                    child: Container(
+                                        height: 200,
+                                        width: double.infinity,
+                                        margin: EdgeInsets.only(bottom: 8),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          image: DecorationImage(
+                                            // image: AssetImage(itemsfestifalbudaya[index].image),
+                                            image: NetworkImage(
+                                                _Tour[index].image.toString(),
+                                                scale: 1.0),
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                        child: Column(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.end,
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
+                                            Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                children: [
+                                                  Container(
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius.only(
+                                                                bottomLeft: Radius
+                                                                    .circular(
+                                                                        24),
+                                                                topRight: Radius
+                                                                    .circular(
+                                                                        15)),
+                                                        color: Color(0xff00a877)
+                                                        // color: Color.fromARGB(157, 222, 238, 5)
+                                                        ),
+                                                    height: 35,
+                                                    width: 90,
+                                                    child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          const Icon(
+                                                            Icons.favorite,
+                                                            size: 22,
+                                                            color: Colors.white,
+                                                          ),
+                                                          SizedBox(
+                                                            width: 6,
+                                                          ),
+                                                          Text(
+                                                            _Tour[index]
+                                                                .like
+                                                                .toString(),
+                                                            style:
+                                                                regularTextStyle
+                                                                    .copyWith(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 16,
+                                                            ),
+                                                          ),
+                                                          SizedBox(
+                                                            width: 8,
+                                                          ),
+                                                          const Icon(
+                                                            Icons.warning,
+                                                            size: 22,
+                                                            color:
+                                                                Colors.yellow,
+                                                          ),
+                                                        ]),
+                                                  ),
+                                                ]),
                                             Container(
                                               decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.only(
-                                                          bottomLeft:
-                                                              Radius.circular(
-                                                                  24),
-                                                          topRight:
-                                                              Radius.circular(
-                                                                  15)),
-                                                  color: Color(0xff00a877)
-                                                  // color: Color.fromARGB(157, 222, 238, 5)
-                                                  ),
-                                              height: 35,
-                                              width: 90,
-                                              child: Row(
+                                                borderRadius: BorderRadius.only(
+                                                    bottomRight:
+                                                        Radius.circular(15),
+                                                    bottomLeft:
+                                                        Radius.circular(15)),
+                                                color: Colors.black
+                                                    .withOpacity(0.5),
+                                                // color: Color.fromARGB(157, 222, 238, 5)
+                                              ),
+                                              height: 60,
+                                              width: double.infinity,
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 12, right: 12),
+                                                child: Column(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
                                                   children: [
-                                                    const Icon(
-                                                      Icons.favorite,
-                                                      size: 22,
-                                                      color: Colors.white,
-                                                    ),
-                                                    SizedBox(
-                                                      width: 6,
-                                                    ),
                                                     Text(
-                                                      _Space[index]
-                                                          .like
+                                                      _Tour[index]
+                                                          .name
                                                           .toString(),
-                                                      style: TextStyle(
+                                                      style: regularTextStyle
+                                                          .copyWith(
                                                         color: Colors.white,
-                                                        fontFamily:
-                                                            'Roboto-Regular',
                                                         fontSize: 16,
                                                       ),
                                                     ),
                                                     SizedBox(
-                                                      width: 8,
+                                                      height: 6,
                                                     ),
-                                                    const Icon(
-                                                      Icons.warning,
-                                                      size: 22,
-                                                      color: Colors.yellow,
+                                                    Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Icon(
+                                                          Icons.location_on,
+                                                          size: 16,
+                                                          color: Colors.white,
+                                                        ),
+                                                        Text(
+                                                          _Tour[index]
+                                                              .locationName
+                                                              .toString(),
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          style:
+                                                              regularTextStyle
+                                                                  .copyWith(
+                                                            color: Colors.white,
+                                                            fontSize: 13,
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
-                                                  ]),
-                                            ),
-                                          ]),
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.only(
-                                              bottomRight: Radius.circular(15),
-                                              bottomLeft: Radius.circular(15)),
-                                          color: Colors.black.withOpacity(0.5),
-                                          // color: Color.fromARGB(157, 222, 238, 5)
-                                        ),
-                                        height: 60,
-                                        width: double.infinity,
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 12, right: 12),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                _Space[index].name.toString(),
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontFamily: 'Mulish-Regular',
-                                                  fontSize: 16,
+                                                  ],
                                                 ),
                                               ),
-                                              SizedBox(
-                                                height: 8,
-                                              ),
-                                              Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Icon(
-                                                    Icons.location_on,
-                                                    size: 16,
-                                                    color: Colors.white,
-                                                  ),
-                                                  Text(
-                                                    _Space[index]
-                                                        .locationName
-                                                        .toString(),
-                                                    maxLines: 1,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: const TextStyle(
-                                                      color: Colors.white,
-                                                      fontFamily:
-                                                          'Mulish-Regular',
-                                                      fontSize: 12,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  )),
-                            );
-                          }),
-                    ),
-                  )
+                                            ),
+                                          ],
+                                        )),
+                                  );
+                                }),
+                          ),
+                        ],
+                      ))
                 ]),
           ),
         ),
