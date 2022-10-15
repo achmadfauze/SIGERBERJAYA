@@ -45,7 +45,7 @@ class tour {
       name: json['name'],
       image: json['image'].toString(),
       locationName: json['locationName'].toString(),
-      like: json['like'],
+      like: json['like'].toString(),
       comment: json['comment'].toString(),
       createAt: json['createAt'].toString(),
       latitude: json['latitude'].toString(),

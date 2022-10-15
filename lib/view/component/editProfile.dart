@@ -1,11 +1,13 @@
 import 'package:file_picker/file_picker.dart';
+import 'package:first_app/model/userModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class EditProfile extends StatefulWidget {
-  const EditProfile({super.key});
+  final user User;
+  const EditProfile({super.key, required this.User});
 
   @override
   State<EditProfile> createState() => _EditProfileState();
@@ -61,7 +63,8 @@ class _EditProfileState extends State<EditProfile> {
                     height: bodyWidth * 0.5,
                     child: Image.network(
                       _currentUser!.photoUrl != null
-                          ? _currentUser!.photoUrl.toString()
+                          // ? _currentUser!.photoUrl.toString()
+                          ? widget.User.image.toString()
                           : "",
                       fit: BoxFit.fill,
                     ),
@@ -99,7 +102,7 @@ class _EditProfileState extends State<EditProfile> {
             child: TextField(
               controller: TextEditingController(
                   text: _currentUser!.displayName != null
-                      ? _currentUser!.displayName.toString()
+                      ? widget.User.name
                       : ""),
               decoration: InputDecoration(label: Text("Nama")),
               style: TextStyle(fontSize: 20),

@@ -14,10 +14,36 @@ class Home extends StatefulWidget {
 }
 
 class _Home extends State<Home> {
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: [
+      'email',
+      'https://www.googleapis.com/auth/contacts.readonly',
+    ],
+  );
+  GoogleSignInAccount? _currentUser;
+  @override
+  void initState() {
+    super.initState();
+    _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount? account) {
+      setState(() {
+        _currentUser = account;
+      });
+    });
+    _googleSignIn.signInSilently();
+  }
+
   var _currentIndex = 0;
-  final screen = [HomePage(), CityPage(), NewsPage(), SavePage(), ProfilPage()];
   @override
   Widget build(BuildContext context) {
+    final screen = [
+      HomePage(),
+      CityPage(),
+      NewsPage(),
+      SavePage(),
+      ProfilPage(
+        uid: _currentUser!.id.toString(),
+      )
+    ];
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
