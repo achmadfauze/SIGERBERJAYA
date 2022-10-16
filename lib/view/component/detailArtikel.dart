@@ -19,34 +19,25 @@ class DetailArtikel extends StatefulWidget {
 }
 
 class _DetailArtikelState extends State<DetailArtikel> {
-  final lat = -5.436068787303937;
-  final long = 105.22953153927098;
-
-  // _lauchMap() {
-  //   final String googleMapUrl = "comgooglemaps://?center=$lat,$long";
-  //   // ignore: deprecated_member_use
-  //   if (await canLaunch(googleMapUrl)) {
-  //     // ignore: deprecated_member_use
-  //     await launch(googleMapUrl);
-  //   } else {
-  //     throw "Tidak Dapat Menampilkan URL";
-  //   }
-  // }
+  bool isFavorite = false;
+  bool isArchive = false;
 
   @override
   Widget build(BuildContext context) {
     final myAppbar = AppBar(
-      actions: [
-        IconButton(
-            onPressed: () => MapsLauncher.launchCoordinates(
-                  lat,
-                  long,
-                  widget.data!.title.toString(),
-                ),
-            // _lauchMap();
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      // actions: [
+      //   IconButton(
+      //       onPressed: () => MapsLauncher.launchCoordinates(
+      //             lat,
+      //             long,
+      //             widget.data!.title.toString(),
+      //           ),
+      //       // _lauchMap();
 
-            icon: Icon(Icons.share))
-      ],
+      //       icon: Icon(Icons.share))
+      // ],
     );
     final MediaQueryHeight = MediaQuery.of(context).size.height;
     final MediaQueryWidth = MediaQuery.of(context).size.width;
@@ -55,13 +46,43 @@ class _DetailArtikelState extends State<DetailArtikel> {
         myAppbar.preferredSize.height -
         MediaQuery.of(context).padding.top;
     return Scaffold(
-      appBar: myAppbar,
+      // appBar: myAppbar,
       body: ListView(
         padding: EdgeInsets.all(edge),
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Padding(
+                padding: EdgeInsets.only(top: 30, left: 0, bottom: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Image.asset(
+                        'assets/btn_backartikel.png',
+                        width: 45,
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        // Navigator.pop(context);
+                      },
+                      child: Image.asset(
+                        'assets/btn_share.png',
+                        width: 45,
+                      ),
+                    ),
+                    // Image.asset(
+                    //   'assets/btn_wishlist.png',
+                    //   width: 40,
+                    // ),
+                  ],
+                ),
+              ),
               Row(children: [
                 Icon(
                   Icons.watch_later_outlined,
@@ -112,14 +133,17 @@ class _DetailArtikelState extends State<DetailArtikel> {
                           size: 15,
                         ),
                         Flexible(
-                          child: Text(
-                            // "witasatanusantara.com",
-                            widget.data!.url.toString(),
-                            style: regularTextStyle.copyWith(
-                              fontSize: 12,
+                          child: InkWell(
+                            onTap: () {},
+                            child: Text(
+                              // "witasatanusantara.com",
+                              widget.data!.url.toString(),
+                              style: regularTextStyle.copyWith(
+                                fontSize: 12,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                       ]),
@@ -129,69 +153,139 @@ class _DetailArtikelState extends State<DetailArtikel> {
                 width: bodyWidth,
                 height: 200,
                 decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(
                       image: NetworkImage(
                           "https://picsum.photos/seed/picsum/300/200"),
                       fit: BoxFit.cover),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.only(top: 15, right: 10, bottom: 30),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              // setState(() {
+                              //   if (_currentUser != null) {
+                              //     if (isFavorite == false) {
+                              //       likeHandler().then((value) {
+                              //         if (value == "200") {
+                              //           setState(() {
+                              //             like++;
+                              //           });
+                              //         }
+                              //       });
+                              //     } else {
+                              //       dislikeHandler().then(
+                              //         (value) {
+                              //           if (value == "200") {
+                              //             setState(() {
+                              //               like--;
+                              //             });
+                              //           }
+                              //         },
+                              //       );
+                              //     }
+                              //     isFavorite = !isFavorite;
+                              //   }
+                              // });
+                            },
+                            child: Image.asset(
+                              isFavorite
+                                  ? 'assets/btn_wishlist_active.png'
+                                  : 'assets/btn_wishlist.png',
+                              width: 40,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 6,
+                          ),
+                          InkWell(
+                            onTap: () {},
+                            child: Image.asset(
+                              'assets/btn_comment.png',
+                              width: 40,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 6,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              // setState(() {
+                              //   if (_currentUser != null) {
+                              //     if (isArchive == false) {
+                              //       archiveHandler().then((value) {
+                              //         if (value == "200") {
+                              //           setState(() {});
+                              //         }
+                              //       });
+                              //     } else {
+                              //       unarchiveHandler().then(
+                              //         (value) {
+                              //           if (value == "200") {
+                              //             setState(() {});
+                              //           }
+                              //         },
+                              //       );
+                              //     }
+                              //     isArchive = !isArchive;
+                              //   }
+                              // });
+                            },
+                            child: Image.asset(
+                              isArchive
+                                  ? 'assets/btn_archive_active.png'
+                                  : 'assets/btn_archive.png',
+                              width: 40,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
               Container(
                 padding: EdgeInsets.symmetric(vertical: 15),
                 child: Row(
                   children: [
-                    Expanded(
-                      flex: 5,
-                      child: RichText(
-                        text: TextSpan(
-                          children: [
-                            WidgetSpan(
-                              child: Icon(
-                                Icons.favorite,
-                                size: 20,
-                              ),
-                            ),
-                            WidgetSpan(
-                              child: Text(
-                                " 5 ",
-                                style: TextStyle(fontSize: 18),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                    const Icon(
+                      Icons.favorite,
+                      size: 20,
+                      color: Colors.amber,
                     ),
-                    Expanded(
-                      flex: 3,
-                      child: Container(
-                        // padding: EdgeInsets.symmetric(horizontal: 15),
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          child: RichText(
-                            text: TextSpan(
-                              children: [
-                                WidgetSpan(
-                                  child: Icon(
-                                    Icons.comment,
-                                    size: 20,
-                                  ),
-                                ),
-                                WidgetSpan(
-                                  child: Text(
-                                    " Komentar",
-                                    style: TextStyle(fontSize: 18),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    )
+                    const SizedBox(
+                      width: 4,
+                    ),
+                    Text(
+                      widget.data!.like.toString(),
+                      style: regularTextStyle.copyWith(fontSize: 16),
+                    ),
+                    const SizedBox(
+                      width: 12,
+                    ),
+                    const Icon(
+                      Icons.comment,
+                      size: 20,
+                      color: Colors.green,
+                    ),
+                    const SizedBox(
+                      width: 4,
+                    ),
+                    Text(
+                      widget.data!.comment.toString(),
+                      style: regularTextStyle.copyWith(fontSize: 16),
+                    ),
                   ],
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 15),
+                margin: EdgeInsets.only(top: 12),
                 child: Text(
                   widget.data!.description.toString(),
                   // "Contented get distrusts certainty nay are frankness concealed ham. On unaffected resolution on considered of. No thought me husband or colonel forming effects. End sitting shewing who saw besides son musical adapted. Contrasted interested eat alteration pianoforte sympathize was. He families believed if no elegance interest surprise an. It abode wrong miles an so delay plate. She relation own put outlived may disposed. ",

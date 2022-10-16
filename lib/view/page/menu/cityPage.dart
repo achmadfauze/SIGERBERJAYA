@@ -86,7 +86,53 @@ class _CityPage extends State<CityPage> {
                             state: _Space[index].state,
                             image: _Space[index].image.toString(),
                             uid: widget.uid,
-                          )),
+                          ),
+                          context: context,
+                        transitionBuilder:
+                            (context, animation, secondaryAnimation, child) {
+                          var begin = 0.0;
+                          var end = 1.0;
+                          var curve = Curves.easeIn;
+
+                          var tween = Tween(begin: begin, end: end)
+                              .chain(CurveTween(curve: curve));
+
+                          return ScaleTransition(
+                            scale: animation.drive(tween),
+                            child: child,
+                          );
+                        },
+                      ),
+                      // onTap: () {
+                      //   Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //       builder: (context) => (AllKabupatenList(
+                      //         stateCode: _Space[index].stateCode,
+                      //         state: _Space[index].state,
+                      //         image: _Space[index].image.toString(),
+                      //         uid: widget.uid,
+                      //       )),
+                      //     ),
+                      //   );
+                      //   // AllKabupatenList()));
+                      // },
+                      child: Container(
+                        height: 180,
+                        width: double.infinity,
+                        margin: EdgeInsets.only(bottom: 8),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          image: DecorationImage(
+                              // image: AssetImage(itemsfestifalbudaya[index].image),
+                              image: NetworkImage(
+                                  _Space[index].image.toString(),
+                                  scale: 1.0),
+                              // _Space[index].image_url.toString()),
+                              // _Space[index].image.toString()),
+                              fit: BoxFit.cover,
+                              opacity: 0.8),),
+
                         ),
                       );
                       // AllKabupatenList()));
