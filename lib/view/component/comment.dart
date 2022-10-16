@@ -1,16 +1,79 @@
+import 'package:first_app/model/commentModel.dart';
 import 'package:first_app/model/theme.dart';
+import 'package:first_app/model/userModel.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:intl/intl.dart';
 
 class Comment extends StatefulWidget {
-  const Comment({super.key});
+  String? uid, tourCode;
+  Comment({super.key, this.uid, this.tourCode});
 
   @override
   State<Comment> createState() => _CommentState();
 }
 
 class _CommentState extends State<Comment> {
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: [
+      'email',
+      'https://www.googleapis.com/auth/contacts.readonly',
+    ],
+  );
+  GoogleSignInAccount? _currentUser;
+  final List<commentTour> com = [];
+  Future<List<commentTour>> fetchJson() async {
+    var response = await http.get(
+        Uri.parse('https://hiskia.xyz/api/v1/commenttour/${widget.tourCode}'));
+    List<commentTour> slist = [];
+    if (response.statusCode == 200) {
+      var urjson = (json.decode(response.body));
+      for (var jsondata in urjson) {
+        slist.add(commentTour.fromJson(jsondata));
+      }
+    }
+    return slist;
+  }
+
+  Future<http.Response> createComment(
+      String comment, String uid, String tourCode) {
+    return http.post(
+      Uri.parse('https://hiskia.xyz/api/v1/commenttour'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        "comment": comment,
+        "userCode": uid,
+        "tourCode": tourCode
+      }),
+    );
+  }
+
+  @override
+  void initState() {
+    _googleSignIn.onCurrentUserChanged.listen((account) {
+      setState(() {
+        _currentUser = account;
+      });
+    });
+    _googleSignIn.signInSilently();
+    fetchJson().then((value) {
+      setState(() {
+        com.addAll(value);
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    TextEditingController commentController = new TextEditingController();
+
+    dynamic currentTime =
+        DateFormat("yyyy-MM-dd HH:mm:ss").format(DateTime.now());
     return Scaffold(
         backgroundColor: Color.fromARGB(255, 236, 228, 228),
         appBar: AppBar(
@@ -19,21 +82,17 @@ class _CommentState extends State<Comment> {
             style: regularTextStyle.copyWith(fontSize: 18, color: Colors.white),
           ), //title aof appbar
           backgroundColor: const Color(0xff00a877),
+          elevation: 0,
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Expanded(
-              child: ListView(
-                children: [
-                  comment(),
-                  comment(),
-                  comment(),
-                  comment(),
-                  comment(),
-                  comment(),
-                  comment(),
-                ],
+              child: ListView.builder(
+                itemCount: com.length,
+                itemBuilder: (context, index) => comment(
+                  com: com[index],
+                ),
               ),
             ),
             Container(
@@ -43,13 +102,43 @@ class _CommentState extends State<Comment> {
               child: Padding(
                 padding: EdgeInsets.all(edge),
                 child: TextField(
+                  controller: commentController,
                   autofocus: false,
-                  style: TextStyle(fontSize: 15.0, color: Color(0xFFbdc6cf)),
+                  style: TextStyle(
+                    fontSize: 15.0,
+                  ),
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.grey.shade50,
-                    suffixIcon: Icon(Icons.send),
-                    hintText: 'Search',
+                    // suffixIcon: Icon(Icons.send),
+                    suffixIcon: InkWell(
+                      child: Icon(Icons.send),
+                      onTap: () {
+                        if (_currentUser != null) {
+                          commentTour val = new commentTour(
+                              comment: commentController.text,
+                              createAt: currentTime,
+                              name: _currentUser != null
+                                  ? _currentUser!.displayName.toString()
+                                  : "",
+                              image: _currentUser != null
+                                  ? _currentUser!.photoUrl.toString()
+                                  : "");
+                          // print(val);
+                          createComment(
+                              commentController.text,
+                              _currentUser != null
+                                  ? _currentUser!.id.toString()
+                                  : "",
+                              widget.tourCode.toString());
+
+                          setState(() {
+                            com.insert(0, val);
+                          });
+                        }
+                      },
+                    ),
+                    hintText: 'Masukkan komentar',
                     contentPadding: const EdgeInsets.only(
                         left: 14.0, bottom: 3.0, top: 3.0),
                     focusedBorder: OutlineInputBorder(
@@ -70,9 +159,8 @@ class _CommentState extends State<Comment> {
 }
 
 class comment extends StatelessWidget {
-  const comment({
-    Key? key,
-  }) : super(key: key);
+  commentTour? com;
+  comment({Key? key, this.com}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -85,18 +173,17 @@ class comment extends StatelessWidget {
             children: [
               Flexible(
                 child: Text(
-                  "Nama ajasjkajjkaakskajkajkjaj",
+                  com!.name.toString(),
                   style: regularTextStyle.copyWith(fontSize: 16),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-              Text("02-12-2020",
+              Text(com!.createAt.toString(),
                   style: regularTextStyle.copyWith(fontSize: 12)),
             ],
           ),
-          subtitle: Text(
-              "keren bangett.Tempat ini cocok untuk menjadi objek wisata liburan bersama keluarga tercinta",
+          subtitle: Text(com!.comment.toString(),
               style: regularTextStyle.copyWith(fontSize: 14)),
           leading: Container(
             width: 50,
@@ -106,8 +193,7 @@ class comment extends StatelessWidget {
               //color: Colors.green,
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: NetworkImage(
-                    "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+                image: NetworkImage(com!.image.toString()
                     // _currentUser == null
                     //     ? ""
                     //     : _currentUser!.photoUrl.toString(),

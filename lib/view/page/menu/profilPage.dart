@@ -293,8 +293,8 @@ class _ProfilPageState extends State<ProfilPage> {
                               MaterialPageRoute(
                                 builder: ((context) {
                                   return ChatAdmin(
-                                      // User: Users,
-                                      );
+                                    uid: _currentUser!.id.toString(),
+                                  );
                                 }),
                               ),
                             );

@@ -1,16 +1,71 @@
+import 'package:first_app/model/chatModel.dart';
 import 'package:first_app/model/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class ChatAdmin extends StatefulWidget {
-  const ChatAdmin({super.key});
+  String? uid;
+  ChatAdmin({super.key, this.uid});
 
   @override
   State<ChatAdmin> createState() => _ChatAdminState();
 }
 
 class _ChatAdminState extends State<ChatAdmin> {
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: [
+      'email',
+      'https://www.googleapis.com/auth/contacts.readonly',
+    ],
+  );
+  GoogleSignInAccount? _currentUser;
+  final List<chatAdmin> com = [];
+  Future<List<chatAdmin>> fetchJson() async {
+    var response = await http
+        .get(Uri.parse('https://hiskia.xyz/api/v1/chat/${widget.uid}'));
+    List<chatAdmin> slist = [];
+    if (response.statusCode == 200) {
+      var urjson = (json.decode(response.body));
+      for (var jsondata in urjson) {
+        slist.add(chatAdmin.fromJson(jsondata));
+      }
+    }
+    return slist;
+  }
+
+  Future<http.Response> createChat(String from, String to, String chat) {
+    return http.post(
+      Uri.parse('https://hiskia.xyz/api/v1/chat'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{"from": from, "to": to, "chat": chat}),
+    );
+  }
+
+  @override
+  void initState() {
+    _googleSignIn.onCurrentUserChanged.listen((account) {
+      setState(() {
+        _currentUser = account;
+      });
+    });
+    _googleSignIn.signInSilently();
+    fetchJson().then((value) {
+      setState(() {
+        com.addAll(value);
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    TextEditingController chatController = new TextEditingController();
+    ScrollController _scrollController = new ScrollController();
+
     return Scaffold(
         backgroundColor: Color.fromARGB(255, 236, 228, 228),
         appBar: AppBar(
@@ -33,13 +88,21 @@ class _ChatAdminState extends State<ChatAdmin> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Expanded(
-              child: ListView(
-                children: [
-                  userchat(),
-                  admin(),
-                  userchat(),
-                  admin(),
-                ],
+              child: ListView.builder(
+                padding: EdgeInsets.only(bottom: 15),
+                controller: _scrollController,
+                itemCount: com.length,
+                itemBuilder: ((context, index) {
+                  chatAdmin? cht = com[index];
+                  if (cht.from == widget.uid) {
+                    return admin(
+                      cht: cht,
+                    );
+                  }
+                  return userchat(
+                    cht: cht,
+                  );
+                }),
               ),
             ),
             Container(
@@ -49,13 +112,41 @@ class _ChatAdminState extends State<ChatAdmin> {
               child: Padding(
                 padding: EdgeInsets.all(edge),
                 child: TextField(
+                  controller: chatController,
                   autofocus: false,
-                  style: TextStyle(fontSize: 15.0, color: Color(0xFFbdc6cf)),
+                  style: TextStyle(
+                    fontSize: 15.0,
+                  ),
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.grey.shade50,
-                    suffixIcon: Icon(Icons.send),
-                    hintText: 'Search',
+                    suffixIcon: InkWell(
+                      child: Icon(Icons.send),
+                      onTap: () {
+                        if (_currentUser != null) {
+                          chatAdmin val = new chatAdmin(
+                              from: widget.uid,
+                              to: "1",
+                              chat: chatController.text,
+                              createAt: "now");
+                          // print(val);
+                          createChat(
+                            widget.uid.toString(),
+                            "1",
+                            chatController.text,
+                          );
+                          FocusScope.of(context).requestFocus(new FocusNode());
+                          setState(() {
+                            com.add(val);
+                          });
+                          _scrollController.animateTo(
+                              _scrollController.position.maxScrollExtent,
+                              curve: Curves.easeOut,
+                              duration: const Duration(milliseconds: 500));
+                        }
+                      },
+                    ),
+                    hintText: 'Masukkan Pesan',
                     contentPadding: const EdgeInsets.only(
                         left: 14.0, bottom: 3.0, top: 3.0),
                     focusedBorder: OutlineInputBorder(
@@ -76,9 +167,8 @@ class _ChatAdminState extends State<ChatAdmin> {
 }
 
 class userchat extends StatelessWidget {
-  const userchat({
-    Key? key,
-  }) : super(key: key);
+  chatAdmin? cht;
+  userchat({Key? key, this.cht}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +182,7 @@ class userchat extends StatelessWidget {
                 bottomLeft: Radius.circular(10))),
         tileColor: Colors.white,
         subtitle: Text(
-          "2022-12-01 16:50:02",
+          cht!.createAt.toString(),
           style: regularTextStyle.copyWith(fontSize: 12),
           textAlign: TextAlign.right,
         ),
@@ -112,8 +202,7 @@ class userchat extends StatelessWidget {
         //         style: regularTextStyle.copyWith(fontSize: 12)),
         //   ],
         // ),
-        title: Text(
-            "keren bangett.Tempat ini cocok untuk menjadi objek wisata liburan bersama keluarga tercinta",
+        title: Text(cht!.chat.toString(),
             style: regularTextStyle.copyWith(fontSize: 14)),
       ),
     );
@@ -121,7 +210,9 @@ class userchat extends StatelessWidget {
 }
 
 class admin extends StatelessWidget {
-  const admin({
+  chatAdmin? cht;
+  admin({
+    this.cht,
     Key? key,
   }) : super(key: key);
 
@@ -137,7 +228,7 @@ class admin extends StatelessWidget {
                 bottomRight: Radius.circular(10))),
         tileColor: Colors.white,
         title: Text(
-          "keren bangett.Tempat ini cocok untuk menjadi objek wisata liburan bersama keluarga tercinta",
+          cht!.chat.toString(),
           style: regularTextStyle.copyWith(fontSize: 14),
           textAlign: TextAlign.left,
         ),
@@ -155,7 +246,7 @@ class admin extends StatelessWidget {
         //   ],
         // ),
         subtitle: Text(
-          "2022-12-01 17:00:01",
+          cht!.createAt.toString(),
           style: regularTextStyle.copyWith(fontSize: 12),
           textAlign: TextAlign.right,
         ),

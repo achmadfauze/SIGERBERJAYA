@@ -244,7 +244,11 @@ class _DetailPageState extends State<DetailPlace> {
                                         onTap: () {
                                           Navigator.of(context).push(
                                             MaterialPageRoute(
-                                              builder: ((context) => Comment()),
+                                              builder: ((context) => Comment(
+                                                    uid: widget.uid,
+                                                    tourCode:
+                                                        widget.data!.tourCode,
+                                                  )),
                                             ),
                                           );
                                         },
