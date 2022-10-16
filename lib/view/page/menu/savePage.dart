@@ -2,12 +2,61 @@ import 'package:first_app/model/theme.dart';
 
 import 'package:first_app/view/component/detailArtikelSave.dart';
 import 'package:first_app/view/component/detailTempat.dart';
+import 'package:first_app/view/page/detail/populerdetail.dart';
 import 'package:flutter/material.dart';
 import 'package:route_transitions/route_transitions.dart';
 import '../../component/Emergency.dart';
 
-class SavePage extends StatelessWidget {
-  const SavePage({super.key});
+import 'package:first_app/model/tourModel.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+class SavePage extends StatefulWidget {
+  String? uid;
+  SavePage({super.key, this.uid});
+
+  @override
+  State<SavePage> createState() => _SavePageState();
+}
+
+class _SavePageState extends State<SavePage> {
+  final List<tour> _Tour = [];
+  Future<List<tour>> fetchJson() async {
+    var response = await http.get(Uri.parse(
+        'https://hiskia.xyz/api/v1/allarchivetourbyuser/${widget.uid}'));
+    List<tour> slist = [];
+    if (response.statusCode == 200) {
+      var urjson = (json.decode(response.body));
+      for (var jsondata in urjson) {
+        slist.add(tour.fromJson(jsondata));
+      }
+    }
+    return slist;
+  }
+
+  @override
+  void initState() {
+    fetchJson().then((value) {
+      setState(() {
+        _Tour.addAll(value);
+      });
+    });
+    super.initState();
+  }
+
+  void refreshData() {
+    fetchJson().then((value) {
+      setState(() {
+        _Tour.clear();
+        _Tour.addAll(value);
+      });
+    });
+  }
+
+  onGoBack(dynamic value) {
+    refreshData();
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,28 +104,53 @@ class SavePage extends StatelessWidget {
         appBar: appBar,
         body: TabBarView(
           children: [
-            SizedBox(
-              width: bodyWidth,
-              height: bodyHeight,
-              child: ListView(
-                children: [
-                  ListArsipTempat(bodyWidth: bodyWidth),
-                  ListArsipTempat(bodyWidth: bodyWidth),
-                  ListArsipTempat(bodyWidth: bodyWidth),
-                  ListArsipTempat(bodyWidth: bodyWidth),
-                ],
-              ),
-            ),
+            widget.uid != ""
+                ? SizedBox(
+                    width: bodyWidth,
+                    height: bodyHeight,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: _Tour.length,
+                      itemBuilder: (context, index) => InkWell(
+                        onTap: (() {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(builder: (context) {
+                              return DetailPlace(
+                                  data: _Tour[index],
+                                  tourCode: _Tour[index].tourCode,
+                                  uid: widget.uid);
+                            }),
+                          ).then(onGoBack);
+                        }),
+                        child: ListArsipTempat(
+                          bodyWidth: bodyWidth,
+                          Tour: _Tour[index],
+                          uid: widget.uid,
+                        ),
+                      ),
+                    ),
+                  )
+                : Container(
+                    child: Center(
+                      child: Text("Anda Harus Login Terlebih Dahulu"),
+                    ),
+                  ),
             Container(
-              child: ListView(
-                children: [
-                  ListArsipArtikel(bodyHeight: bodyHeight),
-                  ListArsipArtikel(bodyHeight: bodyHeight),
-                  ListArsipArtikel(bodyHeight: bodyHeight),
-                  ListArsipArtikel(bodyHeight: bodyHeight),
-                  ListArsipArtikel(bodyHeight: bodyHeight),
-                ],
-              ),
+              child: widget.uid != ""
+                  ? ListView(
+                      children: [
+                        ListArsipArtikel(bodyHeight: bodyHeight),
+                        ListArsipArtikel(bodyHeight: bodyHeight),
+                        ListArsipArtikel(bodyHeight: bodyHeight),
+                        ListArsipArtikel(bodyHeight: bodyHeight),
+                        ListArsipArtikel(bodyHeight: bodyHeight),
+                      ],
+                    )
+                  : Container(
+                      child: Center(
+                        child: Text("Anda Harus Login Terlebih Dahulu"),
+                      ),
+                    ),
             )
           ],
         ),
@@ -237,144 +311,140 @@ class ListArsipArtikel extends StatelessWidget {
   }
 }
 
-class ListArsipTempat extends StatelessWidget {
-  const ListArsipTempat({
-    Key? key,
-    required this.bodyWidth,
-  }) : super(key: key);
+class ListArsipTempat extends StatefulWidget {
+  tour? Tour;
+  String? uid;
+  ListArsipTempat({Key? key, required this.bodyWidth, this.Tour, this.uid})
+      : super(key: key);
 
   final double bodyWidth;
 
   @override
+  State<ListArsipTempat> createState() => _ListArsipTempatState();
+}
+
+class _ListArsipTempatState extends State<ListArsipTempat> {
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(5),
-      child: GestureDetector(
-        onTap: (() {
-          Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) {
-              return DetailTempat();
-            }),
-          );
-        }),
-        child: Card(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          elevation: 4,
-          child: Container(
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 4,
-                  child: SizedBox(
-                    height: 100,
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(8),
-                          bottomLeft: Radius.circular(8)),
-                      child: Image.network(
-                        alignment: Alignment.centerLeft,
-                        "https://picsum.photos/300/200",
-                        fit: BoxFit.fitHeight,
-                      ),
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        elevation: 4,
+        child: Container(
+          child: Row(
+            children: [
+              Expanded(
+                flex: 4,
+                child: SizedBox(
+                  height: 100,
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(8),
+                        bottomLeft: Radius.circular(8)),
+                    child: Image.network(
+                      alignment: Alignment.centerLeft,
+                      widget.Tour!.image,
+                      fit: BoxFit.fitHeight,
                     ),
                   ),
                 ),
-                Expanded(
-                  flex: 8,
-                  child: Container(
-                    height: 100,
-                    padding: EdgeInsets.only(left: 10, top: 8, bottom: 8),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Danau Bakeri",
-                              style: regularTextStyle.copyWith(
-                                fontSize: 16,
-                              ),
+              ),
+              Expanded(
+                flex: 8,
+                child: Container(
+                  height: 100,
+                  padding: EdgeInsets.only(left: 10, top: 8, bottom: 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.Tour!.name,
+                            style: regularTextStyle.copyWith(
+                              fontSize: 16,
                             ),
-                            Container(
+                            maxLines: 1,
+                          ),
+                          Container(
+                            child: Row(
+                              children: [
+                                Expanded(
+                                    flex: 0,
+                                    child: Icon(
+                                      Icons.location_on_outlined,
+                                      color: Colors.grey[600],
+                                      size: 18,
+                                    )),
+                                Expanded(
+                                  flex: 9,
+                                  child: Text(
+                                    widget.Tour!.locationName,
+                                    style: regularTextStyle.copyWith(
+                                        fontSize: 15, color: Colors.grey[600]),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      Container(
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 1,
                               child: Row(
                                 children: [
-                                  Expanded(
-                                      flex: 0,
-                                      child: Icon(
-                                        Icons.location_on_outlined,
-                                        color: Colors.grey[600],
-                                        size: 18,
-                                      )),
-                                  Expanded(
-                                    flex: 9,
-                                    child: Text(
-                                      "Sinar Banten/Bekri, Bekri, Kabbupaten Lampung Tengah",
-                                      style: regularTextStyle.copyWith(
-                                          fontSize: 15,
-                                          color: Colors.grey[600]),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
+                                  Icon(
+                                    Icons.favorite,
+                                    size: 18,
+                                    color: Colors.grey[600],
                                   ),
+                                  SizedBox(
+                                    width: 4,
+                                  ),
+                                  Text(
+                                    widget.Tour!.like,
+                                    style:
+                                        regularTextStyle.copyWith(fontSize: 14),
+                                  )
                                 ],
                               ),
                             ),
+                            Expanded(
+                              flex: 3,
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.comment,
+                                    size: 18,
+                                    color: Colors.grey[600],
+                                  ),
+                                  SizedBox(
+                                    width: 4,
+                                  ),
+                                  Text(
+                                    widget.Tour!.comment,
+                                    style:
+                                        regularTextStyle.copyWith(fontSize: 14),
+                                  )
+                                ],
+                              ),
+                            )
                           ],
                         ),
-                        Container(
-                          child: Row(
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.favorite,
-                                      size: 18,
-                                      color: Colors.grey[600],
-                                    ),
-                                    SizedBox(
-                                      width: 4,
-                                    ),
-                                    Text(
-                                      "20",
-                                      style: regularTextStyle.copyWith(
-                                          fontSize: 14),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                flex: 3,
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.comment,
-                                      size: 18,
-                                      color: Colors.grey[600],
-                                    ),
-                                    SizedBox(
-                                      width: 4,
-                                    ),
-                                    Text(
-                                      "0",
-                                      style: regularTextStyle.copyWith(
-                                          fontSize: 14),
-                                    )
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
+                      )
+                    ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

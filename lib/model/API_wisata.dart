@@ -7,7 +7,7 @@ class FetchSpace {
   var data = [];
   List<Space> results = [];
   // String urlList = 'https://jsonplaceholder.typicode.com/users/';
-  String urlList = 'http://api-siger.uacak.com/api/v1/tour';
+  String urlList = 'http://hiskia.xyz/api/v1/tour';
   // Future<List<Space>> getspace({String? query}) async {
   // var response = await http
   //       // .get(Uri.parse('http://bwa-cozy.herokuapp.com/recommended-spaces'));

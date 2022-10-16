@@ -43,8 +43,8 @@ class Space {
     name = json['name'];
     locationName = json['locationName'].toString();
     // image = json['image'].toString();
-    like = json['like'];
-    comment = json['comment'];
+    like = json['like'].toString();
+    comment = json['comment'].toString();
   }
 
   Map<String, dynamic> toJson() {
