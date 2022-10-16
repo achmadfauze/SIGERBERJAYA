@@ -90,14 +90,15 @@ class _AllKabupatenListState extends State<AllKabupatenList> {
                 width: double.infinity,
                 child: InkWell(
                   onTap: () {
-                    Navigator.push(
-                      context,
+                    Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (builder) => DetailPlace(
-                          //  DetailTempat(
-                          data: _Tour[index],
-                          uid: widget.uid,
-                        ),
+                        builder: (builder) {
+                          return DetailPlace(
+                            //  DetailTempat(
+                            data: _Tour[index],
+                            uid: widget.uid,
+                          );
+                        },
                       ),
                     ).then(onGoBack);
                   },

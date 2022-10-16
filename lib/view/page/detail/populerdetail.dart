@@ -155,70 +155,8 @@ class _DetailPageState extends State<DetailPlace> {
     super.initState();
   }
 
-  // String lat = "-5.436068787303937";
-  // String long = "105.22953153927098";
-
-  // _lauchMap() async {
-  //   final String googleMapUrl = "comgooglemaps://?center=$lat,$long";
-  //   if (await canLaunchUrlString(googleMapUrl)) {
-  //     await launchUrlString(googleMapUrl);
-  //   } else {
-  //     throw "Tidak Dapat Menampilkan URL";
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
-    // launchUrl(String url) async {
-    //   if (await canLaunch(url)) {
-    //     launch(url);
-    //   } else {
-    //     // throw (url);
-    //     Navigator.push(
-    //       context,
-    //       MaterialPageRoute(
-    //         builder: (context) => ErrorPage(),
-    //       ),
-    //     );
-    //   }
-    // }
-
-    // Future<void> handleBook(Space space) async {
-    //   return showDialog<void>(
-    //     context: context,
-    //     builder: (BuildContext context) {
-    //       return AlertDialog(
-    //         title: Text('Konfirmasi'),
-    //         content: SingleChildScrollView(
-    //           child: ListBody(
-    //             children: <Widget>[
-    //               Text('Apakah kamu ingin menghubungi pemilik kos?'),
-    //             ],
-    //           ),
-    //         ),
-    //         actions: <Widget>[
-    //           TextButton(
-    //             child: Text(
-    //               'Nanti',
-    //               style: greyTextStyle,
-    //             ),
-    //             onPressed: () {
-    //               Navigator.of(context).pop();
-    //             },
-    //           ),
-    //           TextButton(
-    //             child: Text('Hubungi'),
-    //             onPressed: () {
-    //               Navigator.of(context).pop();
-    //               // launchUrl('tel:${space.phone}');
-    //             },
-    //           ),
-    //         ],
-    //       );
-    //     },
-    //   );
-    // }
-
     return Scaffold(
       backgroundColor: whiteColor,
       body: SafeArea(
@@ -226,50 +164,11 @@ class _DetailPageState extends State<DetailPlace> {
         child: Stack(
           children: [
             Image.network(
-              // "https://cdn0-production-images-kly.akamaized.net/m-HxppUnYITVR8z1QAVSQsE90Sc=/1200x1200/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/1005140/original/081444800_1443597770-8.jpg",
-              // widget.space.imageUrl,
               widget.data!.image,
               width: MediaQuery.of(context).size.width,
               height: 350,
               fit: BoxFit.cover,
             ),
-            // Padding(
-            //   padding: EdgeInsets.symmetric(
-            //     horizontal: edge,
-            //     vertical: 30,
-            //   ),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //     children: [
-            //       InkWell(
-            //         onTap: () {
-            //           Navigator.pop(context);
-            //         },
-            //         child: Image.asset(
-            //           'assets/btn_back.png',
-            //           width: 40,
-            //         ),
-            //       ),
-            //       // Image.asset(
-            //       //   'assets/btn_wishlist.png',
-            //       //   width: 40,
-            //       // ),
-            //       InkWell(
-            //         onTap: () {
-            //           setState(() {
-            //             isFavorite = !isFavorite;
-            //           });
-            //         },
-            //         child: Image.asset(
-            //           isFavorite
-            //               ? 'assets/btn_wishlist_active.png'
-            //               : 'assets/btn_wishlist.png',
-            //           width: 40,
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
             ListView(
               children: [
                 SizedBox(
@@ -346,9 +245,11 @@ class _DetailPageState extends State<DetailPlace> {
                                         onTap: () {
                                           Navigator.of(context).push(
                                             MaterialPageRoute(
-                                              builder: ((context) {
-                                                return Comment();
-                                              }),
+                                              builder: ((context) => Comment(
+                                                    uid: widget.uid,
+                                                    tourCode:
+                                                        widget.data!.tourCode,
+                                                  )),
                                             ),
                                           );
                                         },
