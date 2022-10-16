@@ -18,18 +18,18 @@ class NewsPage extends StatefulWidget {
 }
 
 class _NewsPageState extends State<NewsPage> {
-  final List<Space> _Space = [];
+  final List<Article> _Article = [];
 
-  Future<List<Space>> fetchJson() async {
+  Future<List<Article>> fetchJson() async {
     var response =
-        await http.get(Uri.parse('https://hiskia.xyz/api/v1/article'));
-    // print(response);
-    List<Space> slist = [];
+        await http.get(Uri.parse('http://hiskia.xyz//api/v1/article'));
+    print(response);
+    List<Article> slist = [];
     if (response.statusCode == 200) {
       var urjson = (json.decode(response.body));
       // print(urjson);
       for (var jsondata in urjson) {
-        slist.add(Space.fromJson(jsondata));
+        slist.add(Article.fromJson(jsondata));
       }
     }
     return slist;
@@ -39,7 +39,7 @@ class _NewsPageState extends State<NewsPage> {
   void initState() {
     fetchJson().then((value) {
       setState(() {
-        _Space.addAll(value);
+        _Article.addAll(value);
       });
     });
     super.initState();
@@ -69,12 +69,12 @@ class _NewsPageState extends State<NewsPage> {
 
           // child: Container(
           child: ListView.builder(
-              itemCount: _Space.length,
+              itemCount: _Article.length,
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemBuilder: (context, index) {
                 // {
-                final space = _Space[index];
+                // final space = _Space[index];
                 return Container(
                   height: 280,
                   margin: EdgeInsets.only(top: 10),
@@ -82,9 +82,11 @@ class _NewsPageState extends State<NewsPage> {
                   child: Column(
                     children: [
                       InkWell(
-                        onTap: () => customAnimationWidget(
+                        onTap: () =>
+                            // space: space,
+                            customAnimationWidget(
                           newPage: DetailArtikel(
-                            space: space,
+                            data: _Article[index],
                           ),
                           context: context,
                           transitionBuilder:
@@ -143,7 +145,7 @@ class _NewsPageState extends State<NewsPage> {
                                   Flexible(
                                     child: Text(
                                       // space.title.toString(),
-                                      _Space[index].title.toString(),
+                                      _Article[index].title.toString(),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       style: regularTextStyle.copyWith(
@@ -170,7 +172,7 @@ class _NewsPageState extends State<NewsPage> {
                                     child: Text(
                                         // "${itemsArtikel[index]['Image']}"
                                         //     .toString(),
-                                        _Space[index].description.toString(),
+                                        _Article[index].description.toString(),
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                         style: regularTextStyle.copyWith(
@@ -197,7 +199,7 @@ class _NewsPageState extends State<NewsPage> {
                                         color: Colors.black38,
                                         size: 13,
                                       ),
-                                      Text(_Space[index].createAt.toString(),
+                                      Text(_Article[index].createAt.toString(),
                                           // space.createAt.toString(),
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
@@ -217,7 +219,7 @@ class _NewsPageState extends State<NewsPage> {
                                       SizedBox(
                                         width: 2,
                                       ),
-                                      Text(_Space[index].like.toString(),
+                                      Text(_Article[index].like.toString(),
                                           // space.like.toString(),
                                           style: regularTextStyle.copyWith(
                                             color: Colors.black,

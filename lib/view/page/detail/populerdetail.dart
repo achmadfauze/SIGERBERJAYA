@@ -8,6 +8,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:scroll_app_bar/scroll_app_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 // import '../../../model/popular_model.dart';
 import '../../../model/tourModel.dart';
@@ -151,6 +152,18 @@ class _DetailPageState extends State<DetailPlace> {
     });
     super.initState();
   }
+
+  // String lat = "-5.436068787303937";
+  // String long = "105.22953153927098";
+
+  // _lauchMap() async {
+  //   final String googleMapUrl = "comgooglemaps://?center=$lat,$long";
+  //   if (await canLaunchUrlString(googleMapUrl)) {
+  //     await launchUrlString(googleMapUrl);
+  //   } else {
+  //     throw "Tidak Dapat Menampilkan URL";
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -466,9 +479,14 @@ class _DetailPageState extends State<DetailPlace> {
 
                                 // launchUrl(widget.space.mapUrl);
                               },
-                              child: Image.asset(
-                                'assets/btn_map.png',
-                                width: 40,
+                              child: InkWell(
+                                onTap: () {
+                                  // _lauchMap();
+                                },
+                                child: Image.asset(
+                                  'assets/btn_map.png',
+                                  width: 40,
+                                ),
                               ),
                             ),
                           ],

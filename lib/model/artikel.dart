@@ -71,52 +71,31 @@ final List<Map<String, dynamic>> itemsArtikel = [
   }
 ];
 
-// class Space {
-//   late String stateCode;
-//   late String state;
-//   late String image;
-
-//   Space({
-//     required this.stateCode,
-//     required this.state,
-//     required this.image,
-//   });
-
-//   factory Space.fromJson(Map<String, dynamic> json) => Space(
-//         stateCode: json['stateCode'],
-//         state: json['state'],
-//         image: json['image'],
-//       );
-
-//   Map<String, dynamic> json() => {
-//         "stateCode": stateCode,
-//         "state": state,
-//         "image": image,
-//       };
-// }
-
-class Space {
+class Article {
   late String articleCode;
   late String title;
   late String description;
-  // late String image;
+  late String image;
+  late String url;
   late String like;
   late String comment;
   late String createAt;
 
-  Space(
+  Article(
       {required this.articleCode,
       required this.title,
-      // required this.image,
+      required this.image,
+      required this.url,
       required this.description,
       required this.like,
       required this.comment,
       required this.createAt});
 
-  factory Space.fromJson(Map<String, dynamic> json) => Space(
+  factory Article.fromJson(Map<String, dynamic> json) => Article(
       articleCode: json['articleCode'],
       title: json['title'],
-      // image: json['image'].toString(),
+      image: json['image'].toString(),
+      url: json['url'].toString(),
       description: json['description'].toString(),
       like: json['like'],
       comment: json['comment'],
@@ -126,7 +105,8 @@ class Space {
         "articlecode": articleCode,
         "title": title,
         "description": description,
-        // "image": image,
+        "image": image,
+        "url": url,
         "like": like,
         "comment": comment,
         "createAt": createAt,
