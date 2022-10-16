@@ -79,20 +79,43 @@ class _CityPage extends State<CityPage> {
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemBuilder: (context, index) => InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => (AllKabupatenList(
-                              stateCode: _Space[index].stateCode,
-                              state: _Space[index].state,
-                              image: _Space[index].image.toString(),
-                              uid: widget.uid,
-                            )),
-                          ),
-                        );
-                        // AllKabupatenList()));
-                      },
+                      onTap: () => customAnimationWidget(
+                        newPage: AllKabupatenList(
+                          stateCode: _Space[index].stateCode,
+                          state: _Space[index].state,
+                          image: _Space[index].image.toString(),
+                          uid: widget.uid,
+                        ),
+                        context: context,
+                        transitionBuilder:
+                            (context, animation, secondaryAnimation, child) {
+                          var begin = 0.0;
+                          var end = 1.0;
+                          var curve = Curves.easeIn;
+
+                          var tween = Tween(begin: begin, end: end)
+                              .chain(CurveTween(curve: curve));
+
+                          return ScaleTransition(
+                            scale: animation.drive(tween),
+                            child: child,
+                          );
+                        },
+                      ),
+                      // onTap: () {
+                      //   Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //       builder: (context) => (AllKabupatenList(
+                      //         stateCode: _Space[index].stateCode,
+                      //         state: _Space[index].state,
+                      //         image: _Space[index].image.toString(),
+                      //         uid: widget.uid,
+                      //       )),
+                      //     ),
+                      //   );
+                      //   // AllKabupatenList()));
+                      // },
                       child: Container(
                         height: 180,
                         width: double.infinity,

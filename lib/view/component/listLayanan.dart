@@ -1,11 +1,50 @@
+import 'dart:convert';
+
+import 'package:first_app/model/modelLayanan.dart';
+import 'package:first_app/model/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+import 'package:http/http.dart' as http;
 
-class ListLayanan extends StatelessWidget {
-  const ListLayanan({super.key, required this.Judul});
+class ListLayanan extends StatefulWidget {
+  String? url;
+  ListLayanan({super.key, required this.Judul, this.url});
   final String Judul;
+
+  @override
+  State<ListLayanan> createState() => _ListLayananState();
+}
+
+class _ListLayananState extends State<ListLayanan> {
+  final List<layanan> _layanan = [];
+  Future<List<layanan>> fetchJson() async {
+    var response = await http
+        // .get(Uri.parse('http://bwa-cozy.herokuapp.com/recommended-spaces'));
+        .get(Uri.parse(widget.url.toString()));
+    // print(response);
+    List<layanan> slist = [];
+    if (response.statusCode == 200) {
+      var urjson = (json.decode(response.body));
+      // print(urjson);
+      for (var jsondata in urjson) {
+        slist.add(layanan.fromJson(jsondata));
+      }
+    }
+    return slist;
+  }
+
+  @override
+  void initState() {
+    fetchJson().then((value) {
+      setState(() {
+        _layanan.addAll(value);
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +52,7 @@ class ListLayanan extends StatelessWidget {
     final bodyWidth = MediaQueryWidth;
     return Scaffold(
       appBar: AppBar(
-        title: Text(this.Judul),
+        title: Text(this.widget.Judul),
         actions: [
           IconButton(
               onPressed: () => launchUrl(
@@ -24,22 +63,28 @@ class ListLayanan extends StatelessWidget {
       ),
       body: Container(
         // padding: EdgeInsets.all(15),
-        child: ListView(children: [
-          ListItem(bodyWidth: bodyWidth),
-          ListItem(bodyWidth: bodyWidth),
-          ListItem(bodyWidth: bodyWidth),
-          ListItem(bodyWidth: bodyWidth),
-        ]),
+        child: ListView.builder(
+            itemCount: _layanan.length,
+            itemBuilder: (context, index) => ListItem(
+                  bodyWidth: bodyWidth,
+                  all_layanan: _layanan[index],
+                )
+            // children: [
+            //   ListItem(bodyWidth: bodyWidth),
+            //   ListItem(bodyWidth: bodyWidth),
+            //   ListItem(bodyWidth: bodyWidth),
+            //   ListItem(bodyWidth: bodyWidth),
+            // ]
+            ),
       ),
     );
   }
 }
 
 class ListItem extends StatelessWidget {
-  const ListItem({
-    Key? key,
-    required this.bodyWidth,
-  }) : super(key: key);
+  layanan? all_layanan;
+  ListItem({Key? key, required this.bodyWidth, this.all_layanan})
+      : super(key: key);
 
   final double bodyWidth;
 
@@ -64,7 +109,7 @@ class ListItem extends StatelessWidget {
                 Expanded(
                   flex: 4,
                   child: SizedBox(
-                    height: 100,
+                    height: 120,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
                       child: Image.network(
@@ -78,7 +123,7 @@ class ListItem extends StatelessWidget {
                 Expanded(
                   child: Container(
                     height: 100,
-                    padding: EdgeInsets.only(left: 10, top: 8, bottom: 8),
+                    padding: EdgeInsets.only(left: 10, top: 2, bottom: 2),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -87,10 +132,15 @@ class ListItem extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Polres Lampung Selatan",
-                              style: TextStyle(
-                                fontSize: 18,
+                              all_layanan!.name.toString(),
+                              style: regularTextStyle.copyWith(
+                                fontSize: 16,
+                                letterSpacing: 1.0,
+                                height: 1.2,
                               ),
+                            ),
+                            SizedBox(
+                              height: 4,
                             ),
                             Container(
                               child: Row(
@@ -105,9 +155,9 @@ class ListItem extends StatelessWidget {
                                   Expanded(
                                     flex: 9,
                                     child: Text(
-                                      "Sinar Banten/Bekri, Bekri, Kabbupaten Lampung Tengah",
-                                      style: TextStyle(
-                                          fontSize: 16,
+                                      all_layanan!.locationName.toString(),
+                                      style: regularTextStyle.copyWith(
+                                          fontSize: 14,
                                           color: Colors.grey[600]),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
@@ -118,51 +168,43 @@ class ListItem extends StatelessWidget {
                             ),
                           ],
                         ),
+                        SizedBox(
+                          height: 6,
+                        ),
                         Container(
                           child: Row(
                             children: [
-                              Expanded(
-                                flex: 1,
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.favorite,
-                                      size: 18,
-                                      color: Colors.grey[600],
+                              Container(
+                                // padding: EdgeInsets.symmetric(horizontal: 20),
+                                child: ConstrainedBox(
+                                  constraints:
+                                      BoxConstraints.tightFor(height: 25),
+                                  child: ElevatedButton(
+                                    child: Icon(
+                                      Icons.phone,
+                                      size: 16,
                                     ),
-                                    Text(
-                                      "20",
-                                    )
-                                  ],
+                                    onPressed: () {
+                                      launchUrlString(
+                                          'tel:${all_layanan!.phoneCall.toString()}');
+                                    },
+                                  ),
                                 ),
                               ),
-                              Expanded(
-                                flex: 3,
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.comment,
-                                      size: 18,
-                                      color: Colors.grey[600],
+                              Container(
+                                padding: EdgeInsets.symmetric(horizontal: 10),
+                                child: ConstrainedBox(
+                                  constraints:
+                                      BoxConstraints.tightFor(height: 25),
+                                  child: ElevatedButton(
+                                    child: Icon(
+                                      Icons.message,
+                                      size: 16,
                                     ),
-                                    Text("0")
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                flex: 3,
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 20),
-                                  child: ConstrainedBox(
-                                    constraints:
-                                        BoxConstraints.tightFor(height: 25),
-                                    child: ElevatedButton(
-                                      child: Icon(
-                                        Icons.phone,
-                                        size: 16,
-                                      ),
-                                      onPressed: () {},
-                                    ),
+                                    onPressed: () async {
+                                      launchUrlString(
+                                          'sms:${all_layanan!.phoneCall.toString()}');
+                                    },
                                   ),
                                 ),
                               )

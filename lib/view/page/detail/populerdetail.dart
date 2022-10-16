@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 import 'package:scroll_app_bar/scroll_app_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -492,9 +493,11 @@ class _DetailPageState extends State<DetailPlace> {
                                 // launchUrl(widget.space.mapUrl);
                               },
                               child: InkWell(
-                                onTap: () {
-                                  // _lauchMap();
-                                },
+                                onTap: () => MapsLauncher.launchCoordinates(
+                                  double.parse(widget.data!.latitude),
+                                  double.parse(widget.data!.longitude),
+                                  widget.data!.name.toString(),
+                                ),
                                 child: Image.asset(
                                   'assets/btn_map.png',
                                   width: 40,
@@ -536,13 +539,16 @@ class _DetailPageState extends State<DetailPlace> {
                                       MaterialPageRoute(builder: (context) {
                                         return ListLayanan(
                                           Judul: "Kepolisian Terdekat",
+                                          url:
+                                              "https://hiskia.xyz/api/v1/police/${widget.data!.stateCode}",
                                         );
                                       }),
                                     );
                                   }),
                                   child: Image.asset(
-                                    'assets/icon_kitchen.png',
-                                    width: 32,
+                                    'assets/icon_police.png',
+                                    // 'assets/icon_kitchen.png',
+                                    width: 30,
                                   ),
                                 ),
                                 SizedBox(
@@ -564,38 +570,26 @@ class _DetailPageState extends State<DetailPlace> {
                                 )
                               ],
                             ),
+
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Image.asset(
-                                  'assets/icon_bedroom.png',
-                                  width: 32,
-                                ),
-                                SizedBox(
-                                  height: 8,
-                                ),
-                                Text.rich(
-                                  // TextSpan(
-                                  //   text: '$total',
-                                  //   style: purpleTextStyle.copyWith(
-                                  //     fontSize: 14,
-                                  //   ),
-                                  //   children: [
-                                  TextSpan(
-                                    text: 'Rumah Sakit',
-                                    style: greyTextStyle.copyWith(
-                                      fontSize: 14,
-                                    ),
+                                InkWell(
+                                  onTap: (() {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(builder: (context) {
+                                        return ListLayanan(
+                                          Judul: "Restoran Terdekat",
+                                          url:
+                                              "https://hiskia.xyz/api/v1/restaurant/${widget.data!.stateCode}",
+                                        );
+                                      }),
+                                    );
+                                  }),
+                                  child: Image.asset(
+                                    'assets/icon_kitchen.png',
+                                    width: 32,
                                   ),
-                                )
-                              ],
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  'assets/icon_cupboard.png',
-                                  width: 32,
                                 ),
                                 SizedBox(
                                   height: 8,
@@ -619,9 +613,62 @@ class _DetailPageState extends State<DetailPlace> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Image.asset(
-                                  'assets/icon_cupboard.png',
-                                  width: 32,
+                                InkWell(
+                                  onTap: (() {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(builder: (context) {
+                                        return ListLayanan(
+                                          Judul: "Rumah Sakit Terdekat",
+                                          url:
+                                              "https://hiskia.xyz/api/v1/medicalfacility/${widget.data!.stateCode}",
+                                        );
+                                      }),
+                                    );
+                                  }),
+                                  child: Image.asset(
+                                    'assets/icon_hospital.png',
+                                    // 'assets/icon_kitchen.png',
+                                    width: 32,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 8,
+                                ),
+                                Text.rich(
+                                  // TextSpan(
+                                  //   text: '$total',
+                                  //   style: purpleTextStyle.copyWith(
+                                  //     fontSize: 14,
+                                  //   ),
+                                  //   children: [
+                                  TextSpan(
+                                    text: 'Rumah Sakit',
+                                    style: greyTextStyle.copyWith(
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                  onTap: (() {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(builder: (context) {
+                                        return ListLayanan(
+                                          Judul: "Hotel Terdekat",
+                                          url:
+                                              "https://hiskia.xyz/api/v1/hotel/${widget.data!.stateCode}",
+                                        );
+                                      }),
+                                    );
+                                  }),
+                                  child: Image.asset(
+                                    'assets/icon_bedroom.png',
+                                    width: 36,
+                                  ),
                                 ),
                                 SizedBox(
                                   height: 8,
@@ -773,39 +820,6 @@ class _DetailPageState extends State<DetailPlace> {
                   // ),
                   Row(
                     children: [
-                      Container(
-                        margin: EdgeInsets.only(right: 10),
-                        child: InkWell(
-                          onTap: () {
-                            setState(() {
-                              if (_currentUser != null) {
-                                if (isArchive == false) {
-                                  archiveHandler().then((value) {
-                                    if (value == "200") {
-                                      setState(() {});
-                                    }
-                                  });
-                                } else {
-                                  unarchiveHandler().then(
-                                    (value) {
-                                      if (value == "200") {
-                                        setState(() {});
-                                      }
-                                    },
-                                  );
-                                }
-                                isArchive = !isArchive;
-                              }
-                            });
-                          },
-                          child: Image.asset(
-                            isArchive
-                                ? 'assets/btn_archive_active.png'
-                                : 'assets/btn_archive.png',
-                            width: 40,
-                          ),
-                        ),
-                      ),
                       InkWell(
                         onTap: () {
                           setState(() {
@@ -837,6 +851,49 @@ class _DetailPageState extends State<DetailPlace> {
                           isFavorite
                               ? 'assets/btn_wishlist_active.png'
                               : 'assets/btn_wishlist.png',
+                          width: 40,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 6,
+                      ),
+                      InkWell(
+                        onTap: () {},
+                        child: Image.asset(
+                          'assets/btn_comment.png',
+                          width: 40,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 6,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            if (_currentUser != null) {
+                              if (isArchive == false) {
+                                archiveHandler().then((value) {
+                                  if (value == "200") {
+                                    setState(() {});
+                                  }
+                                });
+                              } else {
+                                unarchiveHandler().then(
+                                  (value) {
+                                    if (value == "200") {
+                                      setState(() {});
+                                    }
+                                  },
+                                );
+                              }
+                              isArchive = !isArchive;
+                            }
+                          });
+                        },
+                        child: Image.asset(
+                          isArchive
+                              ? 'assets/btn_archive_active.png'
+                              : 'assets/btn_archive.png',
                           width: 40,
                         ),
                       ),

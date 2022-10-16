@@ -18,9 +18,9 @@ class IntroPage4 extends StatelessWidget {
             height: 70,
           ),
           Image.asset(
-            'assets/slide3.png',
+            'assets/Onboard_RS.png',
             // height: 80,
-            // width: 80,
+            // width: 300,
           ),
           const SizedBox(
             height: 30,
