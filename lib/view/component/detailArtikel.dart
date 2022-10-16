@@ -100,45 +100,29 @@ class _DetailArtikelState extends State<DetailArtikel> {
                     borderRadius: BorderRadius.circular(10),
                     color: Color(0xff14C38E),
                   )),
-              Container(
-                width: 200,
-                child: Flexible(
+              Padding(
+                padding: EdgeInsets.all(edge),
+                child: Container(
+                  width: 200,
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        FittedBox(
-                            child:
-                                // Icon(
-                                //   Icons.link,
-                                //   size: 18,
-                                // ),
-                                Text(
-                          "witasatanusantara.com",
-                          // widget.data!.url.toString(),
-                          style: regularTextStyle.copyWith(
-                            fontSize: 12,
+                        Icon(
+                          Icons.link,
+                          size: 15,
+                        ),
+                        Flexible(
+                          child: Text(
+                            // "witasatanusantara.com",
+                            widget.data!.url.toString(),
+                            style: regularTextStyle.copyWith(
+                              fontSize: 12,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
-                          // maxLines: 1,
-                          // overflow: TextOverflow.ellipsis,
-                        )),
+                        ),
                       ]),
-
-                  // RichText(
-                  //   text: TextSpan(children: [
-                  //     WidgetSpan(
-                  //       child: Icon(
-                  //         Icons.favorite,
-                  //         size: 30,
-                  //       ),
-                  //     ),
-                  //     WidgetSpan(
-                  //       child: Icon(
-                  //         Icons.turned_in_not_sharp,
-                  //         size: 30,
-                  //       ),
-                  //     ),
-                  //   ]),
-                  // ),
                 ),
               ),
               Container(

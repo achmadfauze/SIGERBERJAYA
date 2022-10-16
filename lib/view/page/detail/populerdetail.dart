@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:first_app/view/component/comment.dart';
 import 'package:first_app/view/component/popular%20List.dart';
 import 'package:first_app/view/page/menu/homePage.dart';
 import 'package:flutter/material.dart';
@@ -340,10 +341,21 @@ class _DetailPageState extends State<DetailPlace> {
                                       SizedBox(
                                         width: 10,
                                       ),
-                                      Icon(
-                                        Icons.comment,
-                                        size: 22,
-                                        color: Colors.green,
+                                      InkWell(
+                                        onTap: () {
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder: ((context) {
+                                                return Comment();
+                                              }),
+                                            ),
+                                          );
+                                        },
+                                        child: Icon(
+                                          Icons.comment,
+                                          size: 22,
+                                          color: Colors.green,
+                                        ),
                                       ),
                                       SizedBox(
                                         width: 4,
@@ -518,9 +530,20 @@ class _DetailPageState extends State<DetailPlace> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Image.asset(
-                                  'assets/icon_kitchen.png',
-                                  width: 32,
+                                InkWell(
+                                  onTap: (() {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(builder: (context) {
+                                        return ListLayanan(
+                                          Judul: "Kepolisian Terdekat",
+                                        );
+                                      }),
+                                    );
+                                  }),
+                                  child: Image.asset(
+                                    'assets/icon_kitchen.png',
+                                    width: 32,
+                                  ),
                                 ),
                                 SizedBox(
                                   height: 8,

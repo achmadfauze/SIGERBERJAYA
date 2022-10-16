@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:first_app/model/userModel.dart';
+import 'package:first_app/view/component/chatadmin.dart';
 import 'package:first_app/view/component/editBahasa.dart';
 import 'package:first_app/view/component/editProfile.dart';
 import 'package:first_app/view/page/home.dart';
@@ -149,83 +150,84 @@ class _ProfilPageState extends State<ProfilPage> {
                             ),
                           ),
                         ),
-                  
 
-              Padding(
-                padding: EdgeInsets.only(top: bodyHeight * 0.03),
-                child: Text(
-                  _currentUser != null
-                      // ? _currentUser!.displayName.toString()
-                      ? Users.name.toString()
-                      : '',
-                  textAlign: TextAlign.center,
-                  style: regularTextStyle.copyWith(
-                      fontSize: 16 + (bodyHeight * 0.01),
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-              //profile
+                  Padding(
+                    padding: EdgeInsets.only(top: bodyHeight * 0.03),
+                    child: Text(
+                      _currentUser != null
+                          // ? _currentUser!.displayName.toString()
+                          ? Users.name.toString()
+                          : '',
+                      textAlign: TextAlign.center,
+                      style: regularTextStyle.copyWith(
+                          fontSize: 16 + (bodyHeight * 0.01),
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  //profile
 
-              _currentUser == null
-                  ? Padding(
-                      padding: const EdgeInsets.only(left: 12),
-                      child: ListTile(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: ((context) {
-                                return LoginPage();
-                              }),
-                            ),
-                          );
-                        },
-                        title: Text("Masuk",
-                            style: regularTextStyle.copyWith(fontSize: 16)),
-                        leading: Icon(
-                          Icons.login,
-                          // color: Colors.blue,
-                        ),
-                      ),
-                    )
-                  : Padding(
-                      padding: EdgeInsets.only(
-                          top: bodyHeight * 0.02, left: 12, right: 8),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ListTile(
-                            title: Text(
-                              _currentUser != null
-                                  // ? _currentUser!.email.toString()
-                                  ? Users.email.toString()
-                                  : '',
-                              style: regularTextStyle.copyWith(fontSize: 16),
-                            ),
+                  _currentUser == null
+                      ? Padding(
+                          padding: const EdgeInsets.only(left: 12),
+                          child: ListTile(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: ((context) {
+                                    return LoginPage();
+                                  }),
+                                ),
+                              );
+                            },
+                            title: Text("Masuk",
+                                style: regularTextStyle.copyWith(fontSize: 16)),
                             leading: Icon(
-                              Icons.email,
+                              Icons.login,
                               // color: Colors.blue,
                             ),
                           ),
-                          ListTile(
-                            title: Text(Users.createAt.toString(),
-                                style: regularTextStyle.copyWith(fontSize: 16)),
-                            leading: Icon(
-                              Icons.watch_later_sharp,
-                              // color: Colors.blue,
-                            ),
-                          ),
-                          ListTile(
-                            title: Text("Edit Profile",
-                                style: regularTextStyle.copyWith(fontSize: 16)),
-                            leading: Icon(
-                              Icons.edit,
-                              // color: Colors.blue,
-                            ),
-                            trailing: Icon(
-                              Icons.arrow_forward_ios,
-                              size: 20,
-                            ),
-                  
+                        )
+                      : Padding(
+                          padding: EdgeInsets.only(
+                              top: bodyHeight * 0.02, left: 12, right: 8),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ListTile(
+                                title: Text(
+                                  _currentUser != null
+                                      // ? _currentUser!.email.toString()
+                                      ? Users.email.toString()
+                                      : '',
+                                  style:
+                                      regularTextStyle.copyWith(fontSize: 16),
+                                ),
+                                leading: Icon(
+                                  Icons.email,
+                                  // color: Colors.blue,
+                                ),
+                              ),
+                              ListTile(
+                                title: Text(Users.createAt.toString(),
+                                    style: regularTextStyle.copyWith(
+                                        fontSize: 16)),
+                                leading: Icon(
+                                  Icons.watch_later_sharp,
+                                  // color: Colors.blue,
+                                ),
+                              ),
+                              ListTile(
+                                title: Text("Edit Profile",
+                                    style: regularTextStyle.copyWith(
+                                        fontSize: 16)),
+                                leading: Icon(
+                                  Icons.edit,
+                                  // color: Colors.blue,
+                                ),
+                                trailing: Icon(
+                                  Icons.arrow_forward_ios,
+                                  size: 20,
+                                ),
                                 onTap: () {
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
@@ -275,6 +277,29 @@ class _ProfilPageState extends State<ProfilPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        ListTile(
+                          title: Text("Hubungi Admin",
+                              style: regularTextStyle.copyWith(fontSize: 16)),
+                          leading: Icon(
+                            Icons.chat,
+                            // color: Colors.blue,
+                          ),
+                          trailing: Icon(
+                            Icons.arrow_forward_ios,
+                            size: 20,
+                          ),
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: ((context) {
+                                  return ChatAdmin(
+                                      // User: Users,
+                                      );
+                                }),
+                              ),
+                            );
+                          },
+                        ),
                         ListTile(
                           title: Text("Dapatkan Pemberitahuan",
                               style: regularTextStyle.copyWith(fontSize: 16)),
