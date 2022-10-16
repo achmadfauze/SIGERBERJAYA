@@ -41,7 +41,7 @@ class _Home extends State<Home> {
       NewsPage(),
       SavePage(),
       ProfilPage(
-        uid: _currentUser!.id.toString(),
+        uid: _currentUser != null ? _currentUser!.id.toString() : "",
       )
     ];
     return MaterialApp(
