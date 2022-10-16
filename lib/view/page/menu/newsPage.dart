@@ -47,8 +47,7 @@ class _NewsPageState extends State<NewsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: Scaffold(
+    return Scaffold(
       appBar: AppBar(
         //appbar widget on Scaffold
         title: Text("Berita Wisata Lampung",
@@ -259,6 +258,6 @@ class _NewsPageState extends State<NewsPage> {
           ),
         ),
       ),
-    ));
+    );
   }
 }
