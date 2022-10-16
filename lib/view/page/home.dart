@@ -37,7 +37,9 @@ class _Home extends State<Home> {
   Widget build(BuildContext context) {
     final screen = [
       HomePage(),
-      CityPage(),
+      CityPage(
+        uid: _currentUser != null ? _currentUser!.id.toString() : "",
+      ),
       NewsPage(),
       SavePage(),
       ProfilPage(

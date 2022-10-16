@@ -27,7 +27,7 @@ class _NewsPageState extends State<NewsPage> {
     List<Article> slist = [];
     if (response.statusCode == 200) {
       var urjson = (json.decode(response.body));
-      print(urjson);
+      // print(urjson);
       for (var jsondata in urjson) {
         slist.add(Article.fromJson(jsondata));
       }

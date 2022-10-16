@@ -18,12 +18,12 @@ class _BaruListState extends State<BaruList> {
   Future<List<Space>> fetchJson() async {
     var response = await http
         // .get(Uri.parse('http://bwa-cozy.herokuapp.com/recommended-spaces'));
-        .get(Uri.parse('http://api-siger.uacak.com/public/api/v1/newtour/5'));
-    print(response);
+        .get(Uri.parse('https://hiskia.xyz/public/api/v1/newtour/5'));
+    // print(response);
     List<Space> slist = [];
     if (response.statusCode == 200) {
       var urjson = (json.decode(response.body));
-      print(urjson);
+      // print(urjson);
       for (var jsondata in urjson) {
         slist.add(Space.fromJson(jsondata));
       }

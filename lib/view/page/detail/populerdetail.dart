@@ -1,8 +1,11 @@
+import 'dart:ffi';
+
 import 'package:first_app/view/component/popular%20List.dart';
 import 'package:first_app/view/page/menu/homePage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:scroll_app_bar/scroll_app_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -12,15 +15,19 @@ import '../../../model/tourModel.dart';
 import '../../component/listLayanan.dart';
 import 'package:first_app/model/theme.dart';
 import 'package:first_app/widget/facility_item.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class DetailPlace extends StatefulWidget {
-  final String? tourCode;
+  final String? tourCode, uid;
   final tour? data;
+
   // final TourPop? adata;
   const DetailPlace({
     super.key,
     this.tourCode,
     this.data,
+    this.uid,
   });
 
   // final Space space;
@@ -40,6 +47,111 @@ class DetailPlace extends StatefulWidget {
 
 class _DetailPageState extends State<DetailPlace> {
   bool isFavorite = false;
+  bool isArchive = false;
+  int like = 0;
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: [
+      'email',
+      'https://www.googleapis.com/auth/contacts.readonly',
+    ],
+  );
+  GoogleSignInAccount? _currentUser;
+
+  Future<int> getILike() async {
+    int islike = 0;
+    // print("asdsad");
+
+    var response = await http.get(Uri.parse(
+        'https://hiskia.xyz/api/v1/isliketour/${widget.data!.tourCode}/${widget.uid}'));
+    // print(response);
+    if (response.statusCode == 200) {
+      var urjson = (json.decode(response.body));
+      // print(int.parse(urjson.toString()));
+      islike = int.parse(urjson.toString());
+    }
+
+    return islike;
+  }
+
+  Future<int> getArchive() async {
+    int isarchive = 0;
+    // print("asdsad");
+
+    var response = await http.get(Uri.parse(
+        'https://hiskia.xyz/api/v1/isarchivetour/${widget.data!.tourCode}/${widget.uid}'));
+    // print(response);
+    if (response.statusCode == 200) {
+      var urjson = (json.decode(response.body));
+      // print(int.parse(urjson.toString()));
+      isarchive = int.parse(urjson.toString());
+    }
+
+    return isarchive;
+  }
+
+  Future<String> likeHandler() async {
+    var response = await http.get(Uri.parse(
+        'https://hiskia.xyz/api/v1/liketour/${widget.data!.tourCode}/${widget.uid}'));
+    // print(response);
+    return (response.statusCode.toString());
+  }
+
+  Future<String> dislikeHandler() async {
+    var response = await http.get(Uri.parse(
+        'https://hiskia.xyz/api/v1/disliketour/${widget.data!.tourCode}/${widget.uid}'));
+    // print(response);
+    return (response.statusCode.toString());
+  }
+
+  Future<String> archiveHandler() async {
+    var response = await http.get(Uri.parse(
+        'https://hiskia.xyz/api/v1/archive_tour/${widget.data!.tourCode}/${widget.uid}'));
+
+    return (response.statusCode.toString());
+  }
+
+  Future<String> unarchiveHandler() async {
+    var response = await http.get(Uri.parse(
+        'https://hiskia.xyz/api/v1/unarchivetour/${widget.data!.tourCode}/${widget.uid}'));
+
+    return (response.statusCode.toString());
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    _googleSignIn.onCurrentUserChanged.listen((account) {
+      setState(() {
+        _currentUser = account;
+      });
+    });
+    _googleSignIn.signInSilently();
+    getILike().then(
+      (value) {
+        // print(value);
+        setState(() {
+          if (value > 0) {
+            isFavorite = true;
+          }
+        });
+      },
+    );
+    getArchive().then(
+      (value) {
+        // print(value);
+        setState(() {
+          if (value > 0) {
+            isArchive = true;
+          }
+        });
+      },
+    );
+    setState(() {
+      like = int.parse(widget.data!.like);
+    });
+    super.initState();
+  }
 
   // String lat = "-5.436068787303937";
   // String long = "105.22953153927098";
@@ -112,8 +224,9 @@ class _DetailPageState extends State<DetailPlace> {
         child: Stack(
           children: [
             Image.network(
-              "https://cdn0-production-images-kly.akamaized.net/m-HxppUnYITVR8z1QAVSQsE90Sc=/1200x1200/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/1005140/original/081444800_1443597770-8.jpg",
+              // "https://cdn0-production-images-kly.akamaized.net/m-HxppUnYITVR8z1QAVSQsE90Sc=/1200x1200/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/1005140/original/081444800_1443597770-8.jpg",
               // widget.space.imageUrl,
+              widget.data!.image,
               width: MediaQuery.of(context).size.width,
               height: 350,
               fit: BoxFit.cover,
@@ -218,7 +331,7 @@ class _DetailPageState extends State<DetailPlace> {
                                       ),
                                       Text(
                                         // widget.space.like.toString(),
-                                        widget.data!.like.toString(),
+                                        like.toString(),
                                         style: TextStyle(
                                           fontFamily: 'Roboto-Regular',
                                           fontSize: 16,
@@ -635,18 +748,76 @@ class _DetailPageState extends State<DetailPlace> {
                   //   'assets/btn_wishlist.png',
                   //   width: 40,
                   // ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        isFavorite = !isFavorite;
-                      });
-                    },
-                    child: Image.asset(
-                      isFavorite
-                          ? 'assets/btn_wishlist_active.png'
-                          : 'assets/btn_wishlist.png',
-                      width: 40,
-                    ),
+                  Row(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(right: 10),
+                        child: InkWell(
+                          onTap: () {
+                            setState(() {
+                              if (_currentUser != null) {
+                                if (isArchive == false) {
+                                  archiveHandler().then((value) {
+                                    if (value == "200") {
+                                      setState(() {});
+                                    }
+                                  });
+                                } else {
+                                  unarchiveHandler().then(
+                                    (value) {
+                                      if (value == "200") {
+                                        setState(() {});
+                                      }
+                                    },
+                                  );
+                                }
+                                isArchive = !isArchive;
+                              }
+                            });
+                          },
+                          child: Image.asset(
+                            isArchive
+                                ? 'assets/btn_archive_active.png'
+                                : 'assets/btn_archive.png',
+                            width: 40,
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            if (_currentUser != null) {
+                              if (isFavorite == false) {
+                                likeHandler().then((value) {
+                                  if (value == "200") {
+                                    setState(() {
+                                      like++;
+                                    });
+                                  }
+                                });
+                              } else {
+                                dislikeHandler().then(
+                                  (value) {
+                                    if (value == "200") {
+                                      setState(() {
+                                        like--;
+                                      });
+                                    }
+                                  },
+                                );
+                              }
+                              isFavorite = !isFavorite;
+                            }
+                          });
+                        },
+                        child: Image.asset(
+                          isFavorite
+                              ? 'assets/btn_wishlist_active.png'
+                              : 'assets/btn_wishlist.png',
+                          width: 40,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
