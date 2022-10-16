@@ -46,6 +46,7 @@ class DetailPlace extends StatefulWidget {
 
 class _DetailPageState extends State<DetailPlace> {
   bool isFavorite = false;
+  bool isArchive = false;
   int like = 0;
   final GoogleSignIn _googleSignIn = GoogleSignIn(
     scopes: [
@@ -71,6 +72,22 @@ class _DetailPageState extends State<DetailPlace> {
     return islike;
   }
 
+  Future<int> getArchive() async {
+    int isarchive = 0;
+    // print("asdsad");
+
+    var response = await http.get(Uri.parse(
+        'https://hiskia.xyz/api/v1/isarchivetour/${widget.data!.tourCode}/${widget.uid}'));
+    // print(response);
+    if (response.statusCode == 200) {
+      var urjson = (json.decode(response.body));
+      // print(int.parse(urjson.toString()));
+      isarchive = int.parse(urjson.toString());
+    }
+
+    return isarchive;
+  }
+
   Future<String> likeHandler() async {
     var response = await http.get(Uri.parse(
         'https://hiskia.xyz/api/v1/liketour/${widget.data!.tourCode}/${widget.uid}'));
@@ -82,6 +99,20 @@ class _DetailPageState extends State<DetailPlace> {
     var response = await http.get(Uri.parse(
         'https://hiskia.xyz/api/v1/disliketour/${widget.data!.tourCode}/${widget.uid}'));
     // print(response);
+    return (response.statusCode.toString());
+  }
+
+  Future<String> archiveHandler() async {
+    var response = await http.get(Uri.parse(
+        'https://hiskia.xyz/api/v1/archive_tour/${widget.data!.tourCode}/${widget.uid}'));
+
+    return (response.statusCode.toString());
+  }
+
+  Future<String> unarchiveHandler() async {
+    var response = await http.get(Uri.parse(
+        'https://hiskia.xyz/api/v1/unarchivetour/${widget.data!.tourCode}/${widget.uid}'));
+
     return (response.statusCode.toString());
   }
 
@@ -101,6 +132,16 @@ class _DetailPageState extends State<DetailPlace> {
         setState(() {
           if (value > 0) {
             isFavorite = true;
+          }
+        });
+      },
+    );
+    getArchive().then(
+      (value) {
+        // print(value);
+        setState(() {
+          if (value > 0) {
+            isArchive = true;
           }
         });
       },
@@ -689,39 +730,76 @@ class _DetailPageState extends State<DetailPlace> {
                   //   'assets/btn_wishlist.png',
                   //   width: 40,
                   // ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        if (_currentUser != null) {
-                          if (isFavorite == false) {
-                            likeHandler().then((value) {
-                              if (value == "200") {
-                                setState(() {
-                                  like++;
-                                });
+                  Row(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(right: 10),
+                        child: InkWell(
+                          onTap: () {
+                            setState(() {
+                              if (_currentUser != null) {
+                                if (isArchive == false) {
+                                  archiveHandler().then((value) {
+                                    if (value == "200") {
+                                      setState(() {});
+                                    }
+                                  });
+                                } else {
+                                  unarchiveHandler().then(
+                                    (value) {
+                                      if (value == "200") {
+                                        setState(() {});
+                                      }
+                                    },
+                                  );
+                                }
+                                isArchive = !isArchive;
                               }
                             });
-                          } else {
-                            dislikeHandler().then(
-                              (value) {
-                                if (value == "200") {
-                                  setState(() {
-                                    like--;
-                                  });
-                                }
-                              },
-                            );
-                          }
-                          isFavorite = !isFavorite;
-                        }
-                      });
-                    },
-                    child: Image.asset(
-                      isFavorite
-                          ? 'assets/btn_wishlist_active.png'
-                          : 'assets/btn_wishlist.png',
-                      width: 40,
-                    ),
+                          },
+                          child: Image.asset(
+                            isArchive
+                                ? 'assets/btn_archive_active.png'
+                                : 'assets/btn_archive.png',
+                            width: 40,
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            if (_currentUser != null) {
+                              if (isFavorite == false) {
+                                likeHandler().then((value) {
+                                  if (value == "200") {
+                                    setState(() {
+                                      like++;
+                                    });
+                                  }
+                                });
+                              } else {
+                                dislikeHandler().then(
+                                  (value) {
+                                    if (value == "200") {
+                                      setState(() {
+                                        like--;
+                                      });
+                                    }
+                                  },
+                                );
+                              }
+                              isFavorite = !isFavorite;
+                            }
+                          });
+                        },
+                        child: Image.asset(
+                          isFavorite
+                              ? 'assets/btn_wishlist_active.png'
+                              : 'assets/btn_wishlist.png',
+                          width: 40,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
