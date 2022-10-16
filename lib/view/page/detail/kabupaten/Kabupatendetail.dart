@@ -13,8 +13,9 @@ import 'package:http/http.dart' as http;
 import '../../../../model/theme.dart';
 
 class AllKabupatenList extends StatefulWidget {
-  final String? stateCode, state, image;
-  AllKabupatenList({super.key, this.stateCode, this.state, this.image});
+  final String? stateCode, state, image, uid;
+  AllKabupatenList(
+      {super.key, this.stateCode, this.state, this.image, this.uid});
 
   @override
   State<AllKabupatenList> createState() => _AllKabupatenListState();
@@ -22,10 +23,9 @@ class AllKabupatenList extends StatefulWidget {
 
 class _AllKabupatenListState extends State<AllKabupatenList> {
   final List<tour> _Tour = [];
-
   Future<List<tour>> fetchJson() async {
-    var response = await http.get(Uri.parse(
-        'http://api-siger.uacak.com/api/v1/tourbystate/${widget.stateCode}'));
+    var response = await http.get(
+        Uri.parse('https://hiskia.xyz/api/v1/tourbystate/${widget.stateCode}'));
     List<tour> slist = [];
     if (response.statusCode == 200) {
       var urjson = (json.decode(response.body));
@@ -44,6 +44,20 @@ class _AllKabupatenListState extends State<AllKabupatenList> {
       });
     });
     super.initState();
+  }
+
+  void refreshData() {
+    fetchJson().then((value) {
+      setState(() {
+        _Tour.clear();
+        _Tour.addAll(value);
+      });
+    });
+  }
+
+  onGoBack(dynamic value) {
+    refreshData();
+    setState(() {});
   }
 
   @override
@@ -82,9 +96,10 @@ class _AllKabupatenListState extends State<AllKabupatenList> {
                         builder: (builder) => DetailPlace(
                           //  DetailTempat(
                           data: _Tour[index],
+                          uid: widget.uid,
                         ),
                       ),
-                    );
+                    ).then(onGoBack);
                   },
                   child: Column(
                     children: [

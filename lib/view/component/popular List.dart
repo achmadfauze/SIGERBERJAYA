@@ -26,13 +26,12 @@ class _PopularListState extends State<PopularList> {
   Future<List<tour>> fetchJson() async {
     var response = await http
         // .get(Uri.parse('http://bwa-cozy.herokuapp.com/recommended-spaces'));
-        .get(Uri.parse(
-            'http://api-siger.uacak.com/public/api/v1/populertour/5'));
-    print(response);
+        .get(Uri.parse('https://hiskia.xyz/public/api/v1/populertour/5'));
+    // print(response);
     List<tour> slist = [];
     if (response.statusCode == 200) {
       var urjson = (json.decode(response.body));
-      print(urjson);
+      // print(urjson);
       for (var jsondata in urjson) {
         slist.add(tour.fromJson(jsondata));
       }

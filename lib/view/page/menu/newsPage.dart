@@ -22,12 +22,12 @@ class _NewsPageState extends State<NewsPage> {
 
   Future<List<Space>> fetchJson() async {
     var response =
-        await http.get(Uri.parse('http://api-siger.uacak.com/api/v1/article'));
-    print(response);
+        await http.get(Uri.parse('https://hiskia.xyz/api/v1/article'));
+    // print(response);
     List<Space> slist = [];
     if (response.statusCode == 200) {
       var urjson = (json.decode(response.body));
-      print(urjson);
+      // print(urjson);
       for (var jsondata in urjson) {
         slist.add(Space.fromJson(jsondata));
       }

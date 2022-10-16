@@ -70,7 +70,7 @@ class _ProfilPageState extends State<ProfilPage> {
 
   Future<user> fetchJson() async {
     var response = await http
-        .get(Uri.parse('http://api-siger.uacak.com/api/v1/user/${widget.uid}'));
+        .get(Uri.parse('https://hiskia.xyz/api/v1/user/${widget.uid}'));
 
     user slist = new user();
     if (response.statusCode == 200) {
@@ -168,7 +168,6 @@ class _ProfilPageState extends State<ProfilPage> {
                   ? Padding(
                       padding: const EdgeInsets.only(left: 12),
                       child: ListTile(
-
                         onTap: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
@@ -178,10 +177,8 @@ class _ProfilPageState extends State<ProfilPage> {
                             ),
                           );
                         },
-                        title: Text(
-                          "Masuk",
-                          style: regularTextStyle.copyWith(fontSize: 16))
-                        ),
+                        title: Text("Masuk",
+                            style: regularTextStyle.copyWith(fontSize: 16)),
                         leading: Icon(
                           Icons.login,
                           // color: Colors.blue,
@@ -208,13 +205,8 @@ class _ProfilPageState extends State<ProfilPage> {
                             ),
                           ),
                           ListTile(
-
                             title: Text(Users.createAt.toString(),
                                 style: regularTextStyle.copyWith(fontSize: 16)),
-
-                            title: Text(currentTime.toString(),
-                                style: regularTextStyle.copyWith(fontSize: 16)),
-
                             leading: Icon(
                               Icons.watch_later_sharp,
                               // color: Colors.blue,

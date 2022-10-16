@@ -28,9 +28,9 @@ class _DetailTempatState extends State<DetailTempat> {
   final controller = ScrollController();
   final List<tour> Tour = [];
   Future<List<tour>> fetchJson() async {
-    var response = await http.get(
-        Uri.parse('http://api-siger.uacak.com/api/v1/tour/${widget.tourCode}'));
-    print(response);
+    var response = await http
+        .get(Uri.parse('https://hiskia.xyz/api/v1/tour/${widget.tourCode}'));
+    // print(response);
     List<tour> slist = [];
     if (response.statusCode == 200) {
       var urjson = (json.decode(response.body));
