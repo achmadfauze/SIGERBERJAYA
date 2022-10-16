@@ -14,7 +14,8 @@ import '../../model/theme.dart';
 class PopularList extends StatefulWidget {
   // final String? stateCode, state, image;
   // AllKabupatenList({super.key, this.stateCode, this.state, this.image});
-
+  final String? uid;
+  PopularList({this.uid});
   @override
   State<PopularList> createState() => _PopularListState();
 }
@@ -49,6 +50,20 @@ class _PopularListState extends State<PopularList> {
     super.initState();
   }
 
+  void refreshData() {
+    fetchJson().then((value) {
+      setState(() {
+        _Tour.clear();
+        _Tour.addAll(value);
+      });
+    });
+  }
+
+  onGoBack(dynamic value) {
+    refreshData();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,6 +95,7 @@ class _PopularListState extends State<PopularList> {
                         onTap: () => customAnimationWidget(
                               newPage: DetailPlace(
                                 data: _Tour[index],
+                                uid: widget.uid,
                               ),
                               context: context,
                               transitionBuilder: (context, animation,
@@ -96,7 +112,7 @@ class _PopularListState extends State<PopularList> {
                                   child: child,
                                 );
                               },
-                            ),
+                            ).then(onGoBack),
 
                         // scaleWidget(
                         //       newPage: DetailPlace(

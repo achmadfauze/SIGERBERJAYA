@@ -81,6 +81,23 @@ class _Homepage extends State<HomePage> {
     super.initState();
   }
 
+  void refreshData() {
+    fetchJson().then((value) {
+      setState(() {
+        _Tour.clear();
+        _Tour.addAll(value);
+      });
+    });
+    PopularList(
+      uid: _currentUser != null ? _currentUser!.id.toString() : null,
+    );
+  }
+
+  onGoBack(dynamic value) {
+    refreshData();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -305,9 +322,10 @@ class _Homepage extends State<HomePage> {
                           ),
                           onTap: () {
                             Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => AllPlace()));
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => AllPlace()))
+                                .then(onGoBack);
                           },
                         ),
                         // Container(
@@ -364,7 +382,11 @@ class _Homepage extends State<HomePage> {
                     height: 220,
                     child: PageView(
                       children: <Widget>[
-                        PopularList(),
+                        PopularList(
+                          uid: _currentUser != null
+                              ? _currentUser!.id.toString()
+                              : null,
+                        ),
                       ],
                     ),
                   ),
@@ -498,6 +520,9 @@ class _Homepage extends State<HomePage> {
                                     onTap: () => customAnimationWidget(
                                       newPage: DetailPlace(
                                         data: _Tour[index],
+                                        uid: _currentUser != null
+                                            ? _currentUser!.id.toString()
+                                            : null,
                                       ),
                                       context: context,
                                       transitionBuilder: (context, animation,
@@ -515,7 +540,7 @@ class _Homepage extends State<HomePage> {
                                           child: child,
                                         );
                                       },
-                                    ),
+                                    ).then(onGoBack),
                                     // {
                                     //   Navigator.push(
                                     //       context,

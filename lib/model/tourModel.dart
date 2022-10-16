@@ -41,8 +41,8 @@ class tour {
       required this.traffic});
 
   factory tour.fromJson(Map<String, dynamic> json) => tour(
-      tourCode: json['tourCode'],
-      name: json['name'],
+      tourCode: json['tourCode'].toString(),
+      name: json['name'].toString(),
       image: json['image'].toString(),
       locationName: json['locationName'].toString(),
       like: json['like'].toString(),

@@ -41,7 +41,7 @@ class _Home extends State<Home> {
         uid: _currentUser != null ? _currentUser!.id.toString() : "",
       ),
       NewsPage(),
-      SavePage(),
+      SavePage(uid: _currentUser != null ? _currentUser!.id.toString() : ""),
       ProfilPage(
         uid: _currentUser != null ? _currentUser!.id.toString() : "",
       )
