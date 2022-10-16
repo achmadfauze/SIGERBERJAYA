@@ -77,66 +77,43 @@ class _CityPage extends State<CityPage> {
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemBuilder: (context, index) => InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => (AllKabupatenList(
-                            stateCode: _Space[index].stateCode,
-                            state: _Space[index].state,
-                            image: _Space[index].image.toString(),
-                            uid: widget.uid,
-                          ),
-                          context: context,
-                        transitionBuilder:
-                            (context, animation, secondaryAnimation, child) {
-                          var begin = 0.0;
-                          var end = 1.0;
-                          var curve = Curves.easeIn;
-
-                          var tween = Tween(begin: begin, end: end)
-                              .chain(CurveTween(curve: curve));
-
-                          return ScaleTransition(
-                            scale: animation.drive(tween),
-                            child: child,
-                          );
-                        },
+                    onTap: () => customAnimationWidget(
+                      newPage: AllKabupatenList(
+                        stateCode: _Space[index].stateCode,
+                        state: _Space[index].state,
+                        image: _Space[index].image.toString(),
+                        uid: widget.uid,
                       ),
-                      // onTap: () {
-                      //   Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //       builder: (context) => (AllKabupatenList(
-                      //         stateCode: _Space[index].stateCode,
-                      //         state: _Space[index].state,
-                      //         image: _Space[index].image.toString(),
-                      //         uid: widget.uid,
-                      //       )),
-                      //     ),
-                      //   );
-                      //   // AllKabupatenList()));
-                      // },
-                      child: Container(
-                        height: 180,
-                        width: double.infinity,
-                        margin: EdgeInsets.only(bottom: 8),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          image: DecorationImage(
-                              // image: AssetImage(itemsfestifalbudaya[index].image),
-                              image: NetworkImage(
-                                  _Space[index].image.toString(),
-                                  scale: 1.0),
-                              // _Space[index].image_url.toString()),
-                              // _Space[index].image.toString()),
-                              fit: BoxFit.cover,
-                              opacity: 0.8),),
+                      context: context,
+                      transitionBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                        var begin = 0.0;
+                        var end = 1.0;
+                        var curve = Curves.easeIn;
 
-                        ),
-                      );
-                      // AllKabupatenList()));
-                    },
+                        var tween = Tween(begin: begin, end: end)
+                            .chain(CurveTween(curve: curve));
+
+                        return ScaleTransition(
+                          scale: animation.drive(tween),
+                          child: child,
+                        );
+                      },
+                    ),
+                    // onTap: () {
+                    //   Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //       builder: (context) => (AllKabupatenList(
+                    //         stateCode: _Space[index].stateCode,
+                    //         state: _Space[index].state,
+                    //         image: _Space[index].image.toString(),
+                    //         uid: widget.uid,
+                    //       )),
+                    //     ),
+                    //   );
+                    //   // AllKabupatenList()));
+                    // },
                     child: Container(
                       height: 180,
                       width: double.infinity,
@@ -152,30 +129,50 @@ class _CityPage extends State<CityPage> {
                             fit: BoxFit.cover,
                             opacity: 0.8),
                       ),
+
+                      // AllKabupatenList()));
+
                       child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.black45,
-                          ),
-                          child: Center(
-                            child: Text(
-                              _Space[index].state.toString(),
-                              // _Space[index].name.toString(),
-                              // _Space[index].state.toString(),
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: regularTextStyle.copyWith(
-                                color: Colors.white,
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              textAlign: TextAlign.center,
+                        height: 180,
+                        width: double.infinity,
+                        margin: EdgeInsets.only(bottom: 8),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          image: DecorationImage(
+                              // image: AssetImage(itemsfestifalbudaya[index].image),
+                              image: NetworkImage(
+                                  _Space[index].image.toString(),
+                                  scale: 1.0),
+                              // _Space[index].image_url.toString()),
+                              // _Space[index].image.toString()),
+                              fit: BoxFit.cover,
+                              opacity: 0.8),
+                        ),
+                        child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.black45,
                             ),
-                          )),
+                            child: Center(
+                              child: Text(
+                                _Space[index].state.toString(),
+                                // _Space[index].name.toString(),
+                                // _Space[index].state.toString(),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: regularTextStyle.copyWith(
+                                  color: Colors.white,
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            )),
+                      ),
                     ),
                   ),
                 ),
-              ),
+              )
             ],
           ),
         ),

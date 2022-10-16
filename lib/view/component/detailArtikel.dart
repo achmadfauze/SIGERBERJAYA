@@ -169,30 +169,30 @@ class _DetailArtikelState extends State<DetailArtikel> {
                         children: [
                           InkWell(
                             onTap: () {
-                              // setState(() {
-                              //   if (_currentUser != null) {
-                              //     if (isFavorite == false) {
-                              //       likeHandler().then((value) {
-                              //         if (value == "200") {
-                              //           setState(() {
-                              //             like++;
-                              //           });
-                              //         }
-                              //       });
-                              //     } else {
-                              //       dislikeHandler().then(
-                              //         (value) {
-                              //           if (value == "200") {
-                              //             setState(() {
-                              //               like--;
-                              //             });
-                              //           }
-                              //         },
-                              //       );
-                              //     }
-                              //     isFavorite = !isFavorite;
-                              //   }
-                              // });
+                              setState(() {
+                                // if (_currentUser != null) {
+                                //   if (isFavorite == false) {
+                                //     likeHandler().then((value) {
+                                //       if (value == "200") {
+                                //         setState(() {
+                                //           like++;
+                                //         });
+                                //       }
+                                //     });
+                                //   } else {
+                                //     dislikeHandler().then(
+                                //       (value) {
+                                //         if (value == "200") {
+                                //           setState(() {
+                                //             like--;
+                                //           });
+                                //         }
+                                //       },
+                                //     );
+                                //   }
+                                isFavorite = !isFavorite;
+                                // }
+                              });
                             },
                             child: Image.asset(
                               isFavorite
@@ -216,26 +216,26 @@ class _DetailArtikelState extends State<DetailArtikel> {
                           ),
                           InkWell(
                             onTap: () {
-                              // setState(() {
-                              //   if (_currentUser != null) {
-                              //     if (isArchive == false) {
-                              //       archiveHandler().then((value) {
-                              //         if (value == "200") {
-                              //           setState(() {});
-                              //         }
-                              //       });
-                              //     } else {
-                              //       unarchiveHandler().then(
-                              //         (value) {
-                              //           if (value == "200") {
-                              //             setState(() {});
-                              //           }
-                              //         },
-                              //       );
-                              //     }
-                              //     isArchive = !isArchive;
-                              //   }
-                              // });
+                              setState(() {
+                                //   if (_currentUser != null) {
+                                //     if (isArchive == false) {
+                                //       archiveHandler().then((value) {
+                                //         if (value == "200") {
+                                //           setState(() {});
+                                //         }
+                                //       });
+                                //     } else {
+                                //       unarchiveHandler().then(
+                                //         (value) {
+                                //           if (value == "200") {
+                                //             setState(() {});
+                                //           }
+                                //         },
+                                //       );
+                                //     }
+                                isArchive = !isArchive;
+                                //   }
+                              });
                             },
                             child: Image.asset(
                               isArchive

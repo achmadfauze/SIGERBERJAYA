@@ -5,10 +5,14 @@ import 'package:first_app/view/page/detail/populerdetail.dart';
 import 'package:flutter/material.dart';
 import 'package:first_app/model/API_wisata.dart';
 import 'package:first_app/view/component/search.dart';
-import 'package:first_app/model/modelAll.dart';
+// import 'package:first_app/model/modelAll.dart';
+import 'package:route_transitions/route_transitions.dart';
+import 'package:first_app/model/tourModel.dart';
 import 'package:http/http.dart' as http;
 
 class AllPlace extends StatefulWidget {
+  String? uid;
+  AllPlace({this.uid});
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -16,19 +20,19 @@ class AllPlace extends StatefulWidget {
 class _HomePageState extends State<AllPlace> {
   // final FetchSpace _Space = FetchSpace();
 
-  final List<Space> _Space = [];
+  final List<tour> _Tour = [];
 
-  Future<List<Space>> fetchJson() async {
+  Future<List<tour>> fetchJson() async {
     var response = await http
         // .get(Uri.parse('http://bwa-cozy.herokuapp.com/recommended-spaces'));
         .get(Uri.parse('https://hiskia.xyz/api/v1/tour'));
     // print(response);
-    List<Space> slist = [];
+    List<tour> slist = [];
     if (response.statusCode == 200) {
       var urjson = (json.decode(response.body));
       // print(urjson);
       for (var jsondata in urjson) {
-        slist.add(Space.fromJson(jsondata));
+        slist.add(tour.fromJson(jsondata));
       }
     }
     return slist;
@@ -38,10 +42,24 @@ class _HomePageState extends State<AllPlace> {
   void initState() {
     fetchJson().then((value) {
       setState(() {
-        _Space.addAll(value);
+        _Tour.addAll(value);
       });
     });
     super.initState();
+  }
+
+  void refreshData() {
+    fetchJson().then((value) {
+      setState(() {
+        _Tour.clear();
+        _Tour.addAll(value);
+      });
+    });
+  }
+
+  onGoBack(dynamic value) {
+    refreshData();
+    setState(() {});
   }
 
   @override
@@ -70,9 +88,9 @@ class _HomePageState extends State<AllPlace> {
         //     builder: (context, snapshot) {
         //   var data = snapshot.data;
         child: ListView.builder(
-            itemCount: _Space.length,
+            itemCount: _Tour.length,
             itemBuilder: (context, index) {
-              final space = _Space[index];
+              // final space = _Space[index];
               // if (!snapshot.hasData) {
               //   return Center(child: CircularProgressIndicator());
               // }
@@ -85,21 +103,33 @@ class _HomePageState extends State<AllPlace> {
                     borderRadius: BorderRadius.circular(10),
                     image: DecorationImage(
                       // image: AssetImage(itemsfestifalbudaya[index].image),
-                      image: NetworkImage(
-                          "${itemsAll[index]['Image']}".toString(),
+                      image: NetworkImage(_Tour[index].image.toString(),
                           scale: 1.0),
                       fit: BoxFit.cover,
                     ),
                   ),
                   child: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => AllDetailPlace(
-                                    space: space,
-                                  )));
-                    },
+                    onTap: () => customAnimationWidget(
+                      newPage: DetailPlace(
+                        data: _Tour[index],
+                        uid: widget.uid,
+                      ),
+                      context: context,
+                      transitionBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                        var begin = 0.0;
+                        var end = 1.0;
+                        var curve = Curves.easeIn;
+
+                        var tween = Tween(begin: begin, end: end)
+                            .chain(CurveTween(curve: curve));
+
+                        return ScaleTransition(
+                          scale: animation.drive(tween),
+                          child: child,
+                        );
+                      },
+                    ).then(onGoBack),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -128,7 +158,7 @@ class _HomePageState extends State<AllPlace> {
                                         width: 6,
                                       ),
                                       Text(
-                                        space.like.toString(),
+                                        _Tour[index].like.toString(),
                                         // '${data?[index].like}',
                                         style: TextStyle(
                                           color: Colors.white,
@@ -165,7 +195,7 @@ class _HomePageState extends State<AllPlace> {
                               children: [
                                 Text(
                                   // _Space[index].name.toString(),
-                                  space.name.toString(),
+                                  _Tour[index].name.toString(),
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontFamily: 'Mulish-Regular',
@@ -187,7 +217,7 @@ class _HomePageState extends State<AllPlace> {
                                       // _Space[index]
                                       //     .locationName
                                       //     .toString(),
-                                      space.locationName.toString(),
+                                      _Tour[index].locationName.toString(),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       style: const TextStyle(

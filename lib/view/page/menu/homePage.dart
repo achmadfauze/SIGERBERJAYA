@@ -106,6 +106,7 @@ class _Homepage extends State<HomePage> {
           child: SingleChildScrollView(
             child: Column(
                 // mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(
                     height: 60,
@@ -306,77 +307,93 @@ class _Homepage extends State<HomePage> {
                   Padding(
                     padding: const EdgeInsets.only(
                         left: 12, right: 4, top: 0, bottom: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //crossAxisAlignment: CrossAxisAlignment.center,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "Tempat Terpopuler",
-                          style: regularTextStyle.copyWith(fontSize: 18),
-                        ),
-                        InkWell(
-                          child: Text(
-                            "Lihat semua >>",
-                            style: regularTextStyle.copyWith(
-                                fontSize: 14, color: Color(0xff00a877)),
-                          ),
-                          onTap: () {
-                            Navigator.push(
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Tempat Terpopuler",
+                              style: regularTextStyle.copyWith(fontSize: 18),
+                            ),
+                            InkWell(
+                              child: Text(
+                                "Lihat semua >>",
+                                style: regularTextStyle.copyWith(
+                                    fontSize: 14, color: Color(0xff00a877)),
+                              ),
+                              onTap: () {
+                                Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => AllPlace()))
-                                .then(onGoBack);
-                          },
+                                        builder: (context) => AllPlace(
+                                              uid: _currentUser!.id.toString(),
+                                            ))).then(onGoBack);
+                              },
+                            ),
+                            // Container(
+                            //   child: ElevatedButton.icon(
+                            //   style: ElevatedButton.styleFrom(
+                            //     backgroundColor: Colors.white,
+                            //     padding:
+                            //         EdgeInsets.symmetric(horizontal: 60, vertical: 1),
+                            //   ),
+                            //   icon: Icon(
+                            //   Icons.east,
+                            //   size: 26,
+                            // ),
+                            //   label: const Text(
+                            //     ""),
+                            //   onPressed: () {
+                            //     Navigator.push(
+                            //         context,
+                            //         MaterialPageRoute(
+                            //             builder: (context) => AllPopularList()));
+                            //   },
+                            // ),),
+
+                            // Text(
+                            //   "Lihat ",
+                            //   style: TextStyle(
+                            //       fontFamily: 'Mulish-Regular', fontSize: 18),
+                            // ),
+                            // SizedBox(
+                            //   child:
+                            // IconButton(
+                            //   icon: const Icon(Icons.east, size: 26),
+                            //   color: Colors.black,
+                            //   onPressed: () {
+                            //     Navigator.push(
+                            //         context,
+                            //         MaterialPageRoute(
+                            //             builder: (context) => AllPlace()));
+                            //   },
+                            // ),
+
+                            // Icon(
+                            //   Icons.east,
+                            //   size: 26,
+
+                            // ),
+                          ],
                         ),
-                        // Container(
-                        //   child: ElevatedButton.icon(
-                        //   style: ElevatedButton.styleFrom(
-                        //     backgroundColor: Colors.white,
-                        //     padding:
-                        //         EdgeInsets.symmetric(horizontal: 60, vertical: 1),
-                        //   ),
-                        //   icon: Icon(
-                        //   Icons.east,
-                        //   size: 26,
-                        // ),
-                        //   label: const Text(
-                        //     ""),
-                        //   onPressed: () {
-                        //     Navigator.push(
-                        //         context,
-                        //         MaterialPageRoute(
-                        //             builder: (context) => AllPopularList()));
-                        //   },
-                        // ),),
-
-                        // Text(
-                        //   "Lihat ",
-                        //   style: TextStyle(
-                        //       fontFamily: 'Mulish-Regular', fontSize: 18),
-                        // ),
-                        // SizedBox(
-                        //   child:
-                        // IconButton(
-                        //   icon: const Icon(Icons.east, size: 26),
-                        //   color: Colors.black,
-                        //   onPressed: () {
-                        //     Navigator.push(
-                        //         context,
-                        //         MaterialPageRoute(
-                        //             builder: (context) => AllPlace()));
-                        //   },
-                        // ),
-
-                        // Icon(
-                        //   Icons.east,
-                        //   size: 26,
-
-                        // ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Container(
+                            height: 3,
+                            width: 70,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Color(0xff14C38E),
+                            )),
                       ],
                     ),
                   ),
                   SizedBox(
-                    height: 10,
+                    height: 14,
                   ),
                   Container(
                     height: 220,
@@ -480,13 +497,24 @@ class _Homepage extends State<HomePage> {
                       top: 24,
                       right: 4,
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                    child: Column(
+                      // mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           "Tempat rekomendasi",
                           style: regularTextStyle.copyWith(fontSize: 18),
                         ),
+                        SizedBox(
+                          height: 6,
+                        ),
+                        Container(
+                            height: 3,
+                            width: 70,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Color(0xff14C38E),
+                            )),
                       ],
                     ),
                   ),

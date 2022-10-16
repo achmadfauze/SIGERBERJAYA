@@ -243,15 +243,15 @@ class _DetailPageState extends State<DetailPlace> {
                                       ),
                                       InkWell(
                                         onTap: () {
-                                          Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                              builder: ((context) => Comment(
-                                                    uid: widget.uid,
-                                                    tourCode:
-                                                        widget.data!.tourCode,
-                                                  )),
-                                            ),
-                                          );
+                                          // Navigator.of(context).push(
+                                          //   MaterialPageRoute(
+                                          //     builder: ((context) => Comment(
+                                          //           uid: widget.uid,
+                                          //           tourCode:
+                                          //               widget.data!.tourCode,
+                                          //         )),
+                                          //   ),
+                                          // );
                                         },
                                         child: Icon(
                                           Icons.comment,
@@ -759,7 +759,16 @@ class _DetailPageState extends State<DetailPlace> {
                         width: 6,
                       ),
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: ((context) => Comment(
+                                    uid: widget.uid,
+                                    tourCode: widget.data!.tourCode,
+                                  )),
+                            ),
+                          );
+                        },
                         child: Image.asset(
                           'assets/btn_comment.png',
                           width: 40,
