@@ -1,6 +1,8 @@
+import 'package:first_app/model/artikel.dart';
 import 'package:first_app/model/theme.dart';
+import 'package:first_app/view/component/detailArtikel.dart';
 
-import 'package:first_app/view/component/detailArtikelSave.dart';
+import 'package:first_app/view/component/detailArtikel.dart';
 import 'package:first_app/view/component/detailTempat.dart';
 import 'package:first_app/view/page/detail/populerdetail.dart';
 import 'package:flutter/material.dart';
@@ -34,11 +36,33 @@ class _SavePageState extends State<SavePage> {
     return slist;
   }
 
+  final List<Article> _Article = [];
+
+  Future<List<Article>> fetchJsonArticle() async {
+    var response = await http.get(Uri.parse(
+        'http://hiskia.xyz//api/v1/allarchivearticlewithdetail/${widget.uid}'));
+    print(response);
+    List<Article> slist = [];
+    if (response.statusCode == 200) {
+      var urjson = (json.decode(response.body));
+      // print(urjson);
+      for (var jsondata in urjson) {
+        slist.add(Article.fromJson(jsondata));
+      }
+    }
+    return slist;
+  }
+
   @override
   void initState() {
     fetchJson().then((value) {
       setState(() {
         _Tour.addAll(value);
+      });
+    });
+    fetchJsonArticle().then((value) {
+      setState(() {
+        _Article.addAll(value);
       });
     });
     super.initState();
@@ -49,6 +73,12 @@ class _SavePageState extends State<SavePage> {
       setState(() {
         _Tour.clear();
         _Tour.addAll(value);
+      });
+    });
+    fetchJsonArticle().then((value) {
+      setState(() {
+        _Article.clear();
+        _Article.addAll(value);
       });
     });
   }
@@ -137,14 +167,25 @@ class _SavePageState extends State<SavePage> {
                   ),
             Container(
               child: widget.uid != ""
-                  ? ListView(
-                      children: [
-                        ListArsipArtikel(bodyHeight: bodyHeight),
-                        ListArsipArtikel(bodyHeight: bodyHeight),
-                        ListArsipArtikel(bodyHeight: bodyHeight),
-                        ListArsipArtikel(bodyHeight: bodyHeight),
-                        ListArsipArtikel(bodyHeight: bodyHeight),
-                      ],
+                  ? ListView.builder(
+                      itemCount: _Article.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) => InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(builder: (context) {
+                              return DetailArtikel(
+                                  data: _Article[index],
+                                  articleCode: _Article[index].articleCode,
+                                  uid: widget.uid);
+                            }),
+                          ).then(onGoBack);
+                        },
+                        child: ListArsipArtikel(
+                            bodyHeight: bodyHeight,
+                            article: _Article[index],
+                            uid: widget.uid),
+                      ),
                     )
                   : Container(
                       child: Center(
@@ -177,10 +218,10 @@ class _SavePageState extends State<SavePage> {
 }
 
 class ListArsipArtikel extends StatelessWidget {
-  const ListArsipArtikel({
-    Key? key,
-    required this.bodyHeight,
-  }) : super(key: key);
+  String? uid;
+  Article? article;
+  ListArsipArtikel({Key? key, required this.bodyHeight, this.article, this.uid})
+      : super(key: key);
 
   final double bodyHeight;
 
@@ -188,122 +229,113 @@ class ListArsipArtikel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 12, left: 8, right: 8),
-      child: GestureDetector(
-        onTap: (() {
-          Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) {
-              return DetailArtikelSave();
-            }),
-          );
-        }),
-        child: Card(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          elevation: 4,
-          child: Container(
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 4,
-                  child: SizedBox(
-                    height: 100,
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(8),
-                          bottomLeft: Radius.circular(8)),
-                      child: Image.network(
-                        alignment: Alignment.centerLeft,
-                        "https://picsum.photos/300/200",
-                        fit: BoxFit.fitHeight,
-                      ),
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        elevation: 4,
+        child: Container(
+          child: Row(
+            children: [
+              Expanded(
+                flex: 4,
+                child: SizedBox(
+                  height: 100,
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(8),
+                        bottomLeft: Radius.circular(8)),
+                    child: Image.network(
+                      alignment: Alignment.centerLeft,
+                      this.article!.image.toString(),
+                      fit: BoxFit.fitHeight,
                     ),
                   ),
                 ),
-                Expanded(
-                  flex: 8,
-                  child: Container(
-                    height: 100,
-                    padding: EdgeInsets.only(left: 10, top: 8, bottom: 8),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Sejumlah Tempat Wisata Lampung Mulai Beroperasi 6 Juni 2021",
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: regularTextStyle.copyWith(
-                            fontSize: 16,
-                            // color: Colors.white,
-                          ),
+              ),
+              Expanded(
+                flex: 8,
+                child: Container(
+                  height: 100,
+                  padding: EdgeInsets.only(left: 10, top: 8, bottom: 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        this.article!.title,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: regularTextStyle.copyWith(
+                          fontSize: 16,
+                          // color: Colors.white,
                         ),
-                        Container(
-                          child: Row(
-                            children: [
-                              Expanded(
-                                flex: 7,
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.access_time_rounded,
-                                      size: 18,
-                                      color: Colors.grey[600],
+                      ),
+                      Container(
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 7,
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.access_time_rounded,
+                                    size: 18,
+                                    color: Colors.grey[600],
+                                  ),
+                                  Text(
+                                    this.article!.createAt.substring(0, 10),
+                                    style: regularTextStyle.copyWith(
+                                      fontSize: 14,
                                     ),
-                                    Text(
-                                      "20 Des 2021",
-                                      style: regularTextStyle.copyWith(
-                                        fontSize: 14,
-                                      ),
-                                    )
-                                  ],
-                                ),
+                                  )
+                                ],
                               ),
-                              Expanded(
-                                flex: 6,
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.favorite,
-                                      size: 18,
-                                      color: Colors.grey[600],
+                            ),
+                            Expanded(
+                              flex: 6,
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.favorite,
+                                    size: 18,
+                                    color: Colors.grey[600],
+                                  ),
+                                  const SizedBox(
+                                    width: 4,
+                                  ),
+                                  Text(
+                                    this.article!.like,
+                                    style: regularTextStyle.copyWith(
+                                      fontSize: 14,
                                     ),
-                                    const SizedBox(
-                                      width: 4,
+                                  ),
+                                  const SizedBox(
+                                    width: 8,
+                                  ),
+                                  Icon(
+                                    Icons.comment,
+                                    size: 18,
+                                    color: Colors.grey[600],
+                                  ),
+                                  const SizedBox(
+                                    width: 4,
+                                  ),
+                                  Text(
+                                    this.article!.comment,
+                                    style: regularTextStyle.copyWith(
+                                      fontSize: 14,
                                     ),
-                                    Text(
-                                      "0",
-                                      style: regularTextStyle.copyWith(
-                                        fontSize: 14,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 8,
-                                    ),
-                                    Icon(
-                                      Icons.comment,
-                                      size: 18,
-                                      color: Colors.grey[600],
-                                    ),
-                                    const SizedBox(
-                                      width: 4,
-                                    ),
-                                    Text(
-                                      "2",
-                                      style: regularTextStyle.copyWith(
-                                        fontSize: 14,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
+                                  )
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

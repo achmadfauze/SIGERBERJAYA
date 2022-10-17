@@ -1,6 +1,7 @@
 import 'package:first_app/view/page/menu/homePage.dart';
-import 'package:first_app/view/page/menu/NewsPage.dart';
+// import 'package:first_app/view/page/menu/NewsPage.dart';
 import 'package:first_app/view/page/menu/cityPage.dart';
+import 'package:first_app/view/page/menu/newsPage.dart';
 import 'package:first_app/view/page/menu/tessssst.dart';
 import 'package:first_app/view/page/menu/profilPage.dart';
 import 'package:first_app/view/page/menu/savePage.dart';
@@ -9,6 +10,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 class Home extends StatefulWidget {
+  String? uid;
   @override
   _Home createState() => _Home();
 }
@@ -36,12 +38,19 @@ class _Home extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final screen = [
-      HomePage(),
+      HomePage(
+        uid: _currentUser != null ? _currentUser!.id.toString() : "",
+        img: _currentUser != null ? _currentUser!.photoUrl.toString() : "",
+      ),
       CityPage(
         uid: _currentUser != null ? _currentUser!.id.toString() : "",
       ),
-      NewsPage(),
-      SavePage(uid: _currentUser != null ? _currentUser!.id.toString() : ""),
+      NewsPage(
+        uid: _currentUser != null ? _currentUser!.id.toString() : "",
+      ),
+      SavePage(
+        uid: _currentUser != null ? _currentUser!.id.toString() : "",
+      ),
       ProfilPage(
         uid: _currentUser != null ? _currentUser!.id.toString() : "",
       )

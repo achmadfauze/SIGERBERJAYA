@@ -97,9 +97,9 @@ class Article {
       image: json['image'].toString(),
       url: json['url'].toString(),
       description: json['description'].toString(),
-      like: json['like'],
-      comment: json['comment'],
-      createAt: json['createAt']);
+      like: json['like'].toString(),
+      comment: json['comment'].toString(),
+      createAt: json['createAt'].toString());
 
   Map<String, dynamic> json() => {
         "articlecode": articleCode,

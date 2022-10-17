@@ -2,6 +2,7 @@ import 'dart:convert';
 
 // import 'package:first_app/model/recomendationModel.dart';
 import 'package:first_app/model/tourModel.dart';
+import 'package:first_app/model/userModel.dart';
 // import 'package:first_app/view/component/BaruList.dart';
 import 'package:first_app/view/component/Emergency.dart';
 import 'package:first_app/view/component/all_place.dart';
@@ -33,6 +34,8 @@ import '../../../model/theme.dart';
 // import '../detail/populerdetail.dart';
 
 class HomePage extends StatefulWidget {
+  String? uid, img;
+  HomePage({this.uid, this.img});
   @override
   State<StatefulWidget> createState() {
     return _Homepage();
@@ -62,6 +65,27 @@ class _Homepage extends State<HomePage> {
         slist.add(tour.fromJson(jsondata));
       }
     }
+    return slist;
+  }
+
+  user Users = new user();
+  Future<user> getUser() async {
+    var response = await http
+        .get(Uri.parse('https://hiskia.xyz/api/v1/user/${widget.uid}'));
+
+    user slist = new user();
+    if (response.statusCode == 200) {
+      var urjson = (json.decode(response.body));
+      // print(urjson['name']);
+      slist = user(
+          userCode: urjson['userCode'],
+          uid: urjson['uid'],
+          email: urjson['email'],
+          image: urjson['image'],
+          name: urjson['name'],
+          createAt: urjson['createAt']);
+    }
+
     return slist;
   }
 
@@ -169,11 +193,7 @@ class _Homepage extends State<HomePage> {
                                 //color: Colors.green,
                                 image: DecorationImage(
                                   fit: BoxFit.cover,
-                                  image: NetworkImage(
-                                    _currentUser == null
-                                        ? ""
-                                        : _currentUser!.photoUrl.toString(),
-                                  ),
+                                  image: NetworkImage(widget.img.toString()),
                                 ),
                               ),
                             )
