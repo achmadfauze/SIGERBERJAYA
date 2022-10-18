@@ -243,11 +243,13 @@ class ListArsipArtikel extends StatelessWidget {
                     borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(8),
                         bottomLeft: Radius.circular(8)),
-                    child: Image.network(
-                      alignment: Alignment.centerLeft,
-                      this.article!.image.toString(),
-                      fit: BoxFit.fitHeight,
-                    ),
+                    child: this.article!.image == 'null'
+                        ? Image.asset("assets/LOGO_PARIWISATA.png")
+                        : Image.network(
+                            alignment: Alignment.centerLeft,
+                            this.article!.image.toString(),
+                            fit: BoxFit.fitHeight,
+                          ),
                   ),
                 ),
               ),
