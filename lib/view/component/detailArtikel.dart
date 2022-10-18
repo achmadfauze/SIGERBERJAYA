@@ -1,19 +1,22 @@
+import 'package:first_app/view/component/comment.dart';
+import 'package:first_app/view/component/commentArticle.dart';
 import 'package:flutter/material.dart';
 import 'package:first_app/model/artikel.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../../model/theme.dart';
 import 'package:maps_launcher/maps_launcher.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+
+import 'package:first_app/widget/facility_item.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class DetailArtikel extends StatefulWidget {
-  final String? articleCode;
-  final Article? data;
+  String? articleCode, uid;
+  Article? data;
   // final TourPop? adata;
-  const DetailArtikel({
-    super.key,
-    this.articleCode,
-    this.data,
-  });
+  DetailArtikel({super.key, this.articleCode, this.data, this.uid});
   @override
   State<DetailArtikel> createState() => _DetailArtikelState();
 }
@@ -21,23 +24,122 @@ class DetailArtikel extends StatefulWidget {
 class _DetailArtikelState extends State<DetailArtikel> {
   bool isFavorite = false;
   bool isArchive = false;
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: [
+      'email',
+      'https://www.googleapis.com/auth/contacts.readonly',
+    ],
+  );
+  GoogleSignInAccount? _currentUser;
+  int like = 0;
+
+  Future<int> getILike() async {
+    int islike = 0;
+    // print("asdsad");
+
+    var response = await http.get(Uri.parse(
+        'https://hiskia.xyz/api/v1/islikearticle/${widget.data!.articleCode}/${widget.uid}'));
+    // print(response);
+    if (response.statusCode == 200) {
+      var urjson = (json.decode(response.body));
+      // print(int.parse(urjson.toString()));
+      islike = int.parse(urjson.toString());
+    }
+
+    return islike;
+  }
+
+  Future<int> getArchive() async {
+    int isarchive = 0;
+    // print("asdsad");
+
+    var response = await http.get(Uri.parse(
+        'https://hiskia.xyz/api/v1/isarchivearticle/${widget.data!.articleCode}/${widget.uid}'));
+    // print(response);
+    if (response.statusCode == 200) {
+      var urjson = (json.decode(response.body));
+      // print(int.parse(urjson.toString()));
+      isarchive = int.parse(urjson.toString());
+    }
+
+    return isarchive;
+  }
+
+  Future<String> likeHandler() async {
+    var response = await http.get(Uri.parse(
+        'https://hiskia.xyz/api/v1/likearticle/${widget.data!.articleCode}/${widget.uid}'));
+    // print(response);
+    return (response.statusCode.toString());
+  }
+
+  Future<String> dislikeHandler() async {
+    var response = await http.get(Uri.parse(
+        'https://hiskia.xyz/api/v1/dislikearticle/${widget.data!.articleCode}/${widget.uid}'));
+    // print(response);
+    return (response.statusCode.toString());
+  }
+
+  Future<String> archiveHandler() async {
+    var response = await http.post(
+      Uri.parse('https://hiskia.xyz/api/v1/archivearticle'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        "userCode": "109603887362580398656",
+        "articleCode": "2"
+      }),
+    );
+    return (response.statusCode.toString());
+  }
+
+  Future<String> unarchiveHandler() async {
+    var response = await http.delete(Uri.parse(
+        'https://hiskia.xyz/api/v1/unarchiveArticle/${widget.data!.articleCode}/${widget.uid}'));
+    return (response.statusCode.toString());
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    _googleSignIn.onCurrentUserChanged.listen((account) {
+      setState(() {
+        _currentUser = account;
+      });
+    });
+    _googleSignIn.signInSilently();
+    getILike().then(
+      (value) {
+        // print(value);
+        setState(() {
+          if (value > 0) {
+            isFavorite = true;
+          }
+        });
+      },
+    );
+    getArchive().then(
+      (value) {
+        // print(value);
+        setState(() {
+          if (value > 0) {
+            isArchive = true;
+          }
+        });
+      },
+    );
+    setState(() {
+      like = int.parse(widget.data!.like);
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     final myAppbar = AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0,
-      // actions: [
-      //   IconButton(
-      //       onPressed: () => MapsLauncher.launchCoordinates(
-      //             lat,
-      //             long,
-      //             widget.data!.title.toString(),
-      //           ),
-      //       // _lauchMap();
-
-      //       icon: Icon(Icons.share))
-      // ],
     );
     final MediaQueryHeight = MediaQuery.of(context).size.height;
     final MediaQueryWidth = MediaQuery.of(context).size.width;
@@ -45,6 +147,7 @@ class _DetailArtikelState extends State<DetailArtikel> {
     final bodyHeight = MediaQueryHeight -
         myAppbar.preferredSize.height -
         MediaQuery.of(context).padding.top;
+
     return Scaffold(
       // appBar: myAppbar,
       body: ListView(
@@ -170,28 +273,28 @@ class _DetailArtikelState extends State<DetailArtikel> {
                           InkWell(
                             onTap: () {
                               setState(() {
-                                // if (_currentUser != null) {
-                                //   if (isFavorite == false) {
-                                //     likeHandler().then((value) {
-                                //       if (value == "200") {
-                                //         setState(() {
-                                //           like++;
-                                //         });
-                                //       }
-                                //     });
-                                //   } else {
-                                //     dislikeHandler().then(
-                                //       (value) {
-                                //         if (value == "200") {
-                                //           setState(() {
-                                //             like--;
-                                //           });
-                                //         }
-                                //       },
-                                //     );
-                                //   }
-                                isFavorite = !isFavorite;
-                                // }
+                                if (_currentUser != null) {
+                                  if (isFavorite == false) {
+                                    likeHandler().then((value) {
+                                      if (value == "200") {
+                                        setState(() {
+                                          like++;
+                                        });
+                                      }
+                                    });
+                                  } else {
+                                    dislikeHandler().then(
+                                      (value) {
+                                        if (value == "200") {
+                                          setState(() {
+                                            like--;
+                                          });
+                                        }
+                                      },
+                                    );
+                                  }
+                                  isFavorite = !isFavorite;
+                                }
                               });
                             },
                             child: Image.asset(
@@ -205,7 +308,16 @@ class _DetailArtikelState extends State<DetailArtikel> {
                             width: 6,
                           ),
                           InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: ((context) => CommentArticle(
+                                        uid: widget.uid,
+                                        articleCode: widget.data!.articleCode,
+                                      )),
+                                ),
+                              );
+                            },
                             child: Image.asset(
                               'assets/btn_comment.png',
                               width: 40,
@@ -217,24 +329,24 @@ class _DetailArtikelState extends State<DetailArtikel> {
                           InkWell(
                             onTap: () {
                               setState(() {
-                                //   if (_currentUser != null) {
-                                //     if (isArchive == false) {
-                                //       archiveHandler().then((value) {
-                                //         if (value == "200") {
-                                //           setState(() {});
-                                //         }
-                                //       });
-                                //     } else {
-                                //       unarchiveHandler().then(
-                                //         (value) {
-                                //           if (value == "200") {
-                                //             setState(() {});
-                                //           }
-                                //         },
-                                //       );
-                                //     }
-                                isArchive = !isArchive;
-                                //   }
+                                if (_currentUser != null) {
+                                  if (isArchive == false) {
+                                    archiveHandler().then((value) {
+                                      if (value == "200") {
+                                        setState(() {});
+                                      }
+                                    });
+                                  } else {
+                                    unarchiveHandler().then(
+                                      (value) {
+                                        if (value == "200") {
+                                          setState(() {});
+                                        }
+                                      },
+                                    );
+                                  }
+                                  isArchive = !isArchive;
+                                }
                               });
                             },
                             child: Image.asset(
@@ -263,7 +375,7 @@ class _DetailArtikelState extends State<DetailArtikel> {
                       width: 4,
                     ),
                     Text(
-                      widget.data!.like.toString(),
+                      like.toString(),
                       style: regularTextStyle.copyWith(fontSize: 16),
                     ),
                     const SizedBox(

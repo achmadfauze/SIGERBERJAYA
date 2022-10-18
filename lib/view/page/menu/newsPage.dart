@@ -11,7 +11,8 @@ import '../../component/Emergency.dart';
 import 'package:route_transitions/route_transitions.dart';
 
 class NewsPage extends StatefulWidget {
-  // const NewsPage({super.key});
+  final String? uid;
+  const NewsPage({super.key, this.uid});
 
   @override
   State<NewsPage> createState() => _NewsPageState();
@@ -43,6 +44,20 @@ class _NewsPageState extends State<NewsPage> {
       });
     });
     super.initState();
+  }
+
+  void refreshData() {
+    fetchJson().then((value) {
+      setState(() {
+        _Article.clear();
+        _Article.addAll(value);
+      });
+    });
+  }
+
+  onGoBack(dynamic value) {
+    refreshData();
+    setState(() {});
   }
 
   @override
@@ -86,6 +101,7 @@ class _NewsPageState extends State<NewsPage> {
                             customAnimationWidget(
                           newPage: DetailArtikel(
                             data: _Article[index],
+                            uid: widget.uid,
                           ),
                           context: context,
                           transitionBuilder:
