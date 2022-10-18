@@ -5,7 +5,7 @@ import 'package:first_app/model/modelAll.dart';
 
 class FetchSpace {
   var data = [];
-  List<Space> results = [];
+  List<Space  > results = [];
   // String urlList = 'https://jsonplaceholder.typicode.com/users/';
   String urlList = 'http://hiskia.xyz/api/v1/tour';
   // Future<List<Space>> getspace({String? query}) async {
