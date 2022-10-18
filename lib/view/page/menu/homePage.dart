@@ -193,7 +193,10 @@ class _Homepage extends State<HomePage> {
                       padding: const EdgeInsets.all(12.0),
                       child: InkWell(
                         onTap: () {
-                          showSearch(context: context, delegate: SearchUser());
+                          showSearch(
+                              context: context,
+                              delegate:
+                                  SearchUser(uid: _currentUser!.id.toString()));
                           // Navigator.push(
                           //     context,
                           //     MaterialPageRoute(

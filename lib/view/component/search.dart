@@ -1,10 +1,50 @@
+import 'dart:convert';
+
+import 'package:first_app/view/page/detail/populerdetail.dart';
+import 'package:first_app/view/page/detail/populerdetailSearch.dart';
 import 'package:flutter/material.dart';
 
-import 'package:first_app/model/API_wisata.dart';
-import 'package:first_app/model/modelAll.dart';
+// import 'package:first_app/model/API_wisata.dart';
+import 'package:first_app/model/tourModel.dart';
+import "package:http/http.dart" as http;
+// import 'package:first_app/model/modelAll.dart';
 
 class SearchUser extends SearchDelegate {
-  FetchSpace _userList = FetchSpace();
+  String? uid;
+  SearchUser({this.uid});
+  FetchSpace _List = FetchSpace();
+
+  final List<tour> _Tour = [];
+
+  Future<List<tour>> fetchJson({String? query}) async {
+    var response = await http.get(Uri.parse('http://hiskia.xyz/api/v1/tour'));
+    List<tour> slist = [];
+    if (response.statusCode == 200) {
+      var urjson = (json.decode(response.body));
+      for (var jsondata in urjson) {
+        slist.add(tour.fromJson(jsondata));
+      }
+      if (query != null) {
+        slist = slist
+            .where((element) =>
+                element.name!.toLowerCase().contains((query.toLowerCase())))
+            .toList();
+      }
+    } else {
+      print("fetch error");
+    }
+    return slist;
+  }
+
+  // @override
+  // void initState() {
+  //   fetchJson().then((value) {
+  //     setState(() {
+  //       _Tour.addAll(value);
+  //     });
+  //   });
+  //   super.initState();
+  // }
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -31,8 +71,8 @@ class SearchUser extends SearchDelegate {
   Widget buildResults(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(top: 12, left: 12, right: 12),
-      child: FutureBuilder<List<Space>>(
-          future: _userList.getspace(query: query),
+      child: FutureBuilder<List<tour>>(
+          future: _List.fetchJson(query: query),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return Center(
@@ -40,7 +80,7 @@ class SearchUser extends SearchDelegate {
               );
               // print("");
             }
-            List<Space>? data = snapshot.data;
+            List<tour>? data = snapshot.data;
             return ListView.builder(
                 itemCount: data?.length,
                 itemBuilder: (context, index) {
@@ -52,19 +92,25 @@ class SearchUser extends SearchDelegate {
                         borderRadius: BorderRadius.circular(10),
                         image: DecorationImage(
                           // image: AssetImage(itemsfestifalbudaya[index].image),
-                          image: NetworkImage(
-                              "${itemsAll[index]['Image']}".toString(),
-                              scale: 1),
+                          image:
+                              NetworkImage('${data?[index].image}', scale: 1),
                           fit: BoxFit.cover,
                         ),
                       ),
                       child: InkWell(
                         onTap: () {
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) =>
-                          //             DetailPlace(space: space)));
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) {
+                              // data?[index]=data;
+                              // tour temp = new tour(tourCode: tourCode, stateCode: stateCode, name: name, image: image, locationName: locationName, like: like, comment: comment, createAt: createAt, latitude: latitude, longitude: longitude, ticket: ticket, description: description)
+                              return DetailPlaceSearch(
+                                // data: data?[index],
+                                tourCode: _Tour[index].tourCode,
+                                uid: uid,
+                              );
+                            }),
+                          );
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -133,7 +179,7 @@ class SearchUser extends SearchDelegate {
                                   children: [
                                     Text(
                                       // _Space[index].name.toString(),
-                                      '${data?[index].name}',
+                                      '${data?[index].name.toString()}',
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontFamily: 'Mulish-Regular',
@@ -228,5 +274,29 @@ class SearchUser extends SearchDelegate {
     return Center(
       child: Text('Cari Tempat Wisata'),
     );
+  }
+}
+
+class FetchSpace {
+  final List<tour> _Tour = [];
+
+  Future<List<tour>> fetchJson({String? query}) async {
+    var response = await http.get(Uri.parse('http://hiskia.xyz/api/v1/tour'));
+    List<tour> slist = [];
+    if (response.statusCode == 200) {
+      var urjson = (json.decode(response.body));
+      for (var jsondata in urjson) {
+        slist.add(tour.fromJson(jsondata));
+      }
+      if (query != null) {
+        slist = slist
+            .where((element) =>
+                element.name!.toLowerCase().contains((query.toLowerCase())))
+            .toList();
+      }
+    } else {
+      print("fetch error");
+    }
+    return slist;
   }
 }

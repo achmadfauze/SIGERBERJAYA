@@ -56,8 +56,8 @@ class _LoginPageState extends State<LoginPage> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                opacity: 1,
-                image: AssetImage("assets/Menara-Siger-Lampung.jpg"),
+                opacity: 20,
+                image: AssetImage("assets/backgroundbaru.jpg"),
                 fit: BoxFit.cover,
               ),
             ),
@@ -122,11 +122,11 @@ class _LoginPageState extends State<LoginPage> {
                     //textAlign: TextAlign.center,
                     ),
                 const SizedBox(
-                  height: 16,
+                  height: 20,
                 ),
                 Image.asset(
                   'assets/LOGO_PARIWISATA.png',
-                  height: 160,
+                  height: 140,
                   // width: 180,
                 ),
                 const SizedBox(
@@ -139,9 +139,7 @@ class _LoginPageState extends State<LoginPage> {
                   //TextAlign.center;
                   "Jelajahi setiap tempat terkenal di\nLampung dan temukan hotel\n terdekat serta restoran dengan\n cara termudah. Dapatkan petunjuk",
                   style: whiteTextStyle.copyWith(
-                    fontSize: 18,
-                    wordSpacing: 1,
-                  ),
+                      fontSize: 18, wordSpacing: 1, height: 1.3),
                   // TextStyle(
                   //   color: Colors.white,
                   //   fontFamily: 'Roboto-Regular',

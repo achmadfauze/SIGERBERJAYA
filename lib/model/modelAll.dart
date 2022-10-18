@@ -22,29 +22,54 @@ final List<Map<String, dynamic>> itemsAll = [
   },
 ];
 
-class Space {
-  late String? tourCode;
-  late String? name;
-  late String? locationName;
-  // late String? image;
-  late String? like;
-  late String? comment;
+class tour {
+  late String tourCode;
+  late String stateCode;
+  late String name;
+  late String locationName;
+  late String image;
+  late String like;
+  late String comment;
+  late String createAt;
+  late String latitude;
+  late String longitude;
+  late String condition;
+  late String protocol;
+  late String track;
+  late String ticket;
+  late String description;
+  late String numberOfTourists;
+  late String quotaOfTourists;
+  late String isOpen;
+  late String isSafety;
+  late String traffic;
 
-  Space(
-      {required this.tourCode,
-      required this.name,
-      required this.locationName,
-      // required this.image,
-      required this.like,
-      required this.comment});
+  tour({
+    required this.tourCode,
+    required this.stateCode,
+    required this.name,
+    required this.image,
+    required this.locationName,
+    required this.like,
+    required this.comment,
+    required this.createAt,
+    required this.latitude,
+    required this.longitude,
+    required this.ticket,
+    required this.description,
+  });
 
-  Space.fromJson(Map<String, dynamic> json) {
-    tourCode = json['tourCode'];
-    name = json['name'];
+  tour.fromJson(Map<String, dynamic> json) {
+    tourCode = json['tourCode'].toString();
+    name = json['name'].toString();
     locationName = json['locationName'].toString();
-    // image = json['image'].toString();
+    image = json['image'].toString();
     like = json['like'].toString();
     comment = json['comment'].toString();
+    latitude = json['latitude'].toString();
+    longitude = json['longitude'].toString();
+    ticket = json['ticket'].toString();
+    description = json['description'].toString();
   }
 
   Map<String, dynamic> toJson() {
@@ -52,9 +77,13 @@ class Space {
     data['tourCode'] = tourCode;
     data['name'] = name;
     data['locationName'] = locationName;
-    // data['image'] = image;
+    data['image'] = image;
     data['like'] = like;
     data['comment'] = comment;
+    data['latitude'] = latitude;
+    data['longitude'] = longitude;
+    data['ticket'] = ticket;
+    data['description'] = description;
     return data;
   }
 }
