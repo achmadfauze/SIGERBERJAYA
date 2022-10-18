@@ -121,7 +121,7 @@ class _ProfilPageState extends State<ProfilPage> {
           listTileTheme: ListTileThemeData(iconColor: Color(0xff14C38E)),
         ),
         home: Scaffold(
-          appBar: appBar,
+          // appBar: appBar,
           body: Container(
             child: ListView(
                 padding: EdgeInsets.only(top: bodyHeight * 0.05),

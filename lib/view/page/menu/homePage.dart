@@ -44,6 +44,7 @@ class HomePage extends StatefulWidget {
 
 class _Homepage extends State<HomePage> {
   final List<tour> _Tour = [];
+  late bool _isLoading;
   final GoogleSignIn _googleSignIn = GoogleSignIn(
     scopes: [
       'email',
@@ -91,8 +92,10 @@ class _Homepage extends State<HomePage> {
 
   @override
   void initState() {
+    _isLoading = true;
     fetchJson().then((value) {
       setState(() {
+        _isLoading = false;
         _Tour.addAll(value);
       });
     });
@@ -541,209 +544,211 @@ class _Homepage extends State<HomePage> {
                       ],
                     ),
                   ),
-                  // SizedBox(
-                  //   height: -40,
-                  // ),
                   Padding(
                       padding:
                           const EdgeInsets.only(left: 12, right: 12, bottom: 0),
-
-                      // child: Container(
                       child: Column(
                         children: [
-                          // Text("Tempat Rekomendasi"),
                           Container(
-                            child: ListView.builder(
-                                itemCount: 3,
-                                physics: NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemBuilder: (context, index) {
-                                  // final space = _Space[index];
-                                  // InkWell(
-                                  //   onTap: () {
-                                  //     Navigator.push(
-                                  //         context,
-                                  //         MaterialPageRoute(
-                                  //             builder: (context) =>
-                                  //                 DetailRecomendation()));
-                                  //   },
-                                  return InkWell(
-                                    onTap: () => customAnimationWidget(
-                                      newPage: DetailPlace(
-                                        data: _Tour[index],
-                                        uid: _currentUser != null
-                                            ? _currentUser!.id.toString()
-                                            : null,
-                                      ),
-                                      context: context,
-                                      transitionBuilder: (context, animation,
-                                          secondaryAnimation, child) {
-                                        var begin = 0.0;
-                                        var end = 1.0;
-                                        var curve = Curves.easeIn;
-
-                                        var tween = Tween(
-                                                begin: begin, end: end)
-                                            .chain(CurveTween(curve: curve));
-
-                                        return ScaleTransition(
-                                          scale: animation.drive(tween),
-                                          child: child,
-                                        );
-                                      },
-                                    ).then(onGoBack),
-                                    // {
-                                    //   Navigator.push(
-                                    //       context,
-                                    //       MaterialPageRoute(
-                                    //           builder: (context) => DetailRecomPlace(
-                                    //                 space: space,
-                                    //               )));
-                                    // },
-                                    child: Container(
-                                        height: 200,
-                                        width: double.infinity,
-                                        margin: EdgeInsets.only(bottom: 8),
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                          image: DecorationImage(
-                                            // image: AssetImage(itemsfestifalbudaya[index].image),
-                                            image: NetworkImage(
-                                                _Tour[index].image.toString(),
-                                                scale: 1.0),
-                                            fit: BoxFit.cover,
+                            child: _isLoading
+                                ? ListView.builder(
+                                    itemCount: 3,
+                                    physics: NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) =>
+                                        const CardSkelton(),
+                                  )
+                                : ListView.builder(
+                                    itemCount: 3,
+                                    physics: NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) {
+                                      return InkWell(
+                                        onTap: () => customAnimationWidget(
+                                          newPage: DetailPlace(
+                                            data: _Tour[index],
+                                            uid: _currentUser != null
+                                                ? _currentUser!.id.toString()
+                                                : null,
                                           ),
-                                        ),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.end,
-                                                children: [
-                                                  Container(
-                                                    decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius.only(
+                                          context: context,
+                                          transitionBuilder: (context,
+                                              animation,
+                                              secondaryAnimation,
+                                              child) {
+                                            var begin = 0.0;
+                                            var end = 1.0;
+                                            var curve = Curves.easeIn;
+
+                                            var tween = Tween(
+                                                    begin: begin, end: end)
+                                                .chain(
+                                                    CurveTween(curve: curve));
+
+                                            return ScaleTransition(
+                                              scale: animation.drive(tween),
+                                              child: child,
+                                            );
+                                          },
+                                        ).then(onGoBack),
+                                        child: Container(
+                                            height: 200,
+                                            width: double.infinity,
+                                            margin: EdgeInsets.only(bottom: 12),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                              image: DecorationImage(
+                                                // image: AssetImage(itemsfestifalbudaya[index].image),
+                                                image: NetworkImage(
+                                                    _Tour[index]
+                                                        .image
+                                                        .toString(),
+                                                    scale: 1.0),
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    children: [
+                                                      Container(
+                                                        decoration: BoxDecoration(
+                                                            borderRadius: BorderRadius.only(
                                                                 bottomLeft: Radius
                                                                     .circular(
                                                                         24),
                                                                 topRight: Radius
                                                                     .circular(
                                                                         15)),
-                                                        color: Color(0xff00a877)
-                                                        // color: Color.fromARGB(157, 222, 238, 5)
-                                                        ),
-                                                    height: 35,
-                                                    width: 90,
-                                                    child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          const Icon(
-                                                            Icons.favorite,
-                                                            size: 22,
-                                                            color: Colors.white,
-                                                          ),
-                                                          SizedBox(
-                                                            width: 6,
-                                                          ),
-                                                          Text(
-                                                            _Tour[index]
-                                                                .like
-                                                                .toString(),
-                                                            style:
-                                                                regularTextStyle
-                                                                    .copyWith(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize: 16,
+                                                            color: Color(
+                                                                0xff00a877)
+                                                            // color: Color.fromARGB(157, 222, 238, 5)
                                                             ),
-                                                          ),
-                                                          SizedBox(
-                                                            width: 8,
-                                                          ),
-                                                          const Icon(
-                                                            Icons.warning,
-                                                            size: 22,
-                                                            color:
-                                                                Colors.yellow,
-                                                          ),
-                                                        ]),
-                                                  ),
-                                                ]),
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.only(
-                                                    bottomRight:
-                                                        Radius.circular(15),
-                                                    bottomLeft:
-                                                        Radius.circular(15)),
-                                                color: Colors.black
-                                                    .withOpacity(0.5),
-                                                // color: Color.fromARGB(157, 222, 238, 5)
-                                              ),
-                                              height: 60,
-                                              width: double.infinity,
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 12, right: 12),
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      _Tour[index]
-                                                          .name
-                                                          .toString(),
-                                                      style: regularTextStyle
-                                                          .copyWith(
-                                                        color: Colors.white,
-                                                        fontSize: 16,
+                                                        height: 35,
+                                                        width: 90,
+                                                        child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              const Icon(
+                                                                Icons.favorite,
+                                                                size: 22,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                              SizedBox(
+                                                                width: 6,
+                                                              ),
+                                                              Text(
+                                                                _Tour[index]
+                                                                    .like
+                                                                    .toString(),
+                                                                style:
+                                                                    regularTextStyle
+                                                                        .copyWith(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 16,
+                                                                ),
+                                                              ),
+                                                              SizedBox(
+                                                                width: 8,
+                                                              ),
+                                                              const Icon(
+                                                                Icons.warning,
+                                                                size: 22,
+                                                                color: Colors
+                                                                    .yellow,
+                                                              ),
+                                                            ]),
                                                       ),
-                                                    ),
-                                                    SizedBox(
-                                                      height: 6,
-                                                    ),
-                                                    Row(
+                                                    ]),
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.only(
+                                                            bottomRight: Radius
+                                                                .circular(15),
+                                                            bottomLeft:
+                                                                Radius.circular(
+                                                                    15)),
+                                                    color: Colors.black
+                                                        .withOpacity(0.5),
+                                                    // color: Color.fromARGB(157, 222, 238, 5)
+                                                  ),
+                                                  height: 60,
+                                                  width: double.infinity,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 12,
+                                                            right: 12),
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
                                                               .start,
                                                       children: [
-                                                        Icon(
-                                                          Icons.location_on,
-                                                          size: 16,
-                                                          color: Colors.white,
-                                                        ),
                                                         Text(
                                                           _Tour[index]
-                                                              .locationName
+                                                              .name
                                                               .toString(),
-                                                          maxLines: 1,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
                                                           style:
                                                               regularTextStyle
                                                                   .copyWith(
                                                             color: Colors.white,
-                                                            fontSize: 13,
+                                                            fontSize: 16,
                                                           ),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 6,
+                                                        ),
+                                                        Row(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Icon(
+                                                              Icons.location_on,
+                                                              size: 16,
+                                                              color:
+                                                                  Colors.white,
+                                                            ),
+                                                            Text(
+                                                              _Tour[index]
+                                                                  .locationName
+                                                                  .toString(),
+                                                              maxLines: 1,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              style:
+                                                                  regularTextStyle
+                                                                      .copyWith(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 13,
+                                                              ),
+                                                            ),
+                                                          ],
                                                         ),
                                                       ],
                                                     ),
-                                                  ],
+                                                  ),
                                                 ),
-                                              ),
-                                            ),
-                                          ],
-                                        )),
-                                  );
-                                }),
+                                              ],
+                                            )),
+                                      );
+                                    }),
                           ),
                         ],
                       ))
@@ -759,10 +764,6 @@ class _Homepage extends State<HomePage> {
               newPage: EmergencyPage(),
               context: context,
             ),
-            // {
-            //   Navigator.push(context,
-            //       MaterialPageRoute(builder: (context) => EmergencyPage()));
-            // },
             child: Image(
               image: AssetImage(
                 'assets/icons/emergency.png',
@@ -770,18 +771,105 @@ class _Homepage extends State<HomePage> {
               height: 40,
             ),
           ),
-          // floatingActionButton: FloatingActionButton(
-          //     onPressed: () {
-          //       // Add your onPressed code here!
-          //     },
-          //     backgroundColor: Colors.amber,
-          //     child: Image(
-          //       image: AssetImage(
-          //         'assets/icons/emergency.png',
-          //       ),
-          //     )
-          //     // Icon(Icons.emergency),
-          //     ),
+        ));
+  }
+}
+
+class CardSkelton extends StatelessWidget {
+  const CardSkelton({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        height: 200,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          color: Colors.grey.shade300,
+        ),
+        margin: EdgeInsets.only(bottom: 12),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(15),
+                      topRight: Radius.circular(15)),
+                  // color: Colors.black.withOpacity(0.5),
+                  color: Colors.grey.shade400,
+                  // color: Color.fromARGB(157, 222, 238, 5)
+                ),
+                height: 28,
+                width: 70,
+                child:
+                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  Container(
+                    width: 20,
+                    height: 12,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.grey.shade300,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 4,
+                  ),
+                  Container(
+                    width: 20,
+                    height: 12,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.grey.shade300,
+                    ),
+                  ),
+                ]),
+              ),
+            ]),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(15),
+                    bottomLeft: Radius.circular(15)),
+                color: Colors.grey.shade400,
+                // color: Color.fromARGB(157, 222, 238, 5)
+              ),
+              height: 60,
+              width: double.infinity,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 12, right: 12, top: 10, bottom: 10),
+                child: Column(
+                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: 12,
+                      width: 90,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.grey.shade300,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 14,
+                    ),
+                    Container(
+                      height: 8,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.grey.shade300,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          ],
         ));
   }
 }
