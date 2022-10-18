@@ -86,8 +86,8 @@ class _DetailArtikelState extends State<DetailArtikel> {
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode(<String, String>{
-        "userCode": "109603887362580398656",
-        "articleCode": "2"
+        "userCode": widget.uid.toString(),
+        "articleCode": widget.data!.articleCode.toString()
       }),
     );
     return (response.statusCode.toString());

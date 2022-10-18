@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:first_app/model/tourModel.dart';
 
 class FetchSpace {
+
   // var data = [];
   // List<tour> results = [];
   // // String urlList = 'https://jsonplaceholder.typicode.com/users/';
@@ -52,6 +53,7 @@ class FetchSpace {
 
   // Future<List<tour>> getspace({String? query}) async {
   //   var url = Uri.parse(urlList);
+
   //   try {
   //     var response = await http.get(url);
   //     print(response);
