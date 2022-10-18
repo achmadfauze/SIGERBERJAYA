@@ -21,11 +21,11 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class DetailPlace extends StatefulWidget {
-  final String? tourCode, uid;
-  final tour? data;
+  String? tourCode, uid;
+  tour? data;
 
   // final TourPop? adata;
-  const DetailPlace({
+  DetailPlace({
     super.key,
     this.tourCode,
     this.data,

@@ -114,7 +114,7 @@ class _ChatAdminState extends State<ChatAdmin> {
                 child: TextField(
                   controller: chatController,
                   autofocus: false,
-                  style: TextStyle(
+                  style: regularTextStyle.copyWith(
                     fontSize: 15.0,
                   ),
                   decoration: InputDecoration(
@@ -147,8 +147,11 @@ class _ChatAdminState extends State<ChatAdmin> {
                       },
                     ),
                     hintText: 'Masukkan Pesan',
+                    hintStyle: regularTextStyle.copyWith(fontSize: 14),
                     contentPadding: const EdgeInsets.only(
-                        left: 14.0, bottom: 3.0, top: 3.0),
+                      left: 14.0,
+                      // bottom: 3.0, top: 3.0
+                    ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.white),
                       borderRadius: BorderRadius.circular(25.7),
@@ -223,9 +226,9 @@ class admin extends StatelessWidget {
       child: ListTile(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(10),
-                topRight: Radius.circular(10),
-                bottomRight: Radius.circular(10))),
+                topLeft: Radius.circular(15),
+                topRight: Radius.circular(15),
+                bottomRight: Radius.circular(15))),
         tileColor: Colors.white,
         title: Text(
           cht!.chat.toString(),
