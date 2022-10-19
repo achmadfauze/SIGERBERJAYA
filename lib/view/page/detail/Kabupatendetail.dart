@@ -160,8 +160,8 @@ class _AllKabupatenListState extends State<AllKabupatenList> {
                               width: double.infinity,
                               decoration: const BoxDecoration(
                                 borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(10),
-                                    bottomRight: Radius.circular(10)),
+                                    bottomLeft: Radius.circular(15),
+                                    bottomRight: Radius.circular(15)),
                                 color: Colors.white,
                                 // color: Color.fromARGB(157, 222, 238, 5)
                               ),
@@ -176,10 +176,14 @@ class _AllKabupatenListState extends State<AllKabupatenList> {
                                         const SizedBox(
                                           width: 3,
                                         ),
-                                        Text(
-                                          "${_Tour[index].name}",
-                                          style: regularTextStyle.copyWith(
-                                            fontSize: 16,
+                                        Flexible(
+                                          child: Text(
+                                            "${_Tour[index].name}",
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: regularTextStyle.copyWith(
+                                              fontSize: 16,
+                                            ),
                                           ),
                                         ),
                                       ],

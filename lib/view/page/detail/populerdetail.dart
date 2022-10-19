@@ -366,9 +366,7 @@ class _DetailPageState extends State<DetailPlace> {
                       ),
 
                       Padding(
-                        padding: EdgeInsets.only(
-                          left: edge,
-                        ),
+                        padding: EdgeInsets.only(left: edge, bottom: 10),
                         child: Text(
                           'Lokasi Wisata',
                           style: regularTextStyle.copyWith(
@@ -376,33 +374,30 @@ class _DetailPageState extends State<DetailPlace> {
                           ),
                         ),
                       ),
+
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: edge),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              widget.data!.locationName,
-                              // '${widget.space.locationName}',
-                              style: greyTextStyle,
+                            Flexible(
+                              child: Text(
+                                widget.data!.locationName,
+                                // '${widget.space.locationName}',
+                                style: greyTextStyle,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
                             InkWell(
-                              onTap: () {
-                                // launchUrl(
-                                //     'https://goo.gl/maps/SyZx2yjWB1yR6AeH8');
-
-                                // launchUrl(widget.space.mapUrl);
-                              },
-                              child: InkWell(
-                                onTap: () => MapsLauncher.launchCoordinates(
-                                  double.parse(widget.data!.latitude),
-                                  double.parse(widget.data!.longitude),
-                                  widget.data!.name.toString(),
-                                ),
-                                child: Image.asset(
-                                  'assets/btn_map.png',
-                                  width: 40,
-                                ),
+                              onTap: () => MapsLauncher.launchCoordinates(
+                                double.parse(widget.data!.latitude),
+                                double.parse(widget.data!.longitude),
+                                widget.data!.name.toString(),
+                              ),
+                              child: Image.asset(
+                                'assets/btn_map.png',
+                                width: 40,
                               ),
                             ),
                           ],

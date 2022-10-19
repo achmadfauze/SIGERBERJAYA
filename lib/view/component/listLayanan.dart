@@ -138,6 +138,8 @@ class ListItem extends StatelessWidget {
                                 letterSpacing: 1.0,
                                 height: 1.2,
                               ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
                             SizedBox(
                               height: 4,

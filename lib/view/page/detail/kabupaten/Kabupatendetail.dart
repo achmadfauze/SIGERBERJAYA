@@ -109,8 +109,8 @@ class _AllKabupatenListState extends State<AllKabupatenList> {
                         width: double.infinity,
                         decoration: BoxDecoration(
                           borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(10),
-                              topRight: Radius.circular(10)),
+                              topLeft: Radius.circular(15),
+                              topRight: Radius.circular(15)),
                           image: DecorationImage(
                             // image: AssetImage(itemsfestifalbudaya[index].image),
                             image: NetworkImage(_Tour[index].image.toString()),
@@ -123,8 +123,8 @@ class _AllKabupatenListState extends State<AllKabupatenList> {
                         width: double.infinity,
                         decoration: const BoxDecoration(
                           borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(10),
-                              bottomRight: Radius.circular(10)),
+                              bottomLeft: Radius.circular(15),
+                              bottomRight: Radius.circular(15)),
                           color: Colors.white,
                           // color: Color.fromARGB(157, 222, 238, 5)
                         ),
@@ -139,10 +139,14 @@ class _AllKabupatenListState extends State<AllKabupatenList> {
                                   const SizedBox(
                                     width: 3,
                                   ),
-                                  Text(
-                                    "${_Tour[index].name}",
-                                    style: regularTextStyle.copyWith(
-                                      fontSize: 16,
+                                  Flexible(
+                                    child: Text(
+                                      "${_Tour[index].name}",
+                                      style: regularTextStyle.copyWith(
+                                        fontSize: 16,
+                                      ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
                                 ],

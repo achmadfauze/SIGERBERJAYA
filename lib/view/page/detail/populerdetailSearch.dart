@@ -386,9 +386,7 @@ class _DetailPageState extends State<DetailPlaceSearch> {
                         ),
 
                         Padding(
-                          padding: EdgeInsets.only(
-                            left: edge,
-                          ),
+                          padding: EdgeInsets.only(left: edge, bottom: 10),
                           child: Text(
                             'Lokasi Wisata',
                             style: regularTextStyle.copyWith(
@@ -401,10 +399,14 @@ class _DetailPageState extends State<DetailPlaceSearch> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                data!.locationName,
-                                // '${widget.space.locationName}',
-                                style: greyTextStyle,
+                              Flexible(
+                                child: Text(
+                                  data!.locationName,
+                                  // '${widget.space.locationName}',
+                                  style: greyTextStyle,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
                               InkWell(
                                 onTap: () {

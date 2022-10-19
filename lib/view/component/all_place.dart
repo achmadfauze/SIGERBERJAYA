@@ -10,6 +10,8 @@ import 'package:route_transitions/route_transitions.dart';
 import 'package:first_app/model/tourModel.dart';
 import 'package:http/http.dart' as http;
 
+import '../../model/theme.dart';
+
 class AllPlace extends StatefulWidget {
   String? uid;
   AllPlace({this.uid});
@@ -100,7 +102,7 @@ class _HomePageState extends State<AllPlace> {
                       width: double.infinity,
                       margin: EdgeInsets.only(bottom: 8),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(15),
                         image: DecorationImage(
                           // image: AssetImage(itemsfestifalbudaya[index].image),
                           image: NetworkImage(_Tour[index].image.toString(),
@@ -137,15 +139,15 @@ class _HomePageState extends State<AllPlace> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   Container(
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                       borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(28),
-                                          topRight: Radius.circular(10)),
-                                      color: Colors.black.withOpacity(0.5),
+                                          bottomLeft: Radius.circular(24),
+                                          topRight: Radius.circular(15)),
+                                      color: Color(0xff00a877),
                                       // color: Color.fromARGB(157, 222, 238, 5)
                                     ),
-                                    height: 40,
-                                    width: 100,
+                                    height: 35,
+                                    width: 95,
                                     child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
@@ -181,8 +183,8 @@ class _HomePageState extends State<AllPlace> {
                             Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.only(
-                                    bottomRight: Radius.circular(10),
-                                    bottomLeft: Radius.circular(10)),
+                                    bottomRight: Radius.circular(15),
+                                    bottomLeft: Radius.circular(15)),
                                 color: Colors.black.withOpacity(0.5),
                                 // color: Color.fromARGB(157, 222, 238, 5)
                               ),
@@ -198,11 +200,12 @@ class _HomePageState extends State<AllPlace> {
                                     Text(
                                       // _Space[index].name.toString(),
                                       _Tour[index].name.toString(),
-                                      style: TextStyle(
+                                      style: regularTextStyle.copyWith(
                                         color: Colors.white,
-                                        fontFamily: 'Mulish-Regular',
                                         fontSize: 16,
                                       ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
                                     ),
                                     SizedBox(
                                       height: 8,
@@ -216,17 +219,20 @@ class _HomePageState extends State<AllPlace> {
                                           size: 16,
                                           color: Colors.white,
                                         ),
-                                        Text(
-                                          // _Space[index]
-                                          //     .locationName
-                                          //     .toString(),
-                                          _Tour[index].locationName.toString(),
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                            fontFamily: 'Mulish-Regular',
-                                            fontSize: 12,
+                                        Flexible(
+                                          child: Text(
+                                            // _Space[index]
+                                            //     .locationName
+                                            //     .toString(),
+                                            _Tour[index]
+                                                .locationName
+                                                .toString(),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: regularTextStyle.copyWith(
+                                              color: Colors.white,
+                                              fontSize: 12,
+                                            ),
                                           ),
                                         ),
                                       ],

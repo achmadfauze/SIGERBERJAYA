@@ -64,6 +64,7 @@ class _OnBoardPageState extends State<OnBoardPage> {
     final MediaQueryHeight =
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Container(
         height: MediaQueryHeight,
         child: Stack(
@@ -80,8 +81,9 @@ class _OnBoardPageState extends State<OnBoardPage> {
             Container(
               alignment: Alignment.bottomCenter,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  SizedBox(height: MediaQueryHeight * 0.85),
+                  SizedBox(height: MediaQueryHeight * 0.87),
                   Container(
                     // alignment: Alignment(
                     //   0,
@@ -136,6 +138,12 @@ class _OnBoardPageState extends State<OnBoardPage> {
                           ),
                         )),
                   ),
+                  Expanded(
+                    child: Container(
+                      color: Colors.white,
+                      width: double.infinity,
+                    ),
+                  )
                 ],
               ),
             ),
