@@ -218,8 +218,7 @@ class _Homepage extends State<HomePage> {
                         onTap: () {
                           showSearch(
                               context: context,
-                              delegate:
-                                  SearchUser(uid: _currentUser!.id.toString()));
+                              delegate: SearchUser(uid: widget.uid));
                           // Navigator.push(
                           //     context,
                           //     MaterialPageRoute(
@@ -355,7 +354,7 @@ class _Homepage extends State<HomePage> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => AllPlace(
-                                              uid: _currentUser!.id.toString(),
+                                              uid: widget.uid.toString(),
                                             ))).then(onGoBack);
                               },
                             ),

@@ -4,6 +4,7 @@ import 'dart:convert';
 // import 'package:first_app/model/TourModel.dart';
 // import 'package:first_app/view/component/detailTempat.dart';
 import 'package:first_app/model/tourModel.dart';
+// import 'package:first_app/view/component/skleton.dart';
 import 'package:first_app/view/page/detail/populerdetail.dart';
 import 'package:route_transitions/route_transitions.dart';
 import 'package:flutter/material.dart';

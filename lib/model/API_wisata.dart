@@ -88,7 +88,7 @@ class FetchSpace {
       if (query != null) {
         slist = slist
             .where((element) =>
-                element.name!.toLowerCase().contains((query.toLowerCase())))
+                element.name.toLowerCase().contains((query.toLowerCase())))
             .toList();
       }
     } else {
