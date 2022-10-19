@@ -27,7 +27,7 @@ class SearchUser extends SearchDelegate {
       if (query != null) {
         slist = slist
             .where((element) =>
-                element.name!.toLowerCase().contains((query.toLowerCase())))
+                element.name.toLowerCase().contains((query.toLowerCase())))
             .toList();
       }
     } else {
@@ -106,7 +106,7 @@ class SearchUser extends SearchDelegate {
                               // tour temp = new tour(tourCode: tourCode, stateCode: stateCode, name: name, image: image, locationName: locationName, like: like, comment: comment, createAt: createAt, latitude: latitude, longitude: longitude, ticket: ticket, description: description)
                               return DetailPlaceSearch(
                                 // data: data?[index],
-                                tourCode: _Tour[index].tourCode,
+                                tourCode: data?[index].tourCode,
                                 uid: uid,
                               );
                             }),
@@ -291,7 +291,7 @@ class FetchSpace {
       if (query != null) {
         slist = slist
             .where((element) =>
-                element.name!.toLowerCase().contains((query.toLowerCase())))
+                element.name.toLowerCase().contains((query.toLowerCase())))
             .toList();
       }
     } else {

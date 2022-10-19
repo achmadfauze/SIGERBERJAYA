@@ -139,12 +139,13 @@ class _ProfilPageState extends State<ProfilPage> {
                                 new SizedBox(
                                   width: bodyWidth * 0.40,
                                   height: bodyWidth * 0.40,
-                                  child: Image.network(
-                                    _currentUser != null
-                                        ? Users.image.toString()
-                                        : '',
-                                    fit: BoxFit.fill,
-                                  ),
+                                  child: Users.image == null
+                                      ? Image.asset(
+                                          "assets/LOGO_PARIWISATA.png")
+                                      : Image.network(
+                                          Users.image.toString(),
+                                          fit: BoxFit.fill,
+                                        ),
                                 ),
                               ],
                             ),
