@@ -68,9 +68,9 @@ class _LoginPageState extends State<LoginPage> {
           //   width: 60,
           // ),
           Padding(
-            padding: const EdgeInsets.only(left: 230, top: 40),
+            padding: const EdgeInsets.only(top: 40),
             child: Row(
-              //crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 TextButton(
                     onPressed: () {
@@ -84,11 +84,11 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(
                   width: 24,
                 ),
-                const Icon(
-                  Icons.language,
-                  size: 22,
-                  color: Colors.white,
-                ),
+                // const Icon(
+                //   Icons.language,
+                //   size: 22,
+                //   color: Colors.white,
+                // ),
               ],
             ),
           ),
@@ -125,16 +125,16 @@ class _LoginPageState extends State<LoginPage> {
                   height: 20,
                 ),
                 Image.asset(
-                  'assets/LOGO_PARIWISATA.png',
-                  height: 140,
-                  // width: 180,
+                  'assets/logo_lampung.gif',
+                  // height: 200,
+                  width: 260,
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 30,
                 ),
-                const SizedBox(
-                  height: 22,
-                ),
+                // const SizedBox(
+                //   height: 22,
+                // ),
                 Text(
                   //TextAlign.center;
                   "Jelajahi setiap tempat terkenal di\nLampung dan temukan hotel\n terdekat serta restoran dengan\n cara termudah. Dapatkan petunjuk",

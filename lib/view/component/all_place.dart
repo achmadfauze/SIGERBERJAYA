@@ -27,7 +27,7 @@ class _HomePageState extends State<AllPlace> {
   Future<List<tour>> fetchJson() async {
     var response = await http
         // .get(Uri.parse('http://bwa-cozy.herokuapp.com/recommended-spaces'));
-        .get(Uri.parse('https://hiskia.xyz/api/v1/tour'));
+        .get(Uri.parse('https://api.siger.uacak.com/public/api/v1/tour'));
     // print(response);
     List<tour> slist = [];
     if (response.statusCode == 200) {

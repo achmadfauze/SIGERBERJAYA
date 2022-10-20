@@ -56,7 +56,8 @@ class _Homepage extends State<HomePage> {
   Future<List<tour>> fetchJson() async {
     var response = await http
         // .get(Uri.parse('http://bwa-cozy.herokuapp.com/recommended-spaces'));
-        .get(Uri.parse('https://hiskia.xyz/public/api/v1/recomendedtour/5'));
+        .get(Uri.parse(
+            'https://api.siger.uacak.com/public/api/v1/recomendedtour/5'));
     // print(response);
     List<tour> slist = [];
     if (response.statusCode == 200) {
@@ -71,8 +72,8 @@ class _Homepage extends State<HomePage> {
 
   user Users = new user();
   Future<user> getUser() async {
-    var response = await http
-        .get(Uri.parse('https://hiskia.xyz/api/v1/user/${widget.uid}'));
+    var response = await http.get(Uri.parse(
+        'https://api.siger.uacak.com/public/api/v1/user/${widget.uid}'));
 
     user slist = new user();
     if (response.statusCode == 200) {

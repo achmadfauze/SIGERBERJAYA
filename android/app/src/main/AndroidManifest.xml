@@ -11,7 +11,7 @@
    <application
         android:label="SIGER BERJAYA"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <!-- <queries>
             <intent>
             <action android:name="android.intent.action.VIEW" />

@@ -23,8 +23,8 @@ class _ChatAdminState extends State<ChatAdmin> {
   GoogleSignInAccount? _currentUser;
   final List<chatAdmin> com = [];
   Future<List<chatAdmin>> fetchJson() async {
-    var response = await http
-        .get(Uri.parse('https://hiskia.xyz/api/v1/chat/${widget.uid}'));
+    var response = await http.get(Uri.parse(
+        'https://api.siger.uacak.com/public/api/v1/liketourchat/${widget.uid}'));
     List<chatAdmin> slist = [];
     if (response.statusCode == 200) {
       var urjson = (json.decode(response.body));
@@ -37,7 +37,7 @@ class _ChatAdminState extends State<ChatAdmin> {
 
   Future<http.Response> createChat(String from, String to, String chat) {
     return http.post(
-      Uri.parse('https://hiskia.xyz/api/v1/chat'),
+      Uri.parse('https://api.siger.uacak.com/public/api/v1/chat'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

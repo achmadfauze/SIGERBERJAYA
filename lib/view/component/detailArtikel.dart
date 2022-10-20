@@ -38,7 +38,7 @@ class _DetailArtikelState extends State<DetailArtikel> {
     // print("asdsad");
 
     var response = await http.get(Uri.parse(
-        'https://hiskia.xyz/api/v1/islikearticle/${widget.data!.articleCode}/${widget.uid}'));
+        'https://api.siger.uacak.com/public/api/v1/islikearticle/${widget.data!.articleCode}/${widget.uid}'));
     // print(response);
     if (response.statusCode == 200) {
       var urjson = (json.decode(response.body));
@@ -54,7 +54,7 @@ class _DetailArtikelState extends State<DetailArtikel> {
     // print("asdsad");
 
     var response = await http.get(Uri.parse(
-        'https://hiskia.xyz/api/v1/isarchivearticle/${widget.data!.articleCode}/${widget.uid}'));
+        'https://api.siger.uacak.com/public/api/v1/isarchivearticle/${widget.data!.articleCode}/${widget.uid}'));
     // print(response);
     if (response.statusCode == 200) {
       var urjson = (json.decode(response.body));
@@ -67,21 +67,21 @@ class _DetailArtikelState extends State<DetailArtikel> {
 
   Future<String> likeHandler() async {
     var response = await http.get(Uri.parse(
-        'https://hiskia.xyz/api/v1/likearticle/${widget.data!.articleCode}/${widget.uid}'));
+        'https://api.siger.uacak.com/public/api/v1/likearticle/${widget.data!.articleCode}/${widget.uid}'));
     // print(response);
     return (response.statusCode.toString());
   }
 
   Future<String> dislikeHandler() async {
     var response = await http.get(Uri.parse(
-        'https://hiskia.xyz/api/v1/dislikearticle/${widget.data!.articleCode}/${widget.uid}'));
+        'https://api.siger.uacak.com/public/api/v1/dislikearticle/${widget.data!.articleCode}/${widget.uid}'));
     // print(response);
     return (response.statusCode.toString());
   }
 
   Future<String> archiveHandler() async {
     var response = await http.post(
-      Uri.parse('https://hiskia.xyz/api/v1/archivearticle'),
+      Uri.parse('https://api.siger.uacak.com/public/api/v1/archivearticle'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -95,7 +95,7 @@ class _DetailArtikelState extends State<DetailArtikel> {
 
   Future<String> unarchiveHandler() async {
     var response = await http.delete(Uri.parse(
-        'https://hiskia.xyz/api/v1/unarchiveArticle/${widget.data!.articleCode}/${widget.uid}'));
+        'https://api.siger.uacak.com/public/api/v1/unarchiveArticle/${widget.data!.articleCode}/${widget.uid}'));
     return (response.statusCode.toString());
   }
 

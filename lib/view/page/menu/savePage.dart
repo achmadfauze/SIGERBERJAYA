@@ -25,7 +25,7 @@ class _SavePageState extends State<SavePage> {
   final List<tour> _Tour = [];
   Future<List<tour>> fetchJson() async {
     var response = await http.get(Uri.parse(
-        'https://hiskia.xyz/api/v1/allarchivetourbyuser/${widget.uid}'));
+        'https://api.siger.uacak.com/public/api/v1/allarchivetourbyuser/${widget.uid}'));
     List<tour> slist = [];
     if (response.statusCode == 200) {
       var urjson = (json.decode(response.body));
@@ -40,7 +40,7 @@ class _SavePageState extends State<SavePage> {
 
   Future<List<Article>> fetchJsonArticle() async {
     var response = await http.get(Uri.parse(
-        'http://hiskia.xyz//api/v1/allarchivearticlewithdetail/${widget.uid}'));
+        'https://api.siger.uacak.com/public/api/v1/allarchivearticlewithdetail/${widget.uid}'));
     print(response);
     List<Article> slist = [];
     if (response.statusCode == 200) {

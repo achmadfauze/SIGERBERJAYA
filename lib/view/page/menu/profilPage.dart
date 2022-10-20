@@ -124,7 +124,7 @@ class _ProfilPageState extends State<ProfilPage> {
           // appBar: appBar,
           body: Container(
             child: ListView(
-                padding: EdgeInsets.only(top: bodyHeight * 0.05),
+                padding: EdgeInsets.only(top: bodyHeight * 0.15),
                 children: [
                   _currentUser == null
                       ? SizedBox(
@@ -241,28 +241,6 @@ class _ProfilPageState extends State<ProfilPage> {
                                   );
                                 },
                               ),
-                              ListTile(
-                                title: Text("Keluar",
-                                    style: regularTextStyle.copyWith(
-                                        fontSize: 16)),
-                                leading: Icon(
-                                  Icons.logout,
-                                  // color: Colors.blue,
-                                ),
-                                trailing: Icon(
-                                  Icons.arrow_forward_ios,
-                                  size: 20,
-                                ),
-                                onTap: () async {
-                                  _handleSignOut();
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => LoginPage(),
-                                    ),
-                                  );
-                                },
-                              ),
                             ],
                           ),
                         ),
@@ -317,23 +295,44 @@ class _ProfilPageState extends State<ProfilPage> {
                             },
                           ),
                         ),
+                        // ListTile(
+                        //   title: Text("Bahasa",
+                        //       style: regularTextStyle.copyWith(fontSize: 16)),
+                        //   leading: Icon(
+                        //     Icons.language,
+                        //     // color: Colors.blue,
+                        //   ),
+                        //   trailing: Icon(
+                        //     Icons.arrow_forward_ios,
+                        //     size: 20,
+                        //   ),
+                        //   onTap: () {
+                        //     Navigator.of(context).push(
+                        //       MaterialPageRoute(
+                        //         builder: ((context) {
+                        //           return EditBahasa();
+                        //         }),
+                        //       ),
+                        //     );
+                        //   },
+                        // ),
                         ListTile(
-                          title: Text("Bahasa",
+                          title: Text("Keluar",
                               style: regularTextStyle.copyWith(fontSize: 16)),
                           leading: Icon(
-                            Icons.language,
+                            Icons.logout,
                             // color: Colors.blue,
                           ),
                           trailing: Icon(
                             Icons.arrow_forward_ios,
                             size: 20,
                           ),
-                          onTap: () {
-                            Navigator.of(context).push(
+                          onTap: () async {
+                            _handleSignOut();
+                            Navigator.push(
+                              context,
                               MaterialPageRoute(
-                                builder: ((context) {
-                                  return EditBahasa();
-                                }),
+                                builder: (context) => LoginPage(),
                               ),
                             );
                           },

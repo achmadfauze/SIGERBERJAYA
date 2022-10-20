@@ -13,10 +13,16 @@ class _CarouselState extends State<Carousel> {
   final List<Map> images = [
     {
       "image":
-          "https://cdn.popbela.com/content-images/post/20200131/1000x6679-1b0e2274922249bf33b28ce274d87531_750x500.jpg"
+          "https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcRVZdSLd2KA1E3rPOTYyoZ0LHqbfSKmFdslks1XpzLW4MFeky1zR1Y-ET0_fny9cX323Okodi_iXl3YN6tuQXAEJg"
     },
-    {"image": "https://picsum.photos/id/238/200/300"},
-    {"image": "https://picsum.photos/id/239/200/300"},
+    {
+      "image":
+          "https://encrypted-tbn2.gstatic.com/licensed-image?q=tbn:ANd9GcQrYLU1GZu7OIM5s9BuEcGvq6K7kG4PkhWhTePEvDCsOdhQ0cuSekLIGtuUDfFLx8CvnDdlkdFbhSnkHeHuZ4kPDw"
+    },
+    {
+      "image":
+          "https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcRrWCxM-FYcWHRo9HKRHRiahDmB5DIUR4Fyt9vC0JEjdbRQOb_GWl9AiOsbqnG5K1EcS7xkQXHVGB3KO9dWjTm6PQ "
+    },
   ];
 
   // final List<Widget> myData = [

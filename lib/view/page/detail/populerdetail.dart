@@ -64,7 +64,7 @@ class _DetailPageState extends State<DetailPlace> {
     // print("asdsad");
 
     var response = await http.get(Uri.parse(
-        'https://hiskia.xyz/api/v1/isliketour/${widget.data!.tourCode}/${widget.uid}'));
+        'https://api.siger.uacak.com/public/api/v1/isliketour/${widget.data!.tourCode}/${widget.uid}'));
     // print(response);
     if (response.statusCode == 200) {
       var urjson = (json.decode(response.body));
@@ -80,7 +80,7 @@ class _DetailPageState extends State<DetailPlace> {
     // print("asdsad");
 
     var response = await http.get(Uri.parse(
-        'https://hiskia.xyz/api/v1/isarchivetour/${widget.data!.tourCode}/${widget.uid}'));
+        'https://api.siger.uacak.com/public/api/v1/isarchivetour/${widget.data!.tourCode}/${widget.uid}'));
     // print(response);
     if (response.statusCode == 200) {
       var urjson = (json.decode(response.body));
@@ -93,28 +93,28 @@ class _DetailPageState extends State<DetailPlace> {
 
   Future<String> likeHandler() async {
     var response = await http.get(Uri.parse(
-        'https://hiskia.xyz/api/v1/liketour/${widget.data!.tourCode}/${widget.uid}'));
+        'https://api.siger.uacak.com/public/api/v1/liketour/${widget.data!.tourCode}/${widget.uid}'));
     // print(response);
     return (response.statusCode.toString());
   }
 
   Future<String> dislikeHandler() async {
     var response = await http.get(Uri.parse(
-        'https://hiskia.xyz/api/v1/disliketour/${widget.data!.tourCode}/${widget.uid}'));
+        'https://api.siger.uacak.com/public/api/v1/disliketour/${widget.data!.tourCode}/${widget.uid}'));
     // print(response);
     return (response.statusCode.toString());
   }
 
   Future<String> archiveHandler() async {
     var response = await http.get(Uri.parse(
-        'https://hiskia.xyz/api/v1/archive_tour/${widget.data!.tourCode}/${widget.uid}'));
+        'https://api.siger.uacak.com/public/api/v1/archive_tour/${widget.data!.tourCode}/${widget.uid}'));
 
     return (response.statusCode.toString());
   }
 
   Future<String> unarchiveHandler() async {
     var response = await http.get(Uri.parse(
-        'https://hiskia.xyz/api/v1/unarchivetour/${widget.data!.tourCode}/${widget.uid}'));
+        'https://api.siger.uacak.com/public/api/v1/unarchivetour/${widget.data!.tourCode}/${widget.uid}'));
 
     return (response.statusCode.toString());
   }
@@ -436,7 +436,7 @@ class _DetailPageState extends State<DetailPlace> {
                                         return ListLayanan(
                                           Judul: "Kepolisian Terdekat",
                                           url:
-                                              "https://hiskia.xyz/api/v1/police/${widget.data!.stateCode}",
+                                              "https://api.siger.uacak.com/public/api/v1/police/${widget.data!.stateCode}",
                                         );
                                       }),
                                     );
@@ -477,7 +477,7 @@ class _DetailPageState extends State<DetailPlace> {
                                         return ListLayanan(
                                           Judul: "Restoran Terdekat",
                                           url:
-                                              "https://hiskia.xyz/api/v1/restaurant/${widget.data!.stateCode}",
+                                              "https://api.siger.uacak.com/public/api/v1/restaurant/${widget.data!.stateCode}",
                                         );
                                       }),
                                     );
@@ -516,7 +516,7 @@ class _DetailPageState extends State<DetailPlace> {
                                         return ListLayanan(
                                           Judul: "Rumah Sakit Terdekat",
                                           url:
-                                              "https://hiskia.xyz/api/v1/medicalfacility/${widget.data!.stateCode}",
+                                              "https://api.siger.uacak.com/public/api/v1/medicalfacility/${widget.data!.stateCode}",
                                         );
                                       }),
                                     );
@@ -556,7 +556,7 @@ class _DetailPageState extends State<DetailPlace> {
                                         return ListLayanan(
                                           Judul: "Hotel Terdekat",
                                           url:
-                                              "https://hiskia.xyz/api/v1/hotel/${widget.data!.stateCode}",
+                                              "https://api.siger.uacak.com/public/api/v1/hotel/${widget.data!.stateCode}",
                                         );
                                       }),
                                     );

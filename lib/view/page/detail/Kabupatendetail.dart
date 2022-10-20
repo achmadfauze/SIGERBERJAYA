@@ -26,8 +26,8 @@ class _AllKabupatenListState extends State<AllKabupatenList> {
   late bool _isLoading;
   final List<tour> _Tour = [];
   Future<List<tour>> fetchJson() async {
-    var response = await http.get(
-        Uri.parse('https://hiskia.xyz/api/v1/tourbystate/${widget.stateCode}'));
+    var response = await http.get(Uri.parse(
+        'https://api.siger.uacak.com/public/api/v1/tourbystate/${widget.stateCode}'));
     List<tour> slist = [];
     if (response.statusCode == 200) {
       var urjson = (json.decode(response.body));

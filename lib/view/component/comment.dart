@@ -25,8 +25,8 @@ class _CommentState extends State<Comment> {
   GoogleSignInAccount? _currentUser;
   final List<commentTour> com = [];
   Future<List<commentTour>> fetchJson() async {
-    var response = await http.get(
-        Uri.parse('https://hiskia.xyz/api/v1/commenttour/${widget.tourCode}'));
+    var response = await http.get(Uri.parse(
+        'https://api.siger.uacak.com/public/api/v1/commenttour/${widget.tourCode}'));
     List<commentTour> slist = [];
     if (response.statusCode == 200) {
       var urjson = (json.decode(response.body));
@@ -40,7 +40,7 @@ class _CommentState extends State<Comment> {
   Future<http.Response> createComment(
       String comment, String uid, String tourCode) {
     return http.post(
-      Uri.parse('https://hiskia.xyz/api/v1/commenttour'),
+      Uri.parse('https://api.siger.uacak.com/public/api/v1/commenttour'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
