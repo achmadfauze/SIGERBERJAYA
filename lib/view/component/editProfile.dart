@@ -61,7 +61,8 @@ class _EditProfileState extends State<EditProfile> {
   Future<http.Response> updateUser(String name) {
     // print(widget.User.uid);
     return http.patch(
-      Uri.parse('https://hiskia.xyz/api/v1/user/${widget.User.uid}'),
+      Uri.parse(
+          'https://api.siger.uacak.com/public/api/v1/user/${widget.User.uid}'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

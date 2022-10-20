@@ -70,8 +70,8 @@ class _ProfilPageState extends State<ProfilPage> {
   dynamic currentTime = DateFormat("yyyy-MM-dd").format(DateTime.now());
 
   Future<user> fetchJson() async {
-    var response = await http
-        .get(Uri.parse('https://hiskia.xyz/api/v1/user/${widget.uid}'));
+    var response = await http.get(Uri.parse(
+        'https://api.siger.uacak.com/public/api/v1/user/${widget.uid}'));
 
     user slist = new user();
     if (response.statusCode == 200) {
@@ -178,7 +178,9 @@ class _ProfilPageState extends State<ProfilPage> {
                                     return LoginPage();
                                   }),
                                 ),
-                              );
+                              ).then((value) async {
+                                setState(() {});
+                              });
                             },
                             title: Text("Masuk",
                                 style: regularTextStyle.copyWith(fontSize: 16)),

@@ -26,7 +26,7 @@ class _OnBoardPageState extends State<OnBoardPage> {
   Future<http.Response> createUser(
       String uid, String name, String email, String image) {
     return http.post(
-      Uri.parse('https://hiskia.xyz/api/v1/user'),
+      Uri.parse('https://api.siger.uacak.com/public/api/v1/user'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
