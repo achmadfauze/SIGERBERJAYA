@@ -178,7 +178,9 @@ class _ProfilPageState extends State<ProfilPage> {
                                     return LoginPage();
                                   }),
                                 ),
-                              );
+                              ).then((value) async {
+                                setState(() {});
+                              });
                             },
                             title: Text("Masuk",
                                 style: regularTextStyle.copyWith(fontSize: 16)),
