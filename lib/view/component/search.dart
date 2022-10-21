@@ -285,7 +285,8 @@ class FetchSpace {
   final List<tour> _Tour = [];
 
   Future<List<tour>> fetchJson({String? query}) async {
-    var response = await http.get(Uri.parse('http://hiskia.xyz/api/v1/tour'));
+    var response = await http
+        .get(Uri.parse('https://api.siger.uacak.com/public/api/v1/tour'));
     List<tour> slist = [];
     if (response.statusCode == 200) {
       var urjson = (json.decode(response.body));

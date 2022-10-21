@@ -4,11 +4,10 @@ import 'package:http/http.dart' as http;
 import 'package:first_app/model/tourModel.dart';
 
 class FetchSpace {
-
   // var data = [];
   // List<tour> results = [];
   // // String urlList = 'https://jsonplaceholder.typicode.com/users/';
-  // String urlList = 'http://hiskia.xyz/api/v1/tour';
+  // String urlList = 'https://api.siger.uacak.com/public/api/v1/tour';
   // // Future<List<Space>> getspace({String? query}) async {
   // // var response = await http
   // //       // .get(Uri.parse('http://bwa-cozy.herokuapp.com/recommended-spaces'));
@@ -74,11 +73,12 @@ class FetchSpace {
   //   }
   //   return results;
   // }
-  // String Listtour = 'http://hiskia.xyz/api/v1/tour';
+  // String Listtour = 'https://api.siger.uacak.com/public/api/v1/tour';
   final List<tour> _Tour = [];
 
   Future<List<tour>> fetchJson({String? query}) async {
-    var response = await http.get(Uri.parse('http://hiskia.xyz/api/v1/tour'));
+    var response = await http
+        .get(Uri.parse('https://api.siger.uacak.com/public/api/v1/tour'));
     List<tour> slist = [];
     if (response.statusCode == 200) {
       var urjson = (json.decode(response.body));

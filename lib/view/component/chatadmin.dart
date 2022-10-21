@@ -24,7 +24,7 @@ class _ChatAdminState extends State<ChatAdmin> {
   final List<chatAdmin> com = [];
   Future<List<chatAdmin>> fetchJson() async {
     var response = await http.get(Uri.parse(
-        'https://api.siger.uacak.com/public/api/v1/liketourchat/${widget.uid}'));
+        'https://api.siger.uacak.com/public/api/v1/chat/${widget.uid}'));
     List<chatAdmin> slist = [];
     if (response.statusCode == 200) {
       var urjson = (json.decode(response.body));

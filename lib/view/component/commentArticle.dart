@@ -26,7 +26,7 @@ class _CommentArticleState extends State<CommentArticle> {
   final List<commentTour> com = [];
   Future<List<commentTour>> fetchJson() async {
     var response = await http.get(Uri.parse(
-        'https://https://api.siger.uacak.com/public/api/v1/commentarticle/${widget.articleCode}'));
+        'https://api.siger.uacak.com/public/api/v1/commentarticle/${widget.articleCode}'));
     List<commentTour> slist = [];
     if (response.statusCode == 200) {
       var urjson = (json.decode(response.body));
