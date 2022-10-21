@@ -124,7 +124,7 @@ class _ProfilPageState extends State<ProfilPage> {
           // appBar: appBar,
           body: Container(
             child: ListView(
-                padding: EdgeInsets.only(top: bodyHeight * 0.15),
+                padding: EdgeInsets.only(top: bodyHeight * 0.10),
                 children: [
                   _currentUser == null
                       ? SizedBox(

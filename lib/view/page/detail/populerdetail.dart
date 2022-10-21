@@ -396,7 +396,7 @@ class _DetailPageState extends State<DetailPlace> {
                                 widget.data!.name.toString(),
                               ),
                               child: Image.asset(
-                                'assets/btn_map.png',
+                                'assets/maps.png',
                                 width: 40,
                               ),
                             ),
