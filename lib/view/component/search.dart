@@ -95,8 +95,9 @@ class SearchUser extends SearchDelegate {
                         borderRadius: BorderRadius.circular(15),
                         image: DecorationImage(
                           // image: AssetImage(itemsfestifalbudaya[index].image),
-                          image:
-                              NetworkImage('${data?[index].image}', scale: 1),
+                          image: NetworkImage(
+                              'https://api.siger.uacak.com/public/assets/uploads/${data?[index].image}',
+                              scale: 1),
                           fit: BoxFit.cover,
                         ),
                       ),

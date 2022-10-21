@@ -97,7 +97,7 @@ class _PopularListState extends State<PopularList> {
                         image: DecorationImage(
                           image: NetworkImage(
                             // "${itemsPopular[index]['Image']}",
-                            _Tour[index].image.toString(),
+                            "https://api.siger.uacak.com/public/assets/uploads/${_Tour[index].image.toString()}",
                           ),
                           fit: BoxFit.cover,
                         ),
