@@ -75,7 +75,7 @@ class Article {
   late String articleCode;
   late String title;
   late String description;
-  late String image;
+  late String img;
   late String url;
   late String like;
   late String comment;
@@ -84,7 +84,7 @@ class Article {
   Article(
       {required this.articleCode,
       required this.title,
-      required this.image,
+      required this.img,
       required this.url,
       required this.description,
       required this.like,
@@ -93,8 +93,8 @@ class Article {
 
   factory Article.fromJson(Map<String, dynamic> json) => Article(
       articleCode: json['articleCode'],
-      title: json['title'],
-      image: json['image'].toString(),
+      title: json['title'].toString(),
+      img: json['img'].toString(),
       url: json['url'].toString(),
       description: json['description'].toString(),
       like: json['like'].toString(),
@@ -105,7 +105,7 @@ class Article {
         "articlecode": articleCode,
         "title": title,
         "description": description,
-        "image": image,
+        "img": img,
         "url": url,
         "like": like,
         "comment": comment,

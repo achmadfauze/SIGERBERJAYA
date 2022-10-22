@@ -134,7 +134,8 @@ class _NewsPageState extends State<NewsPage> {
                               image: DecorationImage(
                                 // image: AssetImage(itemsfestifalbudaya[index].image),
                                 image: NetworkImage(
-                                    "${itemsArtikel[index]['Image']}"
+                                    'https://api.siger.uacak.com/public/assets/uploads/${_Article[index].img.toString()}'
+                                        // "${itemsArtikel[index]['Image']}"
                                         .toString(),
                                     scale: 1.0),
                                 fit: BoxFit.cover,

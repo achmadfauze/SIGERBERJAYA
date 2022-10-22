@@ -243,12 +243,12 @@ class ListArsipArtikel extends StatelessWidget {
                     borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(8),
                         bottomLeft: Radius.circular(8)),
-                    child: this.article!.image == 'null'
+                    child: this.article!.img == 'null'
                         ? Image.asset("assets/LOGO_PARIWISATA.png")
                         : Image.network(
                             alignment: Alignment.centerLeft,
-                            this.article!.image.toString(),
-                            fit: BoxFit.fitHeight,
+                            'https://api.siger.uacak.com/public/assets/uploads/${this.article!.img.toString()}',
+                            fit: BoxFit.cover,
                           ),
                   ),
                 ),
@@ -378,8 +378,8 @@ class _ListArsipTempatState extends State<ListArsipTempat> {
                         bottomLeft: Radius.circular(8)),
                     child: Image.network(
                       alignment: Alignment.centerLeft,
-                      widget.Tour!.image,
-                      fit: BoxFit.fitHeight,
+                      'https://api.siger.uacak.com/public/assets/uploads/${widget.Tour!.image.toString()}',
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ),

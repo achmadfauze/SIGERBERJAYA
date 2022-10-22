@@ -5,6 +5,7 @@ import 'package:first_app/model/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:http/http.dart' as http;
@@ -113,8 +114,9 @@ class ListItem extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
                       child: Image.network(
+                        'https://api.siger.uacak.com/public/assets/uploads/${all_layanan!.image.toString()}',
                         alignment: Alignment.centerLeft,
-                        "https://picsum.photos/300/200",
+                        // "https://picsum.photos/300/200",
                         fit: BoxFit.fitHeight,
                       ),
                     ),
@@ -156,13 +158,21 @@ class ListItem extends StatelessWidget {
                                       )),
                                   Expanded(
                                     flex: 9,
-                                    child: Text(
-                                      all_layanan!.locationName.toString(),
-                                      style: regularTextStyle.copyWith(
-                                          fontSize: 14,
-                                          color: Colors.grey[600]),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
+                                    child: InkWell(
+                                      onTap: () =>
+                                          MapsLauncher.launchCoordinates(
+                                        double.parse(all_layanan!.latitude),
+                                        double.parse(all_layanan!.longitude),
+                                        all_layanan!.name.toString(),
+                                      ),
+                                      child: Text(
+                                        all_layanan!.locationName.toString(),
+                                        style: regularTextStyle.copyWith(
+                                            fontSize: 14,
+                                            color: Colors.grey[600]),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
                                     ),
                                   ),
                                 ],

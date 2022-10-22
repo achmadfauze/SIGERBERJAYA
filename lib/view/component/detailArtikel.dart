@@ -1,14 +1,12 @@
-import 'package:first_app/view/component/comment.dart';
 import 'package:first_app/view/component/commentArticle.dart';
 import 'package:flutter/material.dart';
 import 'package:first_app/model/artikel.dart';
-import 'package:url_launcher/url_launcher.dart';
+
 import 'package:url_launcher/url_launcher_string.dart';
 import '../../model/theme.dart';
-import 'package:maps_launcher/maps_launcher.dart';
+
 import 'package:google_sign_in/google_sign_in.dart';
 
-import 'package:first_app/widget/facility_item.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -171,9 +169,16 @@ class _DetailArtikelState extends State<DetailArtikel> {
                       ),
                     ),
                     InkWell(
-                      onTap: () {
-                        // Navigator.pop(context);
-                      },
+                      onTap: () {},
+                      // async {
+                      //   await FlutterShare.share(
+                      //       title: 'Example share',
+                      //       text: 'Example share text',
+                      //       linkUrl: widget.data!.url.toString(),
+                      //       chooserTitle: 'Example Chooser Title');
+                      //   // await Share.share(widget.data!.url.toString(),
+                      //   //     subject: "subject");
+                      // },
                       child: Image.asset(
                         'assets/btn_share.png',
                         width: 45,
@@ -237,7 +242,21 @@ class _DetailArtikelState extends State<DetailArtikel> {
                         ),
                         Flexible(
                           child: InkWell(
-                            onTap: () {},
+                            onTap: ()
+                                // async {
+                                //   // const url= widget.data!.url;
+                                //   // ignore: deprecated_member_use
+                                //   if (await canLaunch(widget.data!.url)) {
+                                //     // ignore: deprecated_member_use
+                                //     await launch(widget
+                                //         .data!.url); //forceWebView is true now
+                                //   } else {
+                                //     throw 'Could not launch ${widget.data!.url}';
+                                //   }
+                                // },
+                                async {
+                              launchUrlString('https:${widget.data!.url}');
+                            },
                             child: Text(
                               // "witasatanusantara.com",
                               widget.data!.url.toString(),
@@ -254,12 +273,14 @@ class _DetailArtikelState extends State<DetailArtikel> {
               ),
               Container(
                 width: bodyWidth,
-                height: 200,
+                height: 220,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(
                       image: NetworkImage(
-                          "https://picsum.photos/seed/picsum/300/200"),
+                        'https://api.siger.uacak.com/public/assets/uploads/${widget.data!.img.toString()}',
+                        // "https://picsum.photos/seed/picsum/300/200"
+                      ),
                       fit: BoxFit.cover),
                 ),
                 child: Padding(

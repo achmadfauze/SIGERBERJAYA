@@ -1,13 +1,8 @@
 import 'package:first_app/view/page/home.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:provider/provider.dart';
-import 'package:first_app/providers/space_provider.dart';
-import 'package:first_app/view/component/editProfile.dart';
 import 'package:first_app/view/page/login.dart';
-import 'package:first_app/view/page/menu/homePage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'dart:ui';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,11 +36,7 @@ class _FirstAppState extends State<FirstApp> {
 
   @override
   Widget build(BuildContext context) {
-    return
-        // ChangeNotifierProvider(
-        //   create: (context) => SpaceProvider(),
-        //   child:
-        MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: _currentUser == null ? LoginPage() : Home(),
       // debugShowCheckedModeBanner: false,

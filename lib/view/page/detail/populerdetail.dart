@@ -164,7 +164,7 @@ class _DetailPageState extends State<DetailPlace> {
         child: Stack(
           children: [
             Image.network(
-              widget.data!.image.toString(),
+              "https://api.siger.uacak.com/public/assets/uploads/${widget.data!.image.toString()}",
               width: MediaQuery.of(context).size.width,
               height: 350,
               fit: BoxFit.cover,
