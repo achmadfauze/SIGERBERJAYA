@@ -114,10 +114,12 @@ class ListItem extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
                       child: Image.network(
+                        // all_layanan!.image.toString(),
                         'https://api.siger.uacak.com/public/assets/uploads/${all_layanan!.image.toString()}',
-                        alignment: Alignment.centerLeft,
+                        // alignment: Alignment.centerLeft,
+                        scale: 1,
                         // "https://picsum.photos/300/200",
-                        fit: BoxFit.fitHeight,
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),

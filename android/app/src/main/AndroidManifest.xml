@@ -6,7 +6,6 @@
      <intent>
       <action android:name="android.intent.action.VIEW" />
       <data android:scheme="tel" />
-      <data android:scheme="https" />
      </intent>
    </queries> 
    <application
@@ -45,8 +44,6 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-
-        
     </application>
     <!-- <queries>
         <intent>
