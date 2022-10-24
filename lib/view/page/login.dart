@@ -56,10 +56,21 @@ class _LoginPageState extends State<LoginPage> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                opacity: 20,
-                image: AssetImage("assets/backgroundfix.jpg"),
+                // opacity: 20,
+                image: AssetImage(
+                  "assets/backgroundfix.jpg",
+                ),
                 fit: BoxFit.cover,
               ),
+            ),
+          ),
+
+          Container(
+            height: double.infinity,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.black.withOpacity(0.4),
+              // color: Colors.amber.withOpacity(0.1),
             ),
           ),
           // Image.asset(
@@ -111,7 +122,10 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 Text("PARIWISATA BERJAYA",
                     style: whiteTextStyle.copyWith(
-                        fontSize: 28, fontWeight: FontWeight.bold)
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      // color: Color(0xff14C38E),
+                    )
                     // TextStyle(
                     //   color: Colors.white,
                     //   fontFamily: 'Roboto-Bold',
@@ -124,39 +138,51 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(
                   height: 20,
                 ),
-                Image.asset(
-                  'assets/logo_lampung.gif',
-                  // height: 200,
-                  width: 260,
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.asset(
+                      'assets/logo_lampung.gif',
+                      // height: 200,
+                      width: 260,
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                      // color: Color(0xff14C38E).withOpacity(0.2),
+                      // color: Colors.white.withOpacity(0.5),
+                      borderRadius: BorderRadius.circular(40)),
                 ),
                 const SizedBox(
-                  height: 30,
+                  height: 15,
                 ),
                 // const SizedBox(
                 //   height: 22,
                 // ),
-                Text(
-                  //TextAlign.center;
-                  "Jelajahi setiap tempat terkenal di\nLampung dan temukan hotel\n terdekat serta restoran dengan\n cara termudah. Dapatkan petunjuk",
-                  style: whiteTextStyle.copyWith(
-                      fontSize: 18, wordSpacing: 1, height: 1.3),
-                  // TextStyle(
-                  //   color: Colors.white,
-                  //   fontFamily: 'Roboto-Regular',
-                  //   fontSize: 18,
-                  //   fontWeight: FontWeight.w600,
-                  // ),
-                  textAlign: TextAlign.center,
-                ),
-                Text(
-                  //TextAlign.center;
-                  "arah terkini, perkiraan biaya dan\njelalahi blog perjalanan tanpa rasa\nkhawatir akan keamanan anda\nselama perjalanan.",
-                  style: whiteTextStyle.copyWith(
-                    fontSize: 18,
-                  ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        //TextAlign.center;
+                        "Jelajahi setiap tempat terkenal di\nLampung dan temukan hotel\n terdekat serta restoran dengan\n cara termudah. Dapatkan petunjuk",
+                        style: whiteTextStyle.copyWith(
+                            fontSize: 18, wordSpacing: 1, height: 1.3),
 
-                  textAlign: TextAlign.center,
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                        //TextAlign.center;
+                        "arah terkini, perkiraan biaya dan\njelalahi blog perjalanan tanpa rasa\nkhawatir akan keamanan anda\nselama perjalanan.",
+                        style: whiteTextStyle.copyWith(
+                          fontSize: 18,
+                        ),
+
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
                 ),
+
                 const SizedBox(
                   height: 20,
                 ),
