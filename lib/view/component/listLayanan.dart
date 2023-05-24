@@ -115,10 +115,10 @@ class ListItem extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8),
                       child: Image.network(
                         // all_layanan!.image.toString(),
-                        'https://api.siger.uacak.com/public/assets/uploads/${all_layanan!.image.toString()}',
+                        "https://siger.uacak.com/api/public/assets/uploads/${all_layanan!.image.toString()}",
+                        // 'https://siger.uacak.com/api/public/assets/uploads/21cc8a9c980f32ab6debbaa580e7defa-635a1e0030bac.jpg',
                         // alignment: Alignment.centerLeft,
                         scale: 1,
-                        // "https://picsum.photos/300/200",
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -137,6 +137,8 @@ class ListItem extends StatelessWidget {
                           children: [
                             Text(
                               all_layanan!.name.toString(),
+                              // all_layanan!.image.toString(),
+
                               style: regularTextStyle.copyWith(
                                 fontSize: 16,
                                 letterSpacing: 1.0,

@@ -104,9 +104,8 @@ class _HomePageState extends State<AllPlace> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
                         image: DecorationImage(
-                          // image: AssetImage(itemsfestifalbudaya[index].image),
                           image: NetworkImage(
-                              "https://api.siger.uacak.com/public/assets/uploads/${_Tour[index].image.toString()}",
+                              'https://siger.uacak.com/api/public/assets/uploads/${_Tour[index].image.toString()}',
                               scale: 1.0),
                           fit: BoxFit.cover,
                         ),
