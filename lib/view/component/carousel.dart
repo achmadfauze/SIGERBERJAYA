@@ -19,10 +19,7 @@ class _CarouselState extends State<Carousel> {
       "image":
           "https://encrypted-tbn2.gstatic.com/licensed-image?q=tbn:ANd9GcQrYLU1GZu7OIM5s9BuEcGvq6K7kG4PkhWhTePEvDCsOdhQ0cuSekLIGtuUDfFLx8CvnDdlkdFbhSnkHeHuZ4kPDw"
     },
-    {
-      "image":
-          "https://genpilampung.com/wp-content/uploads/2021/09/wira-garden.jpg"
-    },
+    {"image": "https://i.ytimg.com/vi/wbTvwR6By50/maxresdefault.jpg"},
   ];
 
   // final List<Widget> myData = [
