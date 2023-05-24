@@ -721,22 +721,24 @@ class _Homepage extends State<HomePage> {
                                                               color:
                                                                   Colors.white,
                                                             ),
-                                                            Text(
-                                                              _Tour[index]
-                                                                  .locationName
-                                                                  .toString(),
-                                                              maxLines: 1,
-                                                              overflow:
-                                                                  TextOverflow
-                                                                      .ellipsis,
-                                                              style:
-                                                                  regularTextStyle
-                                                                      .copyWith(
-                                                                color: Colors
-                                                                    .white,
-                                                                fontSize: 13,
+                                                            Flexible(
+                                                              child: Text(
+                                                                _Tour[index]
+                                                                    .locationName
+                                                                    .toString(),
+                                                                maxLines: 1,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                style:
+                                                                    regularTextStyle
+                                                                        .copyWith(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 13,
+                                                                ),
                                                               ),
-                                                            ),
+                                                            )
                                                           ],
                                                         ),
                                                       ],

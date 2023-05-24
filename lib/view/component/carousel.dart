@@ -21,7 +21,7 @@ class _CarouselState extends State<Carousel> {
     },
     {
       "image":
-          "https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcRrWCxM-FYcWHRo9HKRHRiahDmB5DIUR4Fyt9vC0JEjdbRQOb_GWl9AiOsbqnG5K1EcS7xkQXHVGB3KO9dWjTm6PQ "
+          "https://genpilampung.com/wp-content/uploads/2021/09/wira-garden.jpg"
     },
   ];
 

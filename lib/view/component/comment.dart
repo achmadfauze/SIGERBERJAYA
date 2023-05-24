@@ -92,6 +92,7 @@ class _CommentState extends State<Comment> {
                 itemCount: com.length,
                 itemBuilder: (context, index) => comment(
                   com: com[index],
+                  uid: widget.uid,
                 ),
               ),
             ),
@@ -160,7 +161,10 @@ class _CommentState extends State<Comment> {
 
 class comment extends StatelessWidget {
   commentTour? com;
-  comment({Key? key, this.com}) : super(key: key);
+  String? uid;
+  comment({Key? key, this.uid, this.com}) : super(key: key);
+
+  TextEditingController reportController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -179,12 +183,50 @@ class comment extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-              Text(com!.createAt.toString(),
-                  style: regularTextStyle.copyWith(fontSize: 12)),
+              // Text(com!.createAt.toString(),
+              //     style: regularTextStyle.copyWith(fontSize: 12)),
+              InkWell(
+                child: Icon(
+                  Icons.flag,
+                  size: 20,
+                ),
+                onTap: () async {
+                  await showModalBottomSheet(
+                    context: context,
+                    isDismissible: false,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                      ),
+                    ),
+                    builder: ((context) {
+                      return Padding(
+                          padding: EdgeInsets.only(
+                              bottom: MediaQuery.of(context).viewInsets.bottom),
+                          child: Report(
+                            uid: uid,
+                            ctCode: com!.ctCode.toString(),
+                          ));
+                    }),
+                  );
+                },
+              )
             ],
           ),
-          subtitle: Text(com!.comment.toString(),
-              style: regularTextStyle.copyWith(fontSize: 14)),
+          subtitle: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(com!.createAt.toString(),
+                  style: regularTextStyle.copyWith(fontSize: 12)),
+              SizedBox(
+                height: 10,
+              ),
+              Text(com!.comment.toString(),
+                  style: regularTextStyle.copyWith(fontSize: 14)),
+            ],
+          ),
           leading: Container(
             width: 50,
             height: 50,
@@ -193,20 +235,164 @@ class comment extends StatelessWidget {
               //color: Colors.green,
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: NetworkImage(com!.image.toString()
-                    // _currentUser == null
-                    //     ? ""
-                    //     : _currentUser!.photoUrl.toString(),
-                    ),
+                image: NetworkImage(com!.image.toString()),
+              ),
+            ),
+          )),
+    );
+  }
+}
+
+class Report extends StatefulWidget {
+  final String? uid;
+  final String? ctCode;
+  Report({Key? key, this.uid, this.ctCode}) : super(key: key);
+
+  @override
+  State<Report> createState() => _ReportState();
+}
+
+class _ReportState extends State<Report> {
+  // Report({this.ctCode});
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: [
+      'email',
+      'https://www.googleapis.com/auth/contacts.readonly',
+    ],
+  );
+  GoogleSignInAccount? _currentUser;
+
+  @override
+  void initState() {
+    _googleSignIn.onCurrentUserChanged.listen((account) {
+      setState(() {
+        _currentUser = account;
+      });
+    });
+    _googleSignIn.signInSilently();
+    super.initState();
+  }
+
+  Future<http.Response> createReport(String text, String uid, String ctCode) {
+    return http.post(
+      Uri.parse('https://api.siger.uacak.com/public/api/v1/createtourreport'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(
+          <String, String>{"text": text, "userCode": uid, "ctCode": ctCode}),
+    );
+  }
+
+  String text1 = "Komentar tidak pantas";
+  String text2 = "Komentar mengandung SARA";
+  String text3 = "Komentar Mengandung ujaran kebencian";
+  @override
+  Widget build(BuildContext context) {
+    TextEditingController reportController = TextEditingController();
+    return Container(
+      height: 200,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.all(20),
+            child: InkWell(
+                child: Text(
+                  text1,
+                  style: TextStyle(color: Colors.blue),
+                ),
+                onTap: () async {
+                  await createReport(
+                    text1,
+                    _currentUser != null ? _currentUser!.id.toString() : "",
+                    widget.ctCode!,
+                  );
+                  Navigator.pop(context);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("Berhasil melaporkan")));
+                }),
+          ),
+          Padding(
+              padding: EdgeInsets.only(
+                left: 20,
+              ),
+              child: InkWell(
+                  child: Text(
+                    text3,
+                    style: TextStyle(color: Colors.blue),
+                  ),
+                  onTap: () async {
+                    await createReport(
+                      text3,
+                      _currentUser != null ? _currentUser!.id.toString() : "",
+                      widget.ctCode!,
+                    );
+                    Navigator.pop(context);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("Berhasil melaporkan")));
+                  })),
+          Padding(
+              padding: EdgeInsets.all(20),
+              child: InkWell(
+                  child: Text(
+                    text2,
+                    style: TextStyle(color: Colors.blue),
+                  ),
+                  onTap: () async {
+                    await createReport(
+                      text2,
+                      _currentUser != null ? _currentUser!.id.toString() : "",
+                      widget.ctCode!,
+                    );
+                    Navigator.pop(context);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("Berhasil melaporkan")));
+                  })),
+          Container(
+            alignment: Alignment.center,
+            padding: EdgeInsets.only(
+              left: 10,
+              right: 10,
+            ),
+            child: TextField(
+              controller: reportController,
+              autofocus: false,
+              style: TextStyle(
+                fontSize: 15.0,
+              ),
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.grey.shade100,
+                // suffixIcon: Icon(Icons.send),
+                suffixIcon: InkWell(
+                    child: Icon(Icons.send),
+                    onTap: () async {
+                      await createReport(
+                        reportController.text,
+                        _currentUser != null ? _currentUser!.id.toString() : "",
+                        widget.ctCode!,
+                      );
+                      Navigator.pop(context);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("Berhasil melaporkan")));
+                    }),
+                hintText: 'Alasan Melaporkan',
+                contentPadding:
+                    const EdgeInsets.only(left: 14.0, bottom: 3.0, top: 3.0),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                  borderRadius: BorderRadius.circular(25.7),
+                ),
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                  borderRadius: BorderRadius.circular(25.7),
+                ),
               ),
             ),
           )
-          // Icon(
-          //   Icons.login,
-          // ),
-          // trailing: Text("01-02-2020",
-          //     style: regularTextStyle.copyWith(fontSize: 12)),
-          ),
+        ],
+      ),
     );
   }
 }
